@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:shimmer_auto_start="true">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Header Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <View
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/shimmer_bg" />
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/shimmer_bg" />
+
+            </LinearLayout>
+
+            <!-- Teams Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="8dp">
+
+                <!-- Team 1 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <View
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/shimmer_bg" />
+
+                    <View
+                        android:layout_width="80dp"
+                        android:layout_height="14dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/shimmer_bg" />
+
+                </LinearLayout>
+
+                <!-- Score -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/shimmer_bg" />
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="20dp"
+                        android:layout_marginHorizontal="12dp"
+                        android:background="@drawable/shimmer_bg" />
+
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/shimmer_bg" />
+
+                </LinearLayout>
+
+                <!-- Team 2 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <View
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/shimmer_bg" />
+
+                    <View
+                        android:layout_width="80dp"
+                        android:layout_height="14dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/shimmer_bg" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Match Time -->
+            <View
+                android:layout_width="40dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center"
+                android:background="@drawable/shimmer_bg" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="lighter_black">#222222</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="grey">#999999</color>
+    <color name="grey1">#1AFFFFFF</color>
+    <color name="grey2">#3BFFFFFF</color>
+    <color name="grey3">#504F4F</color>
+    <color name="grey4">#4C504F4F</color>
+    <color name="light_grey">#DDDDDD</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="transparent_bg1">#10FFFFFF</color>
+    <color name="transparent_bg3">#40FFFFFF</color>
+    <color name="transparent_bg2">#68FFFFFF</color>
+    <color name="green_color">#B6E93D</color>
+    <color name="green1_color">#88BD0C</color>
+    <color name="transparent_color">#00FFFFFF</color>
+    <color name="orange_color">#E9993D</color>
+    <color name="colorRating">#F5C500</color>
+    <color name="team1_color">#FF0000</color> <!-- Red for team 1 -->
+    <color name="team2_color">#0000FF</color> <!-- Blue for team 2 -->
+    <color name="draw_color">#808080</color> <!-- Gray for draw -->
+    <color name="table_header_bg">#F5F5F5</color> <!-- Light gray for table header -->
+
+
+</resources>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shimmerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_8sdp"
+    app:shimmer_auto_start="true"
+    app:shimmer_duration="1000">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+       >
+
+        <!-- Match Date Placeholder -->
+        <View
+            android:id="@+id/shimmer_date"
+            android:layout_width="80dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/shimmer_bg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Vertical Divider -->
+        <View
+            android:id="@+id/shimmer_divider"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/shimmer_bg"
+            app:layout_constraintStart_toEndOf="@id/shimmer_date"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- Team Logos + Names -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/shimmer_team_holder"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_8sdp"
+            app:layout_constraintStart_toEndOf="@id/shimmer_divider"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Team 1 Logo -->
+            <View
+                android:id="@+id/shimmer_team1_logo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/shimmer_bg"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Team 1 Name -->
+            <View
+                android:id="@+id/shimmer_team1_name"
+                android:layout_width="80dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:background="@drawable/shimmer_bg"
+                app:layout_constraintStart_toEndOf="@id/shimmer_team1_logo"
+                app:layout_constraintTop_toTopOf="@id/shimmer_team1_logo"
+                app:layout_constraintBottom_toBottomOf="@id/shimmer_team1_logo" />
+
+            <!-- Separator Line -->
+            <View
+                android:id="@+id/shimmer_line"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_1sdp"
+                android:background="@drawable/shimmer_bg"
+                app:layout_constraintBottom_toTopOf="@id/shimmer_team2_logo"
+                app:layout_constraintTop_toBottomOf="@id/shimmer_team1_logo"
+                app:layout_constraintStart_toStartOf="@id/shimmer_team1_logo"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Team 2 Logo -->
+            <View
+                android:id="@+id/shimmer_team2_logo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/shimmer_bg"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/shimmer_team1_logo"
+                app:layout_constraintTop_toBottomOf="@id/shimmer_line" />
+
+            <!-- Team 2 Name -->
+            <View
+                android:id="@+id/shimmer_team2_name"
+                android:layout_width="80dp"
+                android:layout_height="14dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:background="@drawable/shimmer_bg"
+                app:layout_constraintStart_toEndOf="@id/shimmer_team2_logo"
+                app:layout_constraintTop_toTopOf="@id/shimmer_team2_logo"
+                app:layout_constraintBottom_toBottomOf="@id/shimmer_team2_logo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.facebook.shimmer.ShimmerFrameLayout>

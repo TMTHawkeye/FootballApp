@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shimmerDateCard"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/_8sdp"
+    app:shimmer_auto_start="true"
+    app:shimmer_duration="1200">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <!-- Date Placeholder -->
+            <View
+                android:id="@+id/shimmerDateText"
+                android:layout_width="40dp"
+                android:layout_height="@dimen/_9ssp"
+                android:paddingHorizontal="@dimen/_4sdp"
+                android:paddingVertical="@dimen/_1sdp"
+                android:background="@drawable/shimmer_bg" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</com.facebook.shimmer.ShimmerFrameLayout>

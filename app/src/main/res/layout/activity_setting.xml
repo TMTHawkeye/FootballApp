@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:background="@drawable/normal_bg"
+    android:layout_height="match_parent"
+    tools:context=".activities.onboarding.SettingActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:padding="@dimen/_3sdp"
+
+            android:layout_margin="@dimen/_20sdp"
+            android:src="@drawable/arrow_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+
+            android:text="@string/settings"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            android:layout_marginStart="@dimen/_8sdp"
+
+
+
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_back"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/autoCleanerr"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_100sdp"
+        app:cardCornerRadius="@dimen/_12sdp"
+        android:padding="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/autoCleanerrLt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/footballnow_bg"
+
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/footbalImg"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:src="@drawable/arrow_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/autoCleanerrTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/montserrat_bold"
+                android:maxLines="2"
+                android:paddingStart="@dimen/_14sdp"
+                android:text="@string/get_premium"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/autoCleanerrTxt1"
+                app:layout_constraintEnd_toStartOf="@+id/footbalImg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread" />
+
+
+            <TextView
+                android:id="@+id/autoCleanerrTxt1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_medium"
+                android:maxLines="2"
+                android:paddingStart="@dimen/_14sdp"
+                android:text="@string/unlock_exclusive_features_enjoy_an_ad_free_experience_priority_support"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toTopOf="@id/trynopw"
+
+                app:layout_constraintEnd_toStartOf="@+id/footbalImg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/autoCleanerrTxt" />
+
+
+            <TextView
+                android:id="@+id/trynopw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:background="@drawable/blackround_bg"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:paddingVertical="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/go_premium"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:textSize="@dimen/_9ssp"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/autoCleanerrTxt1"
+                app:layout_constraintTop_toBottomOf="@+id/autoCleanerrTxt1" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/testSounddLt"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_65sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/footballnow_bggraystrokewbg1"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/autoCleanerr"
+        app:layout_constraintStart_toStartOf="@+id/autoCleanerr"
+        app:layout_constraintTop_toBottomOf="@+id/autoCleanerr">
+
+
+        <ImageView
+            android:id="@+id/testSoundImg"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_12sdp"
+
+
+            android:src="@drawable/languages"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/applanguageTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_medium"
+            android:maxLines="2"
+            android:text="@string/app_language"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+
+            app:layout_constraintBottom_toTopOf="@+id/applanguagesubTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/testSoundImg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+
+        <TextView
+            android:id="@+id/applanguagesubTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_medium"
+            android:maxLines="2"
+            android:text="@string/customize_to_your_regional_languages"
+            android:textAlignment="textStart"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_9ssp"
+
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/testSoundImg"
+            app:layout_constraintTop_toBottomOf="@+id/applanguageTxt" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rateusLtLt"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_65sdp"
+        android:background="@drawable/footballnow_bggraystrokewbg1"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="@+id/testSounddLt"
+        app:layout_constraintStart_toStartOf="@+id/testSounddLt"
+        app:layout_constraintTop_toBottomOf="@id/testSounddLt">
+
+
+        <ImageView
+            android:id="@+id/rateusImg"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_12sdp"
+
+
+            android:src="@drawable/rateus"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/rateusTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_medium"
+            android:maxLines="2"
+            android:text="@string/rate_us"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+
+            app:layout_constraintBottom_toTopOf="@+id/rateussubTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/rateusImg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+
+        <TextView
+            android:id="@+id/rateussubTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_medium"
+            android:maxLines="2"
+            android:text="@string/rate_our_app_on_play_store"
+            android:textAlignment="textStart"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_9ssp"
+
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/rateusImg"
+            app:layout_constraintTop_toBottomOf="@+id/rateusTxt" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/shareLtLt"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_65sdp"
+        android:background="@drawable/footballnow_bggraystrokewbg1"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="@+id/rateusLtLt"
+        app:layout_constraintStart_toStartOf="@+id/rateusLtLt"
+        app:layout_constraintTop_toBottomOf="@+id/rateusLtLt">
+
+
+        <ImageView
+            android:id="@+id/shareImg"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_12sdp"
+
+
+            android:src="@drawable/shareapp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/shareTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_medium"
+            android:maxLines="2"
+            android:text="@string/share_the_app"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+
+            app:layout_constraintBottom_toTopOf="@+id/sharesubTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/shareImg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+
+        <TextView
+            android:id="@+id/sharesubTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_medium"
+            android:maxLines="2"
+            android:text="@string/tell_your_friends_about_football_now"
+            android:textAlignment="textStart"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_9ssp"
+
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/shareImg"
+            app:layout_constraintTop_toBottomOf="@+id/shareTxt" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/privacyLt"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_65sdp"
+        android:background="@drawable/footballnow_bggraystrokewbg1"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="@+id/shareLtLt"
+        app:layout_constraintStart_toStartOf="@+id/shareLtLt"
+        app:layout_constraintTop_toBottomOf="@+id/shareLtLt">
+
+
+        <ImageView
+            android:id="@+id/privacyImg"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_12sdp"
+
+
+            android:src="@drawable/privacypolicy"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/privacyTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_medium"
+            android:maxLines="2"
+            android:text="@string/privacy_policy"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+
+            app:layout_constraintBottom_toTopOf="@+id/privacysubTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/privacyImg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+
+        <TextView
+            android:id="@+id/privacysubTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_medium"
+            android:maxLines="2"
+            android:text="@string/read_our_privacy_policy_document"
+            android:textAlignment="textStart"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_9ssp"
+
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/privacyImg"
+            app:layout_constraintTop_toBottomOf="@+id/privacyTxt" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

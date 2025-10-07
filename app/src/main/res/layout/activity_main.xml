@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/normal_bg"
+    tools:context=".activities.onboarding.MainActivity">
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
+        android:background="@drawable/bottomcornerradius11"
+        app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
+        app:itemIconTint="@color/botton_nav_custom_color"
+        app:itemTextColor="@color/botton_nav_custom_color"
+        app:labelVisibilityMode="labeled"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_menu">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+
+        android:src="@drawable/shortsss"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/bottomNavigationView"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager2" />
+
+    <ImageView
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:src="@drawable/short1"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/bottomNavigationView"
+        app:layout_constraintTop_toTopOf="@+id/imageView" />
+  <!--  <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabb"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:fadingEdge="horizontal"
+        android:fadingEdgeLength="20dp"
+        android:requiresFadingEdge="horizontal"
+
+
+
+        app:cornerSize="12dp"
+        app:elevation="@dimen/_7sdp"
+        app:fabCustomSize="@dimen/_45sdp"
+        app:layout_anchorGravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="@+id/bottomNavigationView"
+        app:layout_constraintStart_toStartOf="@+id/bottomNavigationView"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager2"
+        app:shapeAppearanceOverlay="@style/FabCustomShape"
+        app:tint="@android:color/white" />-->
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

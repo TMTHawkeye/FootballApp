@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.onboarding.SplashActivity"
+    android:background="@drawable/splash_bg">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="@dimen/_110sdp"
+        android:layout_height="@dimen/_110sdp"
+        android:src="@drawable/app_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/splash_title"
+         android:id="@+id/splash_iv"
+        app:shapeAppearance="@style/RoundedImageView"
+        app:layout_constraintVertical_chainStyle="packed"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/splash_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+         android:gravity="center"
+        android:text="@string/app_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/splash_iv"
+        app:layout_constraintBottom_toTopOf="@+id/splash_descr"
+        style="@style/title_text_style"
+        android:fontFamily="@font/autour_one"
+        android:layout_marginHorizontal="@dimen/_30sdp"
+        android:textStyle="normal"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/splash_descr"
+        style="@style/normal_text_style"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="@string/splash_desc"
+        android:textStyle="normal"
+        android:textColor="@color/light_grey"
+        app:layout_constraintBottom_toTopOf="@+id/contain_ad_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/splash_title" />
+
+
+    <ProgressBar
+        android:id="@+id/progress_id"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_width="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/progress_indeterminate"
+        android:layout_height="wrap_content"
+         app:layout_constraintBottom_toTopOf="@+id/contain_ad_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnGetstarted"
+        android:layout_width="0dp"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:text="@string/getStarted"
+        app:layout_constraintBottom_toTopOf="@+id/contain_ad_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/normal_text_style"
+        android:textSize="@dimen/_12sdp"
+        android:textStyle="bold"
+         android:backgroundTint="@null"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:background="@drawable/button_gradient_bg"
+        app:cornerRadius="@dimen/_10sdp"
+        android:textAllCaps="false"
+        app:iconTint="@android:color/white"
+        android:textColor="@color/black"/>
+
+
+    <TextView
+        android:id="@+id/contain_ad_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_10sdp"
+        style="@style/small_text_style"
+        android:textColor="@color/grey"
+
+        android:text="@string/containAds"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

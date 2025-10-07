@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:title="Home"
+        android:icon="@drawable/homee"/>
+    <item
+        android:id="@+id/menu_following"
+        android:title="Following"
+        android:icon="@drawable/followings"/>
+
+    <item
+        android:id="@+id/menu_shorts"
+        android:title=""
+        />
+    <item
+        android:id="@+id/menu_highlights"
+        android:title="Highlights"
+        android:icon="@drawable/highlightssbtmn"/>
+    <item
+        android:id="@+id/menu_news"
+        android:title="News"
+        android:icon="@drawable/news"/>
+</menu>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal|bottom"
+     android:layout_marginHorizontal="@dimen/_8sdp"
+    android:layout_marginVertical="@dimen/_8sdp"
+    android:background="@drawable/dialog_backgroun"
+     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="@dimen/_275sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bgall"
+            android:layout_width="match_parent"
+
+            android:layout_height="170dp"
+
+             android:minHeight="@dimen/_155sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+
+
+
+            <ImageView
+                android:id="@+id/imagchange2"
+                android:layout_width="@dimen/_95sdp"
+                android:layout_height="@dimen/_95sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:src="@drawable/mood1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_marginTop="@dimen/_50sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/bgall"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                android:id="@+id/imagchange1"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imagchange"
+                android:layout_width="@dimen/_95sdp"
+                android:layout_height="@dimen/_95sdp"
+                android:src="@drawable/ic_certificate_rate_us_one"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/titlerate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:text="@string/your_opinion_n_matters_to_us"
+            android:textColor="@color/white"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintEnd_toEndOf="@+id/subtitleRate"
+            app:layout_constraintStart_toStartOf="@+id/subtitleRate"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <TextView
+            android:id="@+id/subtitleRate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+           android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:maxLines="3"
+            android:ellipsize="end"
+
+            android:text="@string/we_work_super_hard_to_make_application_better_for_you_and_would_love_to_know"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintBottom_toTopOf="@id/rateBar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titlerate" />
+
+        <RatingBar
+            android:id="@+id/rateBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:progressTint="@color/colorRating"
+            android:progressBackgroundTint="@color/grey3"
+            android:scaleX="1.1"
+            android:scaleY="1.1"
+            android:stepSize="1.0"
+            app:layout_constraintBottom_toTopOf="@id/tabtext"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/subtitleRate" />
+
+        <TextView
+            android:id="@+id/linsesProvided"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:text="@string/our_best_we_can_get"
+            android:minLines="1"
+            android:fontFamily="@font/montserrat"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:maxLines="1"
+
+            android:textColor="@color/grey"
+            android:gravity="right"
+            android:paddingEnd="@dimen/_4sdp"
+            android:paddingTop="@dimen/_8sdp"
+            app:layout_constraintBottom_toTopOf="@+id/ratebtn"
+            app:layout_constraintEnd_toStartOf="@+id/linedot"
+            app:layout_constraintStart_toStartOf="@+id/rateBar"
+            app:layout_constraintTop_toBottomOf="@+id/rateBar" />
+
+        <TextView
+            android:id="@+id/tabtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minLines="1"
+            android:text="The best we can get"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/linsesProvided"
+            app:layout_constraintEnd_toEndOf="@+id/linsesProvided"
+            app:layout_constraintTop_toTopOf="@+id/linsesProvided" />
+
+        <ImageView
+            android:id="@+id/linedot"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:src="@drawable/ratearrow"
+            app:layout_constraintBottom_toBottomOf="@+id/linsesProvided"
+            app:layout_constraintEnd_toEndOf="@+id/rateBar"
+            app:layout_constraintStart_toEndOf="@+id/linsesProvided"
+            app:layout_constraintTop_toTopOf="@+id/linsesProvided" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ratebtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linsesProvided">
+
+            <Button
+                android:id="@+id/submitBtn"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_31sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:background="@drawable/button_gradient_bg"
+                android:gravity="center"
+                android:text="Thanks"
+                android:fontFamily="@font/montserrat"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:backgroundTint="@null"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/linsesProvided1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:maxLines="1"
+                android:minLines="1"
+                android:paddingTop="@dimen/_8sdp"
+                android:textSize="@dimen/_9ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:paddingEnd="@dimen/_4sdp"
+                android:text="@string/not_now"
+                android:textColor="@color/grey"
+                app:layout_constraintStart_toStartOf="@id/submitBtn"
+                app:layout_constraintEnd_toEndOf="@id/submitBtn"
+
+
+                app:layout_constraintTop_toBottomOf="@id/submitBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

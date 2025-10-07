@@ -1,0 +1,116 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_120sdp"
+        android:layout_alignParentBottom="true"
+
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginTop="57dp"
+        android:layout_marginBottom="8dp"
+
+
+        android:background="@drawable/dialog_backgroun"
+        android:orientation="vertical"
+        android:padding="@dimen/_14sdp">
+
+        <TextView
+            android:id="@+id/textViewMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/permission_required"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/montserrat_medium"
+
+
+            app:layout_constraintBottom_toTopOf="@+id/textViewMessage1"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:layout_constraintVertical_bias="0.00999999"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/textViewMessage1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@string/please_allow_permission_to_continue_app"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            android:fontFamily="@font/montserrat"
+            android:maxLines="1"
+            android:ellipsize="end"
+
+            app:layout_constraintBottom_toTopOf="@+id/tryAgainBtn"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMessage" />
+
+
+        <TextView
+            android:id="@+id/tryAgainBtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@drawable/button_gradient_bg"
+
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
+            android:text="Go to Settings"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_10ssp"
+
+
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+
+
+            />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="4dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_alignTop="@+id/linearLayout1"
+        android:layout_alignEnd="@+id/linearLayout1"
+        android:layout_marginTop="-35dp"
+
+
+        android:layout_marginEnd="@dimen/_13sdp"
+        android:src="@drawable/circxlee" />
+
+    <ImageView
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:padding="@dimen/_10sdp"
+        android:layout_alignStart="@+id/imageView2"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_alignEnd="@+id/imageView2"
+        android:layout_alignBottom="@+id/imageView2"
+        android:src="@drawable/permisionrequoired" />
+
+</RelativeLayout>

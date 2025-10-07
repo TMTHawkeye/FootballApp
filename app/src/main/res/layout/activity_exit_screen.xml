@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/normal_bg"
+    tools:context=".activities.onboarding.ExitScreen">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/explore"
+            android:fontFamily="@font/montserrat_medium"
+
+            android:layout_marginStart="@dimen/_12sdp"
+            android:textColor="@color/white"
+
+
+            android:textSize="@dimen/_14ssp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/autoCleanerr"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_100sdp"
+        app:cardCornerRadius="@dimen/_12sdp"
+        android:padding="@dimen/_12sdp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/autoCleanerrLt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/footballnow_bg"
+
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:id="@+id/footbalImg"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_90sdp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:src="@drawable/footballnow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/autoCleanerrTxt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/montserrat_bold"
+                android:maxLines="2"
+                android:paddingStart="@dimen/_14sdp"
+                android:text="@string/fotbalnow"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/autoCleanerrTxt1"
+                app:layout_constraintEnd_toStartOf="@+id/footbalImg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread" />
+
+
+            <TextView
+                android:id="@+id/autoCleanerrTxt1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_medium"
+                android:maxLines="2"
+                android:paddingStart="@dimen/_14sdp"
+                android:text="@string/realtime"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toTopOf="@id/trynopw"
+
+                app:layout_constraintEnd_toStartOf="@+id/footbalImg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/autoCleanerrTxt" />
+
+
+            <TextView
+                android:id="@+id/trynopw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_14sdp"
+                android:background="@drawable/whiteround_bg"
+                android:paddingHorizontal="@dimen/_5sdp"
+                android:paddingVertical="@dimen/_3sdp"
+                android:text="@string/try_now"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:textSize="@dimen/_9ssp"
+                android:textColor="@color/green_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/autoCleanerrTxt1"
+                app:layout_constraintTop_toBottomOf="@+id/autoCleanerrTxt1" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/followingLt"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_80sdp"
+        android:background="@drawable/footballnow_bggray"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintEnd_toStartOf="@id/higlightsLt"
+        app:layout_constraintStart_toStartOf="@+id/autoCleanerr"
+        app:layout_constraintTop_toBottomOf="@+id/autoCleanerr">
+
+
+        <ImageView
+            android:id="@+id/testSoundImg"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center_vertical"
+            android:rotation="-47"
+
+            android:src="@drawable/floow"
+            app:layout_constraintBottom_toTopOf="@+id/testSoundTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/testSoundTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_medium"
+            android:maxLines="2"
+            android:text="@string/following"
+            android:textAlignment="center"
+            android:textColor="@color/green_color"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testSoundImg" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/higlightsLt"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_80sdp"
+        android:background="@drawable/footballnow_bggray"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/autoCleanerr"
+
+        app:layout_constraintStart_toEndOf="@id/followingLt"
+        app:layout_constraintTop_toTopOf="@id/followingLt">
+
+
+        <ImageView
+            android:id="@+id/testMiceeImg"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/higlight"
+            app:layout_constraintBottom_toTopOf="@+id/testMiceeTxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/testMiceeTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_medium"
+            android:maxLines="2"
+            android:text="@string/highlights"
+            android:textAlignment="center"
+            android:textColor="@color/green_color"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testMiceeImg" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/leaveLt"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/footballnow_bggray"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/higlightsLt"
+
+        app:layout_constraintStart_toStartOf="@+id/followingLt"
+        app:layout_constraintTop_toBottomOf="@+id/followingLt">
+
+
+        <TextView
+            android:id="@+id/leaveTxt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:ellipsize="end"
+            android:fontFamily="@font/montserrat_medium"
+            android:maxLines="2"
+            android:text="@string/leave"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,125 @@
+<com.facebook.shimmer.ShimmerFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shimmerRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground">
+
+        <!-- Position -->
+        <TextView
+            android:id="@+id/positionn"
+            android:layout_width="20dp"
+            android:layout_height="12dp"
+            android:background="@drawable/shimmer_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/_2sdp"/>
+
+        <!-- Team Logo -->
+        <View
+            android:id="@+id/teamLogoo"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/shimmer_bg"
+            app:layout_constraintStart_toEndOf="@id/positionn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="8dp"/>
+
+        <!-- Team Name -->
+        <TextView
+            android:id="@+id/teamName"
+            android:layout_width="60dp"
+            android:layout_height="12dp"
+            android:background="@drawable/shimmer_bg"
+            app:layout_constraintStart_toEndOf="@id/teamLogoo"
+            app:layout_constraintEnd_toStartOf="@id/matchesPlayedd"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="@dimen/_8sdp"/>
+
+        <!-- Matches Played -->
+        <TextView
+            android:id="@+id/matchesPlayedd"
+            android:layout_width="24dp"
+            android:layout_height="12dp"
+            android:background="@drawable/shimmer_bg"
+            app:layout_constraintStart_toEndOf="@id/teamName"
+            app:layout_constraintEnd_toStartOf="@id/winss"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- Wins -->
+        <TextView
+            android:id="@+id/winss"
+            android:layout_width="24dp"
+            android:layout_height="12dp"
+            android:background="@drawable/shimmer_bg"
+            app:layout_constraintStart_toEndOf="@id/matchesPlayedd"
+            app:layout_constraintEnd_toStartOf="@id/drawss"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- Draws -->
+        <TextView
+            android:id="@+id/drawss"
+            android:layout_width="24dp"
+            android:layout_height="12dp"
+            android:background="@drawable/shimmer_bg"
+            app:layout_constraintStart_toEndOf="@id/winss"
+            app:layout_constraintEnd_toStartOf="@id/lossess"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- Losses -->
+        <TextView
+            android:id="@+id/lossess"
+            android:layout_width="24dp"
+            android:layout_height="12dp"
+            android:background="@drawable/shimmer_bg"
+            app:layout_constraintStart_toEndOf="@id/drawss"
+            app:layout_constraintEnd_toStartOf="@id/goalDifferencee"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- Goal Difference -->
+        <TextView
+            android:id="@+id/goalDifferencee"
+            android:layout_width="28dp"
+            android:layout_height="12dp"
+            android:background="@drawable/shimmer_bg"
+            app:layout_constraintStart_toEndOf="@id/lossess"
+            app:layout_constraintEnd_toStartOf="@id/pointss"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- Points -->
+        <TextView
+            android:id="@+id/pointss"
+            android:layout_width="28dp"
+            android:layout_height="12dp"
+            android:background="@drawable/shimmer_bg"
+            app:layout_constraintStart_toEndOf="@id/goalDifferencee"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="@dimen/_2sdp"/>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/grey1"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintTop_toBottomOf="@id/teamLogoo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.facebook.shimmer.ShimmerFrameLayout>

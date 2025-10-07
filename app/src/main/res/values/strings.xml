@@ -1,0 +1,152 @@
+<resources>
+    <string name="app_name">FOOTBALL NOW</string>
+    <string name="app_name_small">Football now</string>
+
+    <string name="splash_desc">Real-Time Scores, Breaking News &amp; Match Highlights! All in One Place</string>
+    <string name="containAds">This action may contain ad</string>
+    <string name="getStarted">Get Started</string>
+    <string name="skip">Skip</string>
+    <string name="done">Done</string>
+    <string name="next">Next</string>
+    <string name="continueTV">Continue</string>
+    <string name="chooseLanguage">Choose the Language:</string>
+    <string name="chooseLanguageDesc">Select your preferred language below, This helps us serve you better.</string>
+    <string name="ob_1_title">Live Scores, Every Second</string>
+    <string name="ob_2_title">Match Highlights Anytime</string>
+    <string name="ob_3_title">Live Scores, Every Second</string>
+    <string name="ob_1_desc">Stay on top of every goal, card, and whistle with instant updates, right as the action happens.</string>
+    <string name="ob_2_desc">Catch every goal, and key moment with quick highlights, even if you missed the live action.</string>
+    <string name="ob_3_desc">Stay on top of every goal, card, and whistle with instant updates, right as the action happens.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="footbalnow">FOOTBALL<font color="#FFFFFF"> NOW</font></string>
+    <string name="livematches">Live Matches |</string>
+    <string name="followingss">Following |<font color="#B6E93D"> 4</font></string>
+    <string name="see_all_underlined"><u>See All</u></string>
+
+    <string name="explore">Explore Features</string>
+    <string name="fotbalnow">FOOTBALL NOW</string>
+    <string name="realtime">Real-Time Football \nScore!</string>
+    <string name="following">Following</string>
+    <string name="highlights">Highlights</string>
+    <string name="settings">Settings</string>
+
+    <string name="thanks_for_rating_with_us">Thanks for Rating with us!</string>
+    <string name="how_was_your_experience_with_this_app">How was your experience with this App?</string>
+    <string name="kindly_rate">Kindly rate our app.</string>
+    <string name="hey_check_out_my_app">Hey Check out my App</string>
+    <string name="please_share_your_feedback">Please share your feedback</string>
+    <string name="send_email_using">Send email using</string>
+    <string name="no_email_clients_installed">No email client installed</string>
+    <string name="unable_to_open_privacy_link_you_have_browser_issue">Unable to open privacy link you have browse issue.</string>
+    <string name="long_news_description_1">
+        Football is a family of team sports that involve, to varying degrees, kicking a ball to score a goal. Unqualified, the word football normally means the form of football that is the most popular where the word is used. Sports commonly called football include association football (known as soccer in North America and Oceania);\n gridiron football (specifically American football or Canadian football); Australian rules football; rugby union and rugby league; and Gaelic football. These various forms of football share to varying extent common origins and are known as football codes.\n
+
+        There are a number of references to traditional, ancient, or prehistoric ball games played in many different parts of the world. Contemporary codes of football can be traced back to the codification of these games at English public schools during the 19th century.\n The expansion and cultural influence of the British Empire allowed these rules of football to spread to areas of British influence outside the directly controlled Empire. By the end of the 19th century, distinct regional codes were already developing: Gaelic football, for example, deliberately incorporated the rules of local traditional football games in order to maintain their heritage. In 1888, The Football League was founded in England, becoming the first of many professional football associations. During the 20th century, several of the various kinds of football grew to become some of the most popular team sports in the world.
+    </string>
+
+    <string name="long_news_description_2">
+        The history of football dates back to ancient times. Various forms of football were played in ancient China, Greece, and Rome. These early versions of football were often violent and had few rules. The modern game of association football, also known as soccer, originated in England in the mid-19th century. The Football Association was formed in 1863, which standardized the rules of the game and banned carrying the ball with hands.
+
+        The first international football match was played between Scotland and England in 1872. The sport quickly spread across Europe and to other continents. FIFA (Fédération Internationale de Football Association) was founded in 1904 to oversee international competition. The first World Cup was held in 1930 in Uruguay.
+
+        Today, football is the world\'s most popular sport, with billions of fans worldwide. The FIFA World Cup is the most prestigious tournament in the sport, watched by millions of people around the globe. Professional leagues exist in most countries, with top players earning millions of dollars in salary and endorsements.
+    </string>
+
+    <string name="long_news_description_3">
+        Football tactics and strategies have evolved significantly over the years. Early football was characterized by individual skill and dribbling, but modern football emphasizes teamwork, positioning, and tactical discipline. Some of the most common formations include 4-4-2, 4-3-3, 3-5-2, and 4-2-3-1.
+
+        The role of the manager or coach has become increasingly important in modern football. Top managers like Pep Guardiola, Jürgen Klopp, and José Mourinho are known for their tactical innovations and ability to get the best out of their players. Modern football also places great emphasis on physical fitness, with players undergoing rigorous training regimes and following strict diets.
+
+        Technology has also changed the game significantly. Video Assistant Referee (VAR) technology is now used in many top leagues to help officials make correct decisions. Performance tracking technology helps coaches analyze player movements and optimize tactics. The business side of football has also grown enormously, with top clubs becoming global brands worth billions of dollars.
+    </string>
+
+    <string name="long_news_description_4">
+        Football has a significant impact on culture and society around the world. It brings people together across cultural, social, and economic divides. Major tournaments like the World Cup and European Championship create a sense of national pride and unity. Football clubs often serve as important community institutions, with deep roots in their local areas.
+
+        The sport also has economic importance, generating billions of dollars in revenue through broadcasting rights, sponsorship deals, merchandise sales, and ticket sales. Football creates employment opportunities not just for players and coaches, but also for administrators, medical staff, media professionals, and many others.
+
+        However, football also faces challenges such as racism, hooliganism, and financial inequality. Governing bodies like FIFA and UEFA work to address these issues through various initiatives and regulations. Despite these challenges, football continues to grow in popularity and remains the world\'s most beloved sport.
+    </string>
+    <string name="leave">Leave</string>
+    <string name="try_now">Try Now</string>
+    <string name="premier_league">Premier League</string>
+    <string name="team_a">Team A</string>
+    <string name="_2_1">2 - 1</string>
+    <string name="_15_00">15:00</string>
+    <string name="team_b">Team B</string>
+    <string name="info">Info</string>
+    <string name="stats">Stats</string>
+    <string name="lineup">Lineup</string>
+    <string name="table">Table</string>
+    <string name="news_title">News Title</string>
+    <string name="_2_hours_ago">2 hours ago</string>
+    <string name="news_description_goes_here">News description goes here...</string>
+    <string name="get_premium">Get Premium</string>
+    <string name="unlock_exclusive_features_enjoy_an_ad_free_experience_priority_support">Unlock exclusive features, enjoy an ad-free experience, priority support.</string>
+    <string name="go_premium">Go Premium</string>
+    <string name="app_language">App Language</string>
+    <string name="customize_to_your_regional_languages">Customize to your regional languages.</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="rate_our_app_on_play_store">Rate our app on play store.</string>
+    <string name="share_the_app">Share the App</string>
+    <string name="tell_your_friends_about_football_now">Tell your friends about Football Now.</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="read_our_privacy_policy_document">Read our Privacy Policy Document.</string>
+    <string name="full_time_n26_aug_wed">Full Time\n26 Aug,Wed</string>
+    <string name="player">player</string>
+    <string name="video_title">Video Title</string>
+    <string name="_2_30">2:30</string>
+    <string name="goal">Goal</string>
+    <string name="marcus_rashford">Marcus Rashford</string>
+    <string name="permier_nleague">permier\nleague</string>
+    <string name="_2">2</string>
+    <string name="_1">1</string>
+    <string name="_42min">42min</string>
+    <string name="pass_accuracy">Pass Accuracy</string>
+    <string name="team_name">Team Name</string>
+    <string name="_20">20</string>
+    <string name="_15">15</string>
+    <string name="_3">3</string>
+    <string name="_28">+28</string>
+    <string name="_48">48</string>
+    <string name="ads_is_loading">Ads is loading...</string>
+    <string name="your_opinion_n_matters_to_us">Your opinion\n matters to us!</string>
+    <string name="we_work_super_hard_to_make_application_better_for_you_and_would_love_to_know">We work super hard to make application better for you, and would love to know</string>
+    <string name="our_best_we_can_get">Our best we can get</string>
+    <string name="not_now">Not Now</string>
+    <string name="try_again">Try Again!</string>
+    <string name="oops_something_went_wrong_please_try_again_later">Oops, something went wrong. Please try again later.</string>
+    <string name="recent_videos">Recent Videos</string>
+    <string name="hashighlights">#Highlights</string>
+    <string name="other_today_s_matches">Other Today\'s Matches</string>
+    <string name="other_matches">Other Matches</string>
+    <string name="competition">Competition:</string>
+    <string name="old_trafford">Old Trafford</string>
+    <string name="all_matches">All Matches</string>
+    <string name="news">NEWS</string>
+    <string name="breaking_news_headline">Breaking News Headline</string>
+    <string name="september_12_2023">September 12, 2023</string>
+    <string name="latest_news">Latest News</string>
+    <string name="leagues">Leagues</string>
+    <string name="league_players">League Players</string>
+    <string name="player_number">Player Number</string>
+    <string name="for_you">For You |</string>
+    <string name="league">League</string>
+    <string name="league_standings">League Standings</string>
+    <string name="team">Team</string>
+    <string name="p">P</string>
+    <string name="w">W</string>
+    <string name="l">L</string>
+    <string name="d">D</string>
+    <string name="pts">PTS</string>
+    <string name="league_top_scorer">League Top Scorer</string>
+    <string name="goals">Goals</string>
+    <string name="home">Home</string>
+    <string name="ads_not_available">Ads Not Available!</string>
+    <string name="no_internet_connection">No Internet Connection!</string>
+    <string name="no_internet_connection_please_try_again_later">No internet connection. Please try again later.</string>
+    <string name="permission_required">Permission Required!</string>
+    <string name="please_allow_permission_to_continue_app">Please allow permission to continue app.</string>
+
+</resources>

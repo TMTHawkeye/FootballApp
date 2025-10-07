@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+      >
+
+        <!-- Win Probability Section -->
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/winprobabiltyLt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:background="@drawable/footballnow_bggraystrokewbg1"
+            android:orientation="horizontal"
+            android:padding="@dimen/_8sdp"
+            android:weightSum="3"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/headingg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Win Probability"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/team1Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_medium"
+                android:maxLines="1"
+                android:text="Team A"
+                android:layout_marginTop="@dimen/_8sdp"
+
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="@id/team1Probability"
+                app:layout_constraintStart_toStartOf="@id/team1Probability"
+
+
+                app:layout_constraintTop_toBottomOf="@+id/headingg" />
+
+            <ProgressBar
+                android:id="@+id/team1Probability"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="12dp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:max="100"
+                android:progress="45"
+                android:progressDrawable="@drawable/progress_team1"
+                app:layout_constraintEnd_toStartOf="@id/drawProbability"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/team1Name" />
+
+            <TextView
+                android:id="@+id/team1ProbabilityText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+
+                android:fontFamily="@font/montserrat_medium"
+                android:text="45%"
+                android:textColor="@color/white"
+
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="@+id/team1Probability"
+                app:layout_constraintStart_toStartOf="@+id/team1Probability"
+                app:layout_constraintTop_toBottomOf="@id/team1Probability" />
+
+
+            <TextView
+                android:id="@+id/draww"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Draw"
+                android:textColor="@color/white"
+
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="@id/drawProbability"
+                app:layout_constraintStart_toStartOf="@id/drawProbability"
+                app:layout_constraintTop_toTopOf="@id/team1Name"
+
+
+                />
+
+            <ProgressBar
+                android:id="@+id/drawProbability"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="12dp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:max="100"
+                android:progress="25"
+                android:progressDrawable="@drawable/progress_draw"
+
+                app:layout_constraintEnd_toStartOf="@id/team2Probability"
+                app:layout_constraintStart_toEndOf="@id/team1Probability"
+                app:layout_constraintTop_toBottomOf="@id/draww" />
+
+            <TextView
+                android:id="@+id/drawProbabilityText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="25%"
+
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="@+id/drawProbability"
+                app:layout_constraintStart_toStartOf="@+id/drawProbability"
+                app:layout_constraintTop_toBottomOf="@id/drawProbability" />
+
+
+            <TextView
+                android:id="@+id/team2Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat_medium"
+                android:maxLines="1"
+                android:text="Team B"
+                android:textColor="@color/white"
+
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="@id/team2Probability"
+                app:layout_constraintStart_toStartOf="@id/team2Probability"
+
+
+                app:layout_constraintTop_toTopOf="@id/draww" />
+
+            <ProgressBar
+                android:id="@+id/team2Probability"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="12dp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:max="100"
+                android:progress="30"
+                android:progressDrawable="@drawable/progress_team2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/drawProbability"
+
+                app:layout_constraintTop_toBottomOf="@id/team2Name" />
+
+            <TextView
+                android:id="@+id/team2ProbabilityText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="30%"
+
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="@+id/team2Probability"
+                app:layout_constraintStart_toStartOf="@+id/team2Probability"
+                app:layout_constraintTop_toBottomOf="@id/team2Probability" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/whowinprobabiltyLt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/footballnow_bggraystrokewbg1"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+
+            <TextView
+                android:id="@+id/headingg1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Who will win?"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/team1Lt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/button_gradient_bggreen"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_4sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/drawwLt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/headingg1">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/notinger"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/team1namee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="notinger"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView3"
+                    app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/drawwLt"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/footballnow_bggraystrokewbg121"
+                android:fontFamily="@font/montserrat"
+                android:text="Draw"
+                android:textColor="@color/black"
+
+                android:layout_marginHorizontal="@dimen/_4sdp"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_12sdp"
+                app:layout_constraintEnd_toStartOf="@id/team2Lt"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/team1Lt"
+                app:layout_constraintStart_toEndOf="@+id/team1Lt"
+                app:layout_constraintTop_toTopOf="@+id/team1Lt" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/team2Lt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:background="@drawable/button_gradient_bgorange"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_4sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/drawwLt"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/drawwLt"
+                app:layout_constraintTop_toTopOf="@+id/drawwLt">
+
+                <ImageView
+                    android:id="@+id/imageViewt2"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/notinger"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/team2namee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:fontFamily="@font/montserrat"
+                    android:text="notinger"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageViewt2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageViewt2"
+                    app:layout_constraintTop_toTopOf="@+id/imageViewt2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/footballnow_bggraystrokewbg1"
+            android:padding="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventLt">
+
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="@string/competition"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/competitionName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/premier_league"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintStart_toEndOf="@+id/textView12"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Venue:"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/competitionName" />
+
+            <TextView
+                android:id="@+id/venueName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/old_trafford"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView13"
+                app:layout_constraintTop_toBottomOf="@id/competitionName" />
+
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+
+                android:text="Referee:"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView13" />
+
+
+            <TextView
+                android:id="@+id/refereeName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_weight="1"
+                android:text="Michael Oliver"
+                android:textColor="@color/grey"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@id/venueName" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/eventLt"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_8sdp"
+    android:layout_marginTop="@dimen/_12sdp"
+    app:layout_constraintTop_toBottomOf="@id/winprobabiltyLt"
+    android:background="@drawable/footballnow_bggraystrokewbg1">
+
+    <!-- Events Section -->
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Match Events"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white"
+
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="@dimen/_12ssp"
+
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/eventsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintTop_toBottomOf="@id/textView11"
+        android:layout_height="wrap_content" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

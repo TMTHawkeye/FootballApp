@@ -1,0 +1,89 @@
+package com.example.footballapp.activities.onboarding
+
+import android.content.Intent
+import android.graphics.Color
+import android.os.Bundle
+import android.text.Html
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
+import androidx.viewpager2.widget.ViewPager2
+import com.example.footballapi.FootballViewModel
+import com.example.footballapp.R
+import com.example.footballapp.adapters.HomeAdapter
+import com.example.footballapp.databinding.ActivityMainBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+class MainActivity : AppCompatActivity() {
+
+    lateinit var binding: ActivityMainBinding
+    var homeAdapter: HomeAdapter? = null
+
+    val footballViewModel: FootballViewModel by viewModel()
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            isAppearanceLightStatusBars = true // For dark icons (use with light backgrounds)
+            // OR
+            isAppearanceLightStatusBars = false // For light icons (use with dark backgrounds)
+        }
+
+
+        homeAdapter = HomeAdapter(this)
+
+        binding.viewPager2.adapter = homeAdapter
+        binding.viewPager2.setOffscreenPageLimit(1) // This is correct - value must be ≥ 1
+        binding.viewPager2.currentItem = 0
+        binding.bottomNavigationView.menu.findItem(R.id.menu_home).isChecked = true
+        binding.viewPager2.isUserInputEnabled = false
+
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.menu_home -> binding.viewPager2.currentItem = 0
+                R.id.menu_following -> binding.viewPager2.currentItem = 1
+                R.id.menu_shorts -> {
+                    // Only set current item to Shorts when explicitly selected
+                    binding.viewPager2.currentItem = 2
+                }
+                R.id.menu_highlights -> binding.viewPager2.currentItem = 3
+                R.id.menu_news -> binding.viewPager2.currentItem = 4
+            }
+            true
+        }
+
+        binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                // Set bottom navigation selection
+                when (position) {
+                    0 -> binding.bottomNavigationView.menu.findItem(R.id.menu_home).isChecked = true
+                    1 -> binding.bottomNavigationView.menu.findItem(R.id.menu_following).isChecked = true
+                    2 -> binding.bottomNavigationView.menu.findItem(R.id.menu_shorts).isChecked = true
+                    3 -> binding.bottomNavigationView.menu.findItem(R.id.menu_highlights).isChecked = true
+                    4 -> binding.bottomNavigationView.menu.findItem(R.id.menu_news).isChecked = true
+                }
+            }
+        })
+
+        binding.imageView.setOnClickListener {
+            binding.viewPager2.currentItem = 2
+        }
+    }
+
+    override fun onBackPressed() {
+        if (binding.viewPager2.currentItem != 0) {
+            binding.viewPager2.currentItem = 0
+        } else {
+            startActivity(Intent(this@MainActivity, ExitScreen::class.java))
+        }
+    }
+}

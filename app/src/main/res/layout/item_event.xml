@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="12dp"
+    android:paddingHorizontal="16dp"
+    android:gravity="center_vertical">
+
+    <!-- Event Time -->
+    <TextView
+        android:id="@+id/eventTimee"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:text="23'"
+        android:fontFamily="@font/montserrat"
+
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginEnd="16dp" />
+
+    <!-- Event Icon -->
+    <ImageView
+        android:id="@+id/eventIconn"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/app_icon"
+        android:layout_marginEnd="16dp" />
+
+    <!-- Team Logo -->
+    <ImageView
+        android:id="@+id/teamLogoo"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/app_icon"
+        android:layout_marginEnd="16dp" />
+
+    <!-- Event Details -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/eventTypee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/goal"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/eventDescriptionn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/marcus_rashford"
+            android:textSize="@dimen/_10ssp"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/grey"
+            android:maxLines="2"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+</LinearLayout>

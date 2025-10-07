@@ -1,0 +1,39 @@
+<com.facebook.shimmer.ShimmerFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/shimmerRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <!-- Left Team Image Placeholder -->
+        <View
+            android:id="@+id/teamImage"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:background="@drawable/shimmer_bg"/>
+
+        <!-- Team Name Placeholder -->
+        <TextView
+            android:id="@+id/teamName"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_12ssp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:background="@drawable/shimmer_bg"/>
+
+        <!-- Right Team Image Placeholder -->
+        <View
+            android:id="@+id/teamImage1"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:background="@drawable/shimmer_bg"/>
+    </LinearLayout>
+</com.facebook.shimmer.ShimmerFrameLayout>
