@@ -4,8 +4,10 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.footballapi.modelClasses.Stage
+import com.example.footballapi.modelClasses.matchLineups.LineupResponse
 import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
 import com.example.footballapi.modelClasses.matchSummary.MatchSummary
+import com.example.footballapi.modelClasses.matchTable.matchTableResponse
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -50,6 +52,24 @@ class FootballViewModel(
     fun loadMatchStats(matchId: String) {
         viewModelScope.launch {
             repo.fetchMatchStats(matchId)
+        }
+    }
+
+
+    val matchLineupFlow: StateFlow<ApiResult<LineupResponse>> get() = repo.matchLineupFlow
+
+    fun loadMatchLineups(matchId: String) {
+        viewModelScope.launch {
+            repo.fetchMatchLineup(matchId)
+        }
+    }
+
+
+    val matchTableFlow: StateFlow<ApiResult<matchTableResponse>> get() = repo.matchTableFlow
+
+    fun loadMatchTable(matchId: String) {
+        viewModelScope.launch {
+            repo.fetchMatchTable(matchId)
         }
     }
 

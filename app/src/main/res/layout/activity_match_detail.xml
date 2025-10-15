@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/normal_bg"
-    android:id="@+id/main"
     android:orientation="vertical">
 
 
@@ -18,16 +18,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-
-
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/btn_back"
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
-            android:padding="@dimen/_3sdp"
+            android:layout_marginVertical="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_10sdp"
 
-            android:layout_margin="@dimen/_20sdp"
+            android:padding="@dimen/_5sdp"
             android:src="@drawable/arrow_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,35 +35,62 @@
             android:id="@+id/ivTeamLogo"
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
-            app:layout_constraintTop_toTopOf="@id/btn_back"
             android:layout_marginStart="@dimen/_12sdp"
-            app:layout_constraintBottom_toBottomOf="@id/btn_back"
             android:scaleType="centerCrop"
             android:src="@drawable/app_icon"
-            app:layout_constraintStart_toEndOf="@id/btn_back" />
+            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintStart_toEndOf="@id/btn_back"
+            app:layout_constraintTop_toTopOf="@id/btn_back" />
+
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/ivTeamLogoShimmer"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:background="@drawable/shimmer_bg"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintStart_toEndOf="@id/btn_back"
+            app:layout_constraintTop_toTopOf="@id/btn_back" />
 
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginHorizontal="12dp"
 
 
             android:fontFamily="@font/montserrat_medium"
+            android:maxLines="2"
+
+
             android:text="@string/premier_league"
 
-
             android:textColor="@color/white"
-
             android:textSize="@dimen/_14ssp"
-            android:maxLines="2"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivTeamLogo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/titleShimmer"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_14sdp"
+            android:layout_marginHorizontal="12dp"
+            android:background="@drawable/shimmer_bg"
+
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivTeamLogoShimmer"
             app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -76,15 +101,14 @@
         app:layout_constraintTop_toBottomOf="@id/heading" />
 
 
-
-            <!-- Match Header -->
+    <!-- Match Header -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginHorizontal="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_12sdp"
+        android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +149,7 @@
 
             android:paddingHorizontal="@dimen/_10sdp"
             android:paddingVertical="@dimen/_1sdp"
-             android:textColor="@color/white"
+            android:textColor="@color/white"
             android:textSize="@dimen/_8ssp"
             app:layout_constraintEnd_toEndOf="@+id/score"
             app:layout_constraintStart_toStartOf="@+id/score"
@@ -134,34 +158,40 @@
 
         <TextView
             android:id="@+id/team1Name"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
             android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:maxLines="1"
             android:text="@string/team_a"
             android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintEnd_toStartOf="@+id/score"
-            app:layout_constraintTop_toBottomOf="@+id/team1Logo"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/team1Logo" />
 
         <TextView
             android:id="@+id/team2Name"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_80sdp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:ellipsize="end"
             android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:maxLines="1"
             android:text="@string/team_b"
             android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
-            app:layout_constraintStart_toEndOf="@+id/score"
             app:layout_constraintEnd_toEndOf="parent"
-             app:layout_constraintTop_toBottomOf="@+id/team2Logo" />
+            app:layout_constraintStart_toEndOf="@+id/score"
+            app:layout_constraintTop_toBottomOf="@+id/team2Logo" />
 
 
         <ImageView
@@ -169,24 +199,139 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="@dimen/_12sdp"
-             android:src="@drawable/app_icon"
-            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/app_icon"
+            app:layout_constraintBottom_toTopOf="@+id/team2Name"
             app:layout_constraintEnd_toEndOf="@+id/team2Name"
             app:layout_constraintStart_toStartOf="@+id/team2Name"
-            app:layout_constraintBottom_toTopOf="@+id/team2Name"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:id="@+id/constraintLayout8Shimmer"
+
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/heading">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/team1LogoShimmer"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/shimmer_bg"
+                android:layout_marginTop="@dimen/_12sdp"
+                 app:layout_constraintBottom_toTopOf="@+id/team1NameShimmer"
+                app:layout_constraintEnd_toEndOf="@+id/team1NameShimmer"
+                app:layout_constraintStart_toStartOf="@+id/team1NameShimmer"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-            <!-- Tab Layout -->
+            <TextView
+                android:id="@+id/scoreShimmer"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                 android:textColor="@color/white"
+                android:background="@drawable/shimmer_bg"
+
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/team1LogoShimmer"
+                app:layout_constraintEnd_toStartOf="@+id/team2NameShimmer"
+                app:layout_constraintStart_toEndOf="@+id/team1NameShimmer"
+                app:layout_constraintTop_toTopOf="@+id/team1LogoShimmer" />
+
+            <TextView
+                android:id="@+id/matchTimeShimmer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="@drawable/shimmer_bg"
+                android:fontFamily="@font/montserrat"
+
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_1sdp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp"
+                app:layout_constraintEnd_toEndOf="@+id/scoreShimmer"
+                app:layout_constraintStart_toStartOf="@+id/scoreShimmer"
+                app:layout_constraintTop_toBottomOf="@+id/scoreShimmer" />
+
+
+            <TextView
+                android:id="@+id/team1NameShimmer"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:maxLines="1"
+                android:background="@drawable/shimmer_bg"
+
+                 android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toStartOf="@+id/scoreShimmer"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/team1LogoShimmer" />
+
+            <TextView
+                android:id="@+id/team2NameShimmer"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:ellipsize="end"
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:maxLines="1"
+                android:background="@drawable/shimmer_bg"
+
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/scoreShimmer"
+                app:layout_constraintTop_toBottomOf="@+id/team2LogoShimmer" />
+
+
+            <ImageView
+                android:id="@+id/team2LogoShimmer"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/shimmer_bg"
+                app:layout_constraintBottom_toTopOf="@+id/team2NameShimmer"
+                app:layout_constraintEnd_toEndOf="@+id/team2NameShimmer"
+                app:layout_constraintStart_toStartOf="@+id/team2NameShimmer"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+    <!-- Tab Layout -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
         android:background="@color/transparent"
-        app:layout_constraintEnd_toEndOf="@+id/constraintLayout8"
-        app:layout_constraintStart_toStartOf="@+id/constraintLayout8"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout8"
         app:tabIndicatorColor="@color/green_color"
         app:tabSelectedTextColor="@color/green_color"
@@ -213,7 +358,7 @@
             android:text="@string/table" />
     </com.google.android.material.tabs.TabLayout>
 
-            <!-- ViewPager2 for Fragments -->
+    <!-- ViewPager2 for Fragments -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="0dp"

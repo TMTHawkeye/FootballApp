@@ -1,0 +1,44 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="4dp">
+
+    <ImageView
+        android:id="@+id/playerIconImg"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+         android:src="@drawable/playerr"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:gravity="center"
+        android:id="@+id/playerNumber"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_6sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/playerIconImg"
+        app:layout_constraintEnd_toEndOf="@+id/playerIconImg"
+        app:layout_constraintStart_toStartOf="@+id/playerIconImg" />
+
+    <TextView
+        android:id="@+id/playerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:text="Messy"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_9ssp"
+        app:layout_constraintEnd_toEndOf="@+id/playerIconImg"
+        app:layout_constraintStart_toStartOf="@+id/playerIconImg"
+        app:layout_constraintTop_toBottomOf="@+id/playerIconImg" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

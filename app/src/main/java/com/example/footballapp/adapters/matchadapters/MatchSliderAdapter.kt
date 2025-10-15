@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.footballapi.modelClasses.Matche
 import com.example.footballapp.Helper.formatMatchStatus
 import com.example.footballapp.Helper.imagePrefix
+import com.example.footballapp.Helper.imagePrefixCompetition
 import com.example.footballapp.R
 
 // MatchSliderAdapter.kt
@@ -53,7 +54,7 @@ class MatchSliderAdapter(
 
         if (match.tournamentLogo != null) {
             Glide.with(holder.itemView.rootView.context)
-                .load(imagePrefix+match.tournamentLogo)
+                .load(imagePrefixCompetition+match.tournamentLogo)
                 .placeholder(R.drawable.app_icon).into(holder.competitionLogo)
              holder.competitionLogo.visibility = View.VISIBLE
         } else {
@@ -63,6 +64,16 @@ class MatchSliderAdapter(
             // Hide competition logo if not available
 //            holder.competitionLogo.visibility = View.GONE
         }
+
+        Glide.with(holder.itemView.rootView.context)
+            .load(imagePrefix + match.home_team?.get(0)?.logo)
+            .placeholder(R.drawable.app_icon)
+            .into(holder.team1Logo)
+
+        Glide.with(holder.itemView.rootView.context)
+            .load(imagePrefix + match.away_team?.get(0)?.logo)
+            .placeholder(R.drawable.app_icon)
+            .into(holder.team2Logo)
 
         holder.team1Name.text = match.home_team?.get(0)?.incident_number
         holder.team2Name.text = match.away_team?.get(0)?.incident_number

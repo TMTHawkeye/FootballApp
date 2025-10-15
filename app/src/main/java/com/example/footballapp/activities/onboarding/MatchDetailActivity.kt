@@ -9,15 +9,23 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.example.footballapi.ApiResult
 import com.example.footballapi.FootballViewModel
+import com.example.footballapi.modelClasses.Matche
 import com.example.footballapi.modelClasses.matchSummary.MatchSummary
 import com.example.footballapp.Helper.ApiResultTAG
 import com.example.footballapp.Helper.MATCH_ID
 import com.example.footballapp.Helper.formatMatchStatus
+import com.example.footballapp.Helper.gone
+import com.example.footballapp.Helper.imagePrefix
+import com.example.footballapp.Helper.invisible
+import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.adapters.matchadapters.MatchDetailPagerAdapter
 import com.example.footballapp.databinding.ActivityMatchDetailBinding
+import com.example.footballapp.viewmodels.MatchViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,22 +33,25 @@ import kotlin.getValue
 
 class MatchDetailActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMatchDetailBinding
-//    private lateinit var match: Match
+       var binding: ActivityMatchDetailBinding? = null
+       var match: Matche ? = null
 
-    var matchId : String? = null
+//    var matchId : String? = null
+//    var match : Matche?=null
 
     private val viewModel: FootballViewModel by viewModel()
+    private val matchViewModel: MatchViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        matchId = intent.getStringExtra(MATCH_ID)
+//        matchId = intent.getStringExtra(MATCH_ID)
+        match = matchViewModel.getMatch()
 
 
         binding = ActivityMatchDetailBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding?.root)
         WindowCompat.getInsetsController(window, window.decorView).apply {
             isAppearanceLightStatusBars = true // For dark icons (use with light backgrounds)
             // OR
@@ -56,14 +67,20 @@ class MatchDetailActivity : AppCompatActivity() {
 //        match = intent.getSerializableExtra("MATCH_DATA") as? Match
 //            ?: throw IllegalStateException("No match data found in intent")
 
-        binding.btnBack.setOnClickListener {
+        binding?.btnBack?.setOnClickListener {
             onBackPressed()
         }
+        setupViewPager()
+
 //        setupToolbar()
 //        setupMatchHeader()
 //        setupViewPager()
 
-        matchId?.let { observeMatchSummary(it) }
+        match?.let {
+            it.match_id?.let { matchId -> observeMatchSummary(matchId) }
+        }?:run{
+            Log.d("TAG_matchINMatchDetails", "onCreate: null match")
+        }
     }
 
     private fun setupToolbar() {
@@ -85,43 +102,46 @@ class MatchDetailActivity : AppCompatActivity() {
 
 //        val formattedDisplayName = displayName.replaceFirst(Regex(" - | "), "\n")
 
-        binding.title.text = displayName
+        binding?.title?.text = displayName
 
-        binding.matchTime.text = formatMatchStatus(summary.status)
+        binding?.matchTime?.text = formatMatchStatus(summary.status)
 
         // Set team names
-        binding.team1Name.text = summary.teams.home.name
-        binding.team2Name.text = summary.teams.away.name
+        binding?.team1Name?.text = summary.teams.home.name
+        binding?.team2Name?.text = summary.teams.away.name
 
-        // Set team logos
-//        binding.team1Logo.setImageResource(summary.teams.home.u)
-//        binding.team2Logo.setImageResource(match.team2.logoResId)
+        binding?.team1Logo?.let { Glide.with(this@MatchDetailActivity).load(imagePrefix+match?.home_team?.get(0)?.logo).into(it) }
+        binding?.team2Logo?.let { Glide.with(this@MatchDetailActivity).load(imagePrefix+match?.away_team?.get(0)?.logo).into(it) }
 
         // Set score if available, otherwise show time
         if (summary.teams.home.score != null && summary.teams.away.score != null) {
-            binding.score.text = "${summary.teams.home.score} - ${summary.teams.away.score}"
+            binding?.score?.text = "${summary.teams.home.score} - ${summary.teams.away.score}"
         } else {
-            binding.score.visibility = View.GONE
+            binding?.score?.visibility = View.GONE
         }
     }
 
-    private fun setupViewPager(summary : MatchSummary) {
-        val adapter = MatchDetailPagerAdapter(this, null,summary)
-        binding.viewPager.adapter = adapter
+    private fun setupViewPager() {
+        val adapter = MatchDetailPagerAdapter(this)
+        binding?.viewPager?.adapter = adapter
 
         // Add this line to pre-load adjacent pages
-        binding.viewPager.offscreenPageLimit = 3
+        binding?.viewPager?.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
 
         // Connect TabLayout with ViewPager2
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = when (position) {
-                0 -> "Info"
-                1 -> "Stats"
-                2 -> "Lineup"
-                3 -> "Table"
-                else -> null
+        binding?.tabLayout?.let {
+            binding?.viewPager?.let { viewPager ->
+                TabLayoutMediator(it, viewPager) { tab, position ->
+                    tab.text = when (position) {
+                        0 -> "Info"
+                        1 -> "Stats"
+                        2 -> "Lineup"
+                        3 -> "Table"
+                        else -> null
+                    }
+                }
             }
-        }.attach()
+        }?.attach()
     }
 
     override fun onBackPressed() {
@@ -133,16 +153,17 @@ class MatchDetailActivity : AppCompatActivity() {
         this@MatchDetailActivity.lifecycleScope.launch {
             viewModel.matchSummaryFlow.collect { result ->
                 when (result) {
-                    is ApiResult.Loading -> showLoading(true)
+                    is ApiResult.Loading -> {
+                        showLoading(true)
+                    }
                     is ApiResult.Success -> {
                         showLoading(false)
                         val summary = result.data
                         Log.d("MATCH_SUMMARY", "Summary: ${summary}")
                         setupMatchHeader(summary)
-                        setupViewPager(summary)
                     }
                     is ApiResult.Error -> {
-                        showLoading(false)
+                        showLoading(null)
 //                        showError(result.throwable)
                     }
                 }
@@ -152,16 +173,29 @@ class MatchDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun showLoading(show: Boolean) {
+    private fun showLoading(show: Boolean?) {
         Log.d(ApiResultTAG, "showLoading: $show")
 
-        if(show) {
-//            binding.ctShimmers.visible()
-//            binding.ctSliderShimmer.visible()
-        }
-        else{
-//            binding.ctShimmers.gone()
-//            binding.ctSliderShimmer.gone()
+        show?.let {
+            if (it) {
+                binding?.ivTeamLogoShimmer?.visible()
+                binding?.titleShimmer?.visible()
+                binding?.constraintLayout8Shimmer?.visible()
+
+                binding?.ivTeamLogo?.gone()
+                binding?.title?.gone()
+                binding?.constraintLayout8?.invisible()
+            } else {
+                binding?.ivTeamLogoShimmer?.gone()
+                binding?.titleShimmer?.gone()
+                binding?.constraintLayout8Shimmer?.gone()
+
+                binding?.ivTeamLogo?.visible()
+                binding?.title?.visible()
+                binding?.constraintLayout8?.visible()
+            }
+        }?:run{
+
         }
     }
 

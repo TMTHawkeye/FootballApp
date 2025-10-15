@@ -13,6 +13,7 @@ import com.example.footballapi.FootballViewModel
 import com.example.footballapi.modelClasses.matchSummary.MatchSummary
 import com.example.footballapp.Helper.ApiResultTAG
 import com.example.footballapp.Helper.gone
+import com.example.footballapp.Helper.invisible
 import com.example.footballapp.Helper.toMatchEventList
 import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
@@ -113,7 +114,7 @@ class InfoFragment : Fragment() {
 
     private fun setupEvents(summary  : MatchSummary) {
         val matchEvents = summary.events.toMatchEventList()
-        Log.d("TAG_matchevents", "setupEvents: ${matchEvents}")
+//        Log.d("TAG_matchevents", "setupEvents: ${matchEvents.size}")
 
         if(matchEvents.size!=0) {
             binding.eventLt.visible()
@@ -138,7 +139,7 @@ class InfoFragment : Fragment() {
                         setupEvents(summary)
 
                         val compName = summary.competition.name.takeIf { it != "null" } ?: ""
-                        val stageName = summary.competition.name.takeIf { it != "null" } ?: ""
+                        val stageName = summary.competition.stage_name.takeIf { it != "null" } ?: ""
 
                         val displayName = when {
                             compName.equals(stageName, ignoreCase = true) -> compName // if both same
@@ -159,16 +160,31 @@ class InfoFragment : Fragment() {
         }
      }
 
-    private fun showLoading(show: Boolean) {
+    private fun showLoading(show: Boolean?) {
         Log.d(ApiResultTAG, "showLoading: $show")
 
-        if(show) {
-//            binding.ctShimmers.visible()
-//            binding.ctSliderShimmer.visible()
-        }
-        else{
-//            binding.ctShimmers.gone()
-//            binding.ctSliderShimmer.gone()
+        show?.let {
+            if (show) {
+                binding.whowinprobabiltyLtShimmer.visible()
+                binding.bottomCardShimmer.visible()
+                binding.eventLtShimmer.visible()
+
+
+                binding.whowinprobabiltyLt.invisible()
+                 binding.bottomCard.invisible()
+                 binding.eventLt.invisible()
+            } else {
+                binding.whowinprobabiltyLtShimmer.gone()
+                binding.bottomCardShimmer.gone()
+                binding.eventLtShimmer.gone()
+
+                binding.whowinprobabiltyLt.visible()
+                binding.bottomCard.visible()
+                binding.eventLt.visible()
+
+            }
+        }?:run{
+
         }
     }
 

@@ -10,11 +10,10 @@ import com.example.footballapp.models.matchmodels.Stat
 class StatAdapter(private val stats: List<Stat>) :
     RecyclerView.Adapter<StatAdapter.StatViewHolder>() {
 
-       lateinit var binding : ItemStatBinding
-    class StatViewHolder(var binding: ItemStatBinding) : RecyclerView.ViewHolder(binding.root)
+     class StatViewHolder(var binding: ItemStatBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StatViewHolder {
-        binding = ItemStatBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = ItemStatBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return StatViewHolder(binding)
     }
 

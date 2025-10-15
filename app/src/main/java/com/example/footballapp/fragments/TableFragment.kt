@@ -1,31 +1,42 @@
 package com.example.footballapp.fragments.matchdetail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.footballapp.R
+import com.example.footballapi.ApiResult
+import com.example.footballapi.FootballViewModel
+import com.example.footballapi.sealedClasses.sealedTableItem
+import com.example.footballapp.Helper.ApiResultTAG
+import com.example.footballapp.activities.MatchDetailActivity
 import com.example.footballapp.adapters.matchadapters.TableAdapter
 import com.example.footballapp.databinding.FragmentTableBinding
-import com.example.footballapp.models.matchmodels.Match
-import com.example.footballapp.models.matchmodels.TableItem
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import kotlin.getValue
 
 class TableFragment : Fragment() {
 
     private lateinit var binding: FragmentTableBinding
-//    private lateinit var match: Match
 
-    companion object {
-        fun newInstance(match: Match?): TableFragment {
-            val fragment = TableFragment()
-            val args = Bundle()
-            args.putSerializable("MATCH", match)
-            fragment.arguments = args
-            return fragment
-        }
-    }
+    //    private lateinit var match: Match
+    private val viewModel: FootballViewModel by activityViewModel()
+
+
+    /* companion object {
+         fun newInstance(match: Match?): TableFragment {
+             val fragment = TableFragment()
+             val args = Bundle()
+             args.putSerializable("MATCH", match)
+             fragment.arguments = args
+             return fragment
+         }
+     }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +53,7 @@ class TableFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        observeMatchTable()
         // Set up win probability
 //        setupWinProbability()
 //
@@ -59,33 +70,107 @@ class TableFragment : Fragment() {
 
     }
 
-    private fun setupLeagueTable() {
-        // Sample table data - replace with your actual data
-//        val tableItems = listOf(
-//            TableItem(1, "Team A", 20, 15, 3, 2, 28, 48, R.drawable.app_icon),
-//            TableItem(2, "Team B", 20, 14, 4, 2, 24, 46, R.drawable.app_icon),
-//            TableItem(3, match.team1.name, 20, 13, 5, 2, 21, 44, R.drawable.app_icon, true, false),
-//            TableItem(4, "Team D", 20, 12, 4, 4, 16, 40, R.drawable.app_icon),
-//            TableItem(5, match.team2.name, 20, 11, 5, 4, 10, 38, R.drawable.app_icon, false, true),
-//            TableItem(1, "Team A", 20, 15, 3, 2, 28, 48, R.drawable.app_icon),
-//            TableItem(2, "Team B", 20, 14, 4, 2, 24, 46, R.drawable.app_icon),
-//            TableItem(3, match.team1.name, 20, 13, 5, 2, 21, 44, R.drawable.app_icon, true, false),
-//            TableItem(4, "Team D", 20, 12, 4, 4, 16, 40, R.drawable.app_icon),
-//            TableItem(5, match.team2.name, 20, 11, 5, 4, 10, 38, R.drawable.app_icon, false, true),
-//            TableItem(1, "Team A", 20, 15, 3, 2, 28, 48, R.drawable.app_icon),
-//            TableItem(2, "Team B", 20, 14, 4, 2, 24, 46, R.drawable.app_icon),
-//            TableItem(3, match.team1.name, 20, 13, 5, 2, 21, 44, R.drawable.app_icon, true, false),
-//            TableItem(4, "Team D", 20, 12, 4, 4, 16, 40, R.drawable.app_icon),
-//            TableItem(5, match.team2.name, 20, 11, 5, 4, 10, 38, R.drawable.app_icon, false, true),
-//            TableItem(1, "Team A", 20, 15, 3, 2, 28, 48, R.drawable.app_icon),
-//            TableItem(2, "Team B", 20, 14, 4, 2, 24, 46, R.drawable.app_icon),
-//            TableItem(3, match.team1.name, 20, 13, 5, 2, 21, 44, R.drawable.app_icon, true, false),
-//            TableItem(4, "Team D", 20, 12, 4, 4, 16, 40, R.drawable.app_icon),
-//            TableItem(5, match.team2.name, 20, 11, 5, 4, 10, 38, R.drawable.app_icon, false, true)
-//        )
-//
-//        val adapter = TableAdapter(tableItems)
-//        binding.leagueTableRecyclerView.adapter = adapter
-//        binding.leagueTableRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+    private fun setupLeagueTable(tableItems: MutableList<sealedTableItem>) {
+
+
+        val adapter = TableAdapter(tableItems)
+        binding.leagueTableRecyclerView.adapter = adapter
+        binding.leagueTableRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
+
+    private fun showLoading(show: Boolean) {
+        Log.d(ApiResultTAG, "showLoading: $show")
+
+        if (show) {
+//            binding.ctShimmers.visible()
+//            binding.ctSliderShimmer.visible()
+        } else {
+//            binding.ctShimmers.gone()
+//            binding.ctSliderShimmer.gone()
+        }
+    }
+
+//    private fun observeMatchTable() {
+//        this@TableFragment.lifecycleScope.launch {
+//            viewModel.matchTableFlow.collect { result ->
+//                when (result) {
+//                    is ApiResult.Loading -> showLoading(true)
+//                    is ApiResult.Success -> {
+//                        showLoading(false)
+//                        val table = result.data
+//                        Log.d("MATCH_Table", "stats: ${table.event.tables.league.leagueList}")
+//                     }
+//
+//                    is ApiResult.Error -> {
+//                        showLoading(false)
+////                        showError(result.throwable)
+//                    }
+//                }
+//            }
+//        }
+//
+//        viewModel.loadMatchTable("1426226")
+//    }
+
+    private fun observeMatchTable() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.matchTableFlow.collect { result ->
+                when (result) {
+                    is ApiResult.Loading -> showLoading(true)
+                    is ApiResult.Success -> {
+                        showLoading(false)
+
+                        val table = result.data
+                        val leagueMap = table.event.tables.league[""] ?: emptyList()
+
+                         Log.d("MATCH_table", "table: ${leagueMap}")
+
+                         val allItems = mutableListOf<sealedTableItem>()
+
+                        leagueMap.forEachIndexed { index, league ->
+//                                // ✅ Only add divider if it's NOT the first league
+//                                if (index > 0) {
+                                    allItems.add(sealedTableItem.LeagueDivider(league.name))
+                            allItems.add(sealedTableItem.HeaderRow)
+//                                }
+
+                                // Add all team rows for this league
+                                league.teams.forEach { team ->
+                                    allItems.add(
+                                        sealedTableItem.TeamRow(
+                                            position = team.rank,
+                                            teamName = team.name,
+                                            teamLogo = team.teamBadge.medium,
+                                            matchesPlayed = team.played,
+                                            wins = team.wins,
+                                            draws = team.draws,
+                                            losses = team.losses,
+                                            goalDifference = team.goalsDiff,
+                                            points = team.points
+                                        )
+                                    )
+                                }
+                            }
+
+
+                        setupLeagueTable(allItems)
+                    }
+
+                    is ApiResult.Error -> {
+                        showLoading(false)
+                    }
+                }
+            }
+        }
+
+        viewModel.loadMatchTable("1426226")
+//        (context as? MatchDetailActivity)?.match?.match_id?.let {
+//            viewModel.loadMatchTable(it)
+//            Toast.makeText(binding.root.context, "$it", Toast.LENGTH_SHORT).show()
+//        }
+
+    }
+
+
+
 }

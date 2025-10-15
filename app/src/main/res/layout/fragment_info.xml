@@ -8,8 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-      >
+        android:orientation="vertical">
 
         <!-- Win Probability Section -->
 
@@ -18,12 +17,12 @@
             android:id="@+id/winprobabiltyLt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
+            android:layout_marginTop="@dimen/_12sdp"
             android:background="@drawable/footballnow_bggraystrokewbg1"
             android:orientation="horizontal"
             android:padding="@dimen/_8sdp"
+            android:visibility="invisible"
             android:weightSum="3"
-            android:layout_marginTop="@dimen/_12sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -48,11 +47,11 @@
                 android:id="@+id/team1Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:ellipsize="end"
                 android:fontFamily="@font/montserrat_medium"
                 android:maxLines="1"
                 android:text="Team A"
-                android:layout_marginTop="@dimen/_8sdp"
 
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
@@ -191,15 +190,14 @@
             android:id="@+id/whowinprobabiltyLt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_12sdp"
             android:background="@drawable/footballnow_bggraystrokewbg1"
             android:orientation="horizontal"
+            android:padding="@dimen/_8sdp"
             android:weightSum="3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
 
 
             <TextView
@@ -245,10 +243,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_4sdp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="notinger"
-                    android:maxLines="2"
                     android:ellipsize="end"
+                    android:fontFamily="@font/montserrat"
+                    android:maxLines="2"
+                    android:text="notinger"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView3"
@@ -263,17 +261,17 @@
                 android:id="@+id/drawwLt"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/_4sdp"
                 android:background="@drawable/footballnow_bggraystrokewbg121"
                 android:fontFamily="@font/montserrat"
+                android:gravity="center"
+
+                android:paddingHorizontal="@dimen/_12sdp"
                 android:text="Draw"
                 android:textColor="@color/black"
-
-                android:layout_marginHorizontal="@dimen/_4sdp"
-                android:gravity="center"
-                android:paddingHorizontal="@dimen/_12sdp"
-                app:layout_constraintEnd_toStartOf="@id/team2Lt"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/team1Lt"
+                app:layout_constraintEnd_toStartOf="@id/team2Lt"
                 app:layout_constraintStart_toEndOf="@+id/team1Lt"
                 app:layout_constraintTop_toTopOf="@+id/team1Lt" />
 
@@ -305,10 +303,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_4sdp"
-                    android:fontFamily="@font/montserrat"
-                    android:text="notinger"
-                    android:maxLines="2"
                     android:ellipsize="end"
+                    android:fontFamily="@font/montserrat"
+                    android:maxLines="2"
+                    android:text="notinger"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageViewt2"
@@ -319,20 +317,152 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/whowinprobabiltyLtShimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:orientation="horizontal"
+                android:padding="@dimen/_8sdp"
+                android:weightSum="3">
+
+
+                <TextView
+                    android:id="@+id/headingg1Shimmer"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shimmer_bg"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="@color/white"
+
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/team1LtShimmer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="@drawable/shimmer_bg"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_4sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/drawwLtShimmer"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/headingg1Shimmer">
+
+                    <ImageView
+                        android:id="@+id/imageView3Shimmer"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/team1nameeShimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/montserrat"
+                        android:maxLines="2"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView3Shimmer"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView3Shimmer"
+                        app:layout_constraintTop_toTopOf="@+id/imageView3Shimmer" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/drawwLtShimmer"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="@dimen/_4sdp"
+                    android:background="@drawable/shimmer_bg"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:text="Draw"
+                    android:textColor="@color/transparent"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintBottom_toBottomOf="@+id/team1LtShimmer"
+                    app:layout_constraintEnd_toStartOf="@id/team2LtShimmer"
+                    app:layout_constraintStart_toEndOf="@+id/team1LtShimmer"
+                    app:layout_constraintTop_toTopOf="@+id/team1LtShimmer" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/team2LtShimmer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:background="@drawable/shimmer_bg"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:paddingVertical="@dimen/_4sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/drawwLtShimmer"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/drawwLtShimmer"
+                    app:layout_constraintTop_toTopOf="@+id/drawwLtShimmer">
+
+                    <ImageView
+                        android:id="@+id/imageViewt2Shimmer"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/team2nameeShimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/montserrat"
+                        android:maxLines="2"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageViewt2Shimmer"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewt2Shimmer"
+                        app:layout_constraintTop_toTopOf="@+id/imageViewt2Shimmer" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/bottomCard"
             android:layout_marginTop="@dimen/_12sdp"
-            android:background="@drawable/footballnow_bggraystrokewbg1"
-            android:padding="@dimen/_6sdp"
             android:layout_marginBottom="@dimen/_8sdp"
+            android:background="@drawable/footballnow_bggraystrokewbg1"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_6sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -356,7 +486,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
                 android:layout_weight="1"
-                android:maxLines="1"
                 android:ellipsize="end"
                 android:fontFamily="@font/montserrat"
                 android:text="@string/premier_league"
@@ -385,10 +514,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
                 android:layout_weight="1"
-                android:fontFamily="@font/montserrat"
-                android:text="@string/old_trafford"
-                android:maxLines="1"
                 android:ellipsize="end"
+                android:fontFamily="@font/montserrat"
+                android:maxLines="1"
+                android:text="@string/old_trafford"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -401,10 +530,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_medium"
-
                 android:text="Referee:"
+
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textView13" />
 
@@ -415,11 +545,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_4sdp"
                 android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:text="Michael Oliver"
                 android:textColor="@color/grey"
-                android:maxLines="1"
-                android:ellipsize="end"
                 android:textSize="@dimen/_10ssp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView14"
                 app:layout_constraintTop_toBottomOf="@id/venueName" />
@@ -427,41 +558,187 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottomCardShimmer"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventLt"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_6sdp">
 
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shimmer_bg"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:layout_marginBottom="@dimen/_8sdp">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/eventLt"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/_8sdp"
-    android:layout_marginTop="@dimen/_12sdp"
-    app:layout_constraintTop_toBottomOf="@id/winprobabiltyLt"
-    android:background="@drawable/footballnow_bggraystrokewbg1">
 
-    <!-- Events Section -->
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Match Events"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/white"
+                <TextView
+                    android:id="@+id/textView12Shimmer"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        android:fontFamily="@font/montserrat_medium"
-        android:textSize="@dimen/_12ssp"
+                <TextView
+                    android:id="@+id/competitionNameShimmer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
 
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+                    app:layout_constraintStart_toEndOf="@+id/textView12Shimmer"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/eventsRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/_12sdp"
-        app:layout_constraintTop_toBottomOf="@id/textView11"
-        android:layout_height="wrap_content" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/textView13Shimmer"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/competitionNameShimmer" />
+
+                <TextView
+                    android:id="@+id/venueNameShimmer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/montserrat"
+                    android:maxLines="1"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView13Shimmer"
+                    app:layout_constraintTop_toBottomOf="@id/competitionNameShimmer" />
+
+
+                <TextView
+                    android:id="@+id/textView14Shimmer"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10ssp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView13Shimmer" />
+
+
+                <TextView
+                    android:id="@+id/refereeNameShimmer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/_10ssp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView14Shimmer"
+                    app:layout_constraintTop_toBottomOf="@id/venueNameShimmer" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/eventLt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/footballnow_bggraystrokewbg1"
+            android:padding="@dimen/_8sdp"
+            app:layout_constraintTop_toBottomOf="@id/winprobabiltyLt">
+
+            <!-- Events Section -->
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Match Events"
+                android:textColor="@color/white"
+
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintTop_toTopOf="parent"
+
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="16dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/eventsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                app:layout_constraintTop_toBottomOf="@id/textView11" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             android:id="@+id/eventLtShimmer"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/eventLt"
+            app:layout_constraintEnd_toEndOf="@id/eventLt"
+            app:layout_constraintTop_toTopOf="@+id/eventLt"
+            app:layout_constraintBottom_toBottomOf="@+id/eventLt">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/footballnow_bggraystrokewbg1"
+                android:padding="@dimen/_8sdp">
+
+                <!-- Events Section -->
+                <TextView
+                    android:id="@+id/textView11Shimmer"
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="@color/white"
+                     android:textSize="@dimen/_12ssp"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/eventsRecyclerViewShimmer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:background="@drawable/shimmer_bg"
+                    app:layout_constraintTop_toBottomOf="@id/textView11Shimmer" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

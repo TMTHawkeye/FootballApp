@@ -12,15 +12,17 @@
 
     <TextView
         android:id="@+id/team1StatValue"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="end"
+        android:layout_marginStart="@dimen/_5sdp"
         android:text="85%"
         android:textColor="@color/white"
         android:fontFamily="@font/montserrat_medium"
         android:textSize="14sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/statName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,15 +47,17 @@
 
     <TextView
         android:id="@+id/team2StatValue"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="start"
         android:text="72%"
+        android:layout_marginEnd="@dimen/_5sdp"
         android:textColor="@color/white"
         android:fontFamily="@font/montserrat_medium"
         android:textSize="14sp"
         android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/statName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

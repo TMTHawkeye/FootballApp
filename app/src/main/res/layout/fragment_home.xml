@@ -13,8 +13,6 @@
 
         android:orientation="vertical">
 
-        <!-- Date Selector -->
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/heading"
@@ -112,12 +110,12 @@
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/textView3shimmer"
             android:layout_width="0dp"
-            android:background="@drawable/shimmer_bg"
             android:layout_height="@dimen/_12sdp"
-              app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toTopOf="@+id/textView3"
+            android:background="@drawable/shimmer_bg"
+            app:layout_constraintBottom_toBottomOf="@+id/textView3"
             app:layout_constraintEnd_toEndOf="@id/textView3"
-            app:layout_constraintBottom_toBottomOf="@+id/textView3"/>
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toTopOf="@+id/textView3" />
 
 
         <TextView
@@ -136,6 +134,22 @@
             app:layout_constraintEnd_toEndOf="@+id/datesRecyclerView"
             app:layout_constraintTop_toBottomOf="@+id/datesRecyclerView" />
 
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/seeAllShimmer"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_9ssp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:fontFamily="@font/montserrat"
+             android:textColor="@color/grey"
+            android:background="@drawable/shimmer_bg"
+
+
+            app:layout_constraintStart_toStartOf="@+id/seeAll"
+            app:layout_constraintTop_toTopOf="@+id/seeAll"
+            app:layout_constraintEnd_toEndOf="@+id/seeAll"
+            app:layout_constraintBottom_toBottomOf="@+id/seeAll"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/datesRecyclerView"
             android:layout_width="0dp"
@@ -152,11 +166,38 @@
 
             tools:listitem="@layout/item_date" />
 
+
+        <LinearLayout
+            android:id="@+id/datesRecyclerViewshimmer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/datesRecyclerView"
+            app:layout_constraintEnd_toEndOf="@+id/datesRecyclerView"
+            app:layout_constraintStart_toStartOf="@+id/datesRecyclerView"
+            app:layout_constraintTop_toTopOf="@+id/datesRecyclerView">
+
+            <include layout="@layout/item_dateshimmer" />
+
+            <include layout="@layout/item_dateshimmer" />
+
+            <include layout="@layout/item_dateshimmer" />
+
+            <include layout="@layout/item_dateshimmer" />
+
+            <include layout="@layout/item_dateshimmer" />
+
+            <include layout="@layout/item_dateshimmer" />
+
+            <include layout="@layout/item_dateshimmer" />
+
+
+        </LinearLayout>
+
         <!-- Match Slider with FIXED height container -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/relativeLayout"
             android:layout_width="0dp"
-
             android:layout_height="190dp"
             android:layout_marginTop="@dimen/_12sdp"
             app:layout_constraintEnd_toEndOf="@+id/datesRecyclerView"
@@ -234,29 +275,28 @@
             android:text="@string/other_today_s_matches"
             android:textColor="@color/grey"
             android:textSize="@dimen/_12ssp"
-
-            app:layout_constraintStart_toStartOf="@+id/relativeLayout"
+             app:layout_constraintStart_toStartOf="@+id/datesRecyclerView"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/matches_heading_tvshimmer"
             android:layout_width="0dp"
-            android:background="@drawable/shimmer_bg"
             android:layout_height="@dimen/_12sdp"
-            app:layout_constraintStart_toStartOf="@+id/matches_heading_tv"
-            app:layout_constraintTop_toTopOf="@+id/matches_heading_tv"
+            android:background="@drawable/shimmer_bg"
+            app:layout_constraintBottom_toBottomOf="@+id/matches_heading_tv"
             app:layout_constraintEnd_toEndOf="@id/matches_heading_tv"
-            app:layout_constraintBottom_toBottomOf="@+id/matches_heading_tv"/>
+            app:layout_constraintStart_toStartOf="@+id/matches_heading_tv"
+            app:layout_constraintTop_toTopOf="@+id/matches_heading_tv" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/matchesRecyclerView"
             android:layout_width="0dp"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
-            app:layout_constraintStart_toStartOf="@+id/relativeLayout"
+             app:layout_constraintEnd_toEndOf="@+id/datesRecyclerView"
+            app:layout_constraintStart_toStartOf="@+id/datesRecyclerView"
             app:layout_constraintTop_toBottomOf="@+id/matches_heading_tv"
             tools:itemCount="10"
             tools:listitem="@layout/item_match_list" />
@@ -264,7 +304,7 @@
 
         <LinearLayout
             android:id="@+id/ct_shimmers"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
 
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
@@ -272,8 +312,8 @@
 
             android:visibility="visible"
 
-            app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
-            app:layout_constraintStart_toStartOf="@+id/relativeLayout"
+            app:layout_constraintEnd_toEndOf="@+id/datesRecyclerView"
+            app:layout_constraintStart_toStartOf="@+id/datesRecyclerView"
             app:layout_constraintTop_toBottomOf="@+id/matches_heading_tv">
 
 

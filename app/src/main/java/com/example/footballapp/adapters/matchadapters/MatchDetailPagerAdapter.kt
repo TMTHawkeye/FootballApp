@@ -12,9 +12,7 @@ import com.example.footballapp.models.matchmodels.Match
 
 class MatchDetailPagerAdapter(
     activity: AppCompatActivity,
-    private val match: Match?,
-    var summary : MatchSummary
-) : FragmentStateAdapter(activity) {
+  ) : FragmentStateAdapter(activity) {
     
     override fun getItemCount(): Int = 4
     
@@ -22,8 +20,8 @@ class MatchDetailPagerAdapter(
         return when (position) {
             0 -> InfoFragment()/*.newInstance(summary)*/
             1 -> StatsFragment()/*newInstance(match)*/
-            2 -> LineupFragment.newInstance(match)
-            3 -> TableFragment.newInstance(match)
+            2 -> LineupFragment()/*.newInstance(match)*/
+            3 -> TableFragment()/*.newInstance(match)*/
             else -> throw IllegalArgumentException("Invalid position: $position")
         }
     }

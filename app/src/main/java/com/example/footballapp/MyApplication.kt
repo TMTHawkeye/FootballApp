@@ -3,7 +3,8 @@ package com.example.footballapp
 
 
 import android.app.Application
- import org.koin.android.ext.koin.androidContext
+import com.example.footballapp.utils.appMi
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 class MyApplication : Application() {
@@ -12,7 +13,7 @@ class MyApplication : Application() {
 
         startKoin {
             androidContext(this@MyApplication)
-            modules(footballApiModule)
+            modules(footballApiModule, appMi)
         }
     }
 }

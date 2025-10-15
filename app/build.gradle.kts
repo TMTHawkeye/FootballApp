@@ -80,4 +80,7 @@ dependencies {
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
 
+    implementation("org.jetbrains.kotlin:kotlin-reflect: 1.9.0")
+
+    implementation("com.google.code.gson:gson:2.11.0")
 }

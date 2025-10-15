@@ -25,10 +25,9 @@
             <View
                 android:id="@+id/shimmerDateText"
                 android:layout_width="40dp"
-                android:layout_height="@dimen/_9ssp"
+                android:layout_height="@dimen/_19ssp"
                 android:paddingHorizontal="@dimen/_4sdp"
-                android:paddingVertical="@dimen/_1sdp"
-                android:background="@drawable/shimmer_bg" />
+                android:paddingVertical="@dimen/_1sdp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

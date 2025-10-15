@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#1AFFFFFF"
+    android:paddingVertical="6dp"
+    android:paddingHorizontal="4dp">
+
+    <!-- # -->
+    <TextView
+        android:id="@+id/positionHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="#"
+        android:textStyle="bold"
+        android:layout_marginStart="@dimen/_2sdp"
+
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/teamHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+      />
+
+    <!-- Team -->
+    <TextView
+        android:id="@+id/teamHeader"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_width="@dimen/_130sdp"
+        android:layout_height="wrap_content"
+        android:text="Team"
+         android:textStyle="bold"
+        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat"
+         app:layout_constraintStart_toEndOf="@id/positionHeader"
+        app:layout_constraintEnd_toStartOf="@id/matchesPlayedHeader"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- P -->
+    <TextView
+        android:id="@+id/matchesPlayedHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="P"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/teamHeader"
+        app:layout_constraintEnd_toStartOf="@id/winsHeader"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.07" />
+
+    <!-- W -->
+    <TextView
+        android:id="@+id/winsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="W"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/matchesPlayedHeader"
+        app:layout_constraintEnd_toStartOf="@id/drawsHeader"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.07" />
+
+    <!-- D -->
+    <TextView
+        android:id="@+id/drawsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="D"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/winsHeader"
+        app:layout_constraintEnd_toStartOf="@id/lossesHeader"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.07" />
+
+    <!-- L -->
+    <TextView
+        android:id="@+id/lossesHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="L"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/drawsHeader"
+        app:layout_constraintEnd_toStartOf="@id/goalDiffHeader"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.07" />
+
+    <!-- GD -->
+    <TextView
+        android:id="@+id/goalDiffHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GD"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/lossesHeader"
+        app:layout_constraintEnd_toStartOf="@id/pointsHeader"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.07" />
+
+    <!-- Pts -->
+    <TextView
+        android:id="@+id/pointsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pts"
+        android:textStyle="bold"
+        android:layout_marginEnd="@dimen/_2sdp"
+
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/goalDiffHeader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintWidth_percent="0.07" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,26 +10,30 @@
     <!-- Position -->
     <TextView
         android:id="@+id/positionn"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1"
+        android:includeFontPadding="false"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         android:textSize="12sp"
         android:gravity="center"
         android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
         android:layout_marginStart="@dimen/_2sdp"
         android:paddingHorizontal="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/teamLogoo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.05" />
+        app:layout_constraintStart_toStartOf="parent"  />
 
     <!-- Team Logo -->
     <ImageView
+        android:includeFontPadding="false"
         android:id="@+id/teamLogoo"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/_16sdp"
+        android:layout_height="@dimen/_16sdp"
         android:src="@drawable/app_icon"
+        app:layout_constraintEnd_toStartOf="@+id/teamName"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/positionn"
@@ -37,16 +41,16 @@
 
     <!-- Team Name -->
     <TextView
+        android:includeFontPadding="false"
         android:id="@+id/teamName"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/_100sdp"
         android:layout_height="wrap_content"
         android:text="@string/team_name"
-        android:layout_marginStart="@dimen/_4sdp"
-        android:textSize="12sp"
+         android:textSize="12sp"
         android:maxLines="1"
         android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
-        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:layout_marginHorizontal="@dimen/_4sdp"
 
         android:ellipsize="end"
         app:layout_constraintTop_toTopOf="parent"
@@ -58,8 +62,9 @@
 
     <!-- P (Matches Played) -->
     <TextView
+        android:includeFontPadding="false"
         android:id="@+id/matchesPlayedd"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_20"
         android:textSize="12sp"
@@ -67,17 +72,17 @@
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         app:layout_constraintEnd_toStartOf="@id/winss"
-        android:layout_marginEnd="@dimen/_4sdp"
-        android:paddingHorizontal="2dp"
+         android:paddingHorizontal="2dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/teamName"
-        app:layout_constraintWidth_percent="0.07" />
+       />
 
     <!-- W (Wins) -->
     <TextView
+        android:includeFontPadding="false"
         android:id="@+id/winss"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_15"
         android:textSize="12sp"
@@ -86,16 +91,16 @@
         android:gravity="center"
         android:paddingHorizontal="2dp"
         app:layout_constraintEnd_toStartOf="@id/drawss"
-        android:layout_marginEnd="@dimen/_4sdp"
-        app:layout_constraintTop_toTopOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/matchesPlayedd"
-        app:layout_constraintWidth_percent="0.07" />
+    />
 
     <!-- D (Draws) -->
     <TextView
+        android:includeFontPadding="false"
         android:id="@+id/drawss"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_3"
         android:textSize="12sp"
@@ -103,67 +108,63 @@
         android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
         app:layout_constraintEnd_toStartOf="@id/lossess"
-        android:layout_marginEnd="@dimen/_4sdp"
-        android:paddingHorizontal="2dp"
+         android:paddingHorizontal="2dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/winss"
-        app:layout_constraintWidth_percent="0.07" />
+        app:layout_constraintStart_toEndOf="@id/winss"  />
 
     <!-- L (Losses) -->
     <TextView
+        android:includeFontPadding="false"
         android:id="@+id/lossess"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_2"
         android:textSize="12sp"
         android:gravity="center"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@id/goalDifferencee"
-        android:layout_marginEnd="@dimen/_4sdp"
-        android:fontFamily="@font/montserrat"
+         android:fontFamily="@font/montserrat"
         android:paddingHorizontal="2dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/drawss"
-        app:layout_constraintWidth_percent="0.07" />
+        app:layout_constraintStart_toEndOf="@id/drawss" />
 
     <!-- GD (Goal Difference) -->
     <TextView
+        android:includeFontPadding="false"
         android:id="@+id/goalDifferencee"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/_28"
-        android:textSize="12sp"
-        android:gravity="center"
+         android:textSize="12sp"
+         android:gravity="center"
         android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
         android:paddingHorizontal="2dp"
-        android:layout_marginEnd="@dimen/_4sdp"
-        app:layout_constraintEnd_toStartOf="@id/pointss"
+         app:layout_constraintEnd_toStartOf="@id/pointss"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/lossess"
-        app:layout_constraintWidth_percent="0.07" />
+        app:layout_constraintStart_toEndOf="@id/lossess"  />
 
     <!-- PTS (Points) -->
     <TextView
+        android:includeFontPadding="false"
         android:id="@+id/pointss"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_48"
         android:textSize="12sp"
         android:textStyle="bold"
         android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
+         android:gravity="center"
         android:layout_marginEnd="@dimen/_2sdp"
-        android:gravity="center"
+
         android:paddingHorizontal="2dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/goalDifferencee"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.07" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
     <View

@@ -30,13 +30,7 @@
         android:src="@drawable/app_icon"
         android:layout_marginEnd="16dp" />
 
-    <!-- Team Logo -->
-    <ImageView
-        android:id="@+id/teamLogoo"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/app_icon"
-        android:layout_marginEnd="16dp" />
+
 
     <!-- Event Details -->
     <LinearLayout
@@ -59,8 +53,7 @@
             android:id="@+id/eventDescriptionn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/marcus_rashford"
-            android:textSize="@dimen/_10ssp"
+             android:textSize="@dimen/_10ssp"
             android:fontFamily="@font/montserrat"
             android:textColor="@color/grey"
             android:maxLines="2"

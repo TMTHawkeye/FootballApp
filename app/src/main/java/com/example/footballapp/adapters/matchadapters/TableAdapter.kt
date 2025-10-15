@@ -9,108 +9,96 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.footballapi.sealedClasses.sealedTableItem
+import com.example.footballapp.Helper.imagePrefix
 import com.example.footballapp.R
 import com.example.footballapp.fragments.matchdetail.TableFragment
 import com.example.footballapp.models.matchmodels.TableItem
 
-class TableAdapter(private val tableItems: List<TableItem>) :
+
+class TableAdapter(private val items: List<sealedTableItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        private const val TYPE_HEADER = 0
-        private const val TYPE_ITEM = 1
+        private const val TYPE_LEAGUE_DIVIDER = 0
+        private const val TYPE_HEADER_ROW = 1
+        private const val TYPE_TEAM_ROW = 2
     }
 
-    class TableViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val position: TextView = itemView.findViewById(R.id.positionn)
-        val teamLogo: ImageView = itemView.findViewById(R.id.teamLogoo)
-        val teamName: TextView = itemView.findViewById(R.id.teamName)
-        val matchesPlayed: TextView = itemView.findViewById(R.id.matchesPlayedd)
-        val wins: TextView = itemView.findViewById(R.id.winss)
-        val draws: TextView = itemView.findViewById(R.id.drawss)
-        val losses: TextView = itemView.findViewById(R.id.lossess)
-        val goalDifference: TextView = itemView.findViewById(R.id.goalDifferencee)
-        val points: TextView = itemView.findViewById(R.id.pointss)
+    inner class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view)
+
+    inner class DividerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val leagueName: TextView = view.findViewById(R.id.leagueName)
     }
 
-    class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-
-    override fun getItemViewType(position: Int): Int {
-        return if (position == 0) TYPE_HEADER else TYPE_ITEM
+    inner class TeamViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val position: TextView = view.findViewById(R.id.positionn)
+        val teamLogo: ImageView = view.findViewById(R.id.teamLogoo)
+        val teamName: TextView = view.findViewById(R.id.teamName)
+        val matchesPlayed: TextView = view.findViewById(R.id.matchesPlayedd)
+        val wins: TextView = view.findViewById(R.id.winss)
+        val draws: TextView = view.findViewById(R.id.drawss)
+        val losses: TextView = view.findViewById(R.id.lossess)
+        val goalDifference: TextView = view.findViewById(R.id.goalDifferencee)
+        val points: TextView = view.findViewById(R.id.pointss)
     }
+
+    override fun getItemViewType(position: Int): Int = when (items[position]) {
+        is sealedTableItem.LeagueDivider -> TYPE_LEAGUE_DIVIDER
+        is sealedTableItem.HeaderRow -> TYPE_HEADER_ROW
+        is sealedTableItem.TeamRow -> TYPE_TEAM_ROW
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == TYPE_HEADER) {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.table_header_row, parent, false)
-            HeaderViewHolder(view)
-        } else {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_table_row, parent, false)
-            TableViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            TYPE_LEAGUE_DIVIDER -> {
+                val view = inflater.inflate(R.layout.item_league_divider, parent, false)
+                DividerViewHolder(view)
+            }
+            TYPE_HEADER_ROW -> {
+                val view = inflater.inflate(R.layout.item_table_header, parent, false)
+                HeaderViewHolder(view)
+            }
+            else -> {
+                val view = inflater.inflate(R.layout.item_table_row, parent, false)
+                TeamViewHolder(view)
+            }
         }
     }
+
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is TableViewHolder) {
-            val tableItem = tableItems[position - 1] // Adjust for header
-
-            holder.position.text = tableItem.position.toString()
-
-            // Set team logo with error handling
-            try {
-                holder.teamLogo.setImageResource(tableItem.teamLogo)
-            } catch (e: Resources.NotFoundException) {
-                holder.teamLogo.setImageResource(R.drawable.app_icon)
+        when (val item = items[position]) {
+            is sealedTableItem.LeagueDivider -> {
+                val dividerHolder = holder as DividerViewHolder
+                dividerHolder.leagueName.text = item.leagueName
             }
+            is sealedTableItem.TeamRow -> {
+                val teamHolder = holder as TeamViewHolder
 
-            holder.teamName.text = tableItem.teamName
-            holder.matchesPlayed.text = tableItem.matchesPlayed.toString()
-            holder.wins.text = tableItem.wins.toString()
-            holder.draws.text = tableItem.draws.toString()
-            holder.losses.text = tableItem.losses.toString()
+                teamHolder.position.text = item.position.toString()
+                teamHolder.teamName.text = item.teamName
+                teamHolder.matchesPlayed.text = item.matchesPlayed.toString()
+                teamHolder.wins.text = item.wins.toString()
+                teamHolder.draws.text = item.draws.toString()
+                teamHolder.losses.text = item.losses.toString()
+                teamHolder.goalDifference.text = item.goalDifference.toString()
+//                    if (item.goalDifference >= 0) "+${item.goalDifference}" else item.goalDifference.toString()
+                teamHolder.points.text = item.points.toString()
 
-            // Format goal difference with +/-
-            val goalDiffText = if (tableItem.goalDifference >= 0) {
-                "+${tableItem.goalDifference}"
-            } else {
-                tableItem.goalDifference.toString()
+                Glide.with(teamHolder.teamLogo)
+                    .load( item.teamLogo)
+                    .placeholder(R.drawable.app_icon)
+                    .into(teamHolder.teamLogo)
             }
-            holder.goalDifference.text = goalDiffText
+            else->{
 
-            holder.points.text = tableItem.points.toString()
-
-            // Highlight special positions
-
-
-
-            // Make current teams bold
-            if (tableItem.isCurrentTeam1 || tableItem.isCurrentTeam2) {
-                holder.teamName.setTypeface(null, Typeface.BOLD)
-                holder.points.setTypeface(null, Typeface.BOLD)
             }
         }
-        // Header doesn't need binding
     }
 
-    override fun getItemCount(): Int = tableItems.size + 1 // +1 for header
-
-    private fun highlightPosition(holder: TableViewHolder, colorRes: Int, isChampion: Boolean) {
-        val context = holder.itemView.context
-        val color = ContextCompat.getColor(context, colorRes)
-
-        holder.itemView.setBackgroundColor(ContextCompat.getColor(context, R.color.green_color))
-
-        if (isChampion) {
-            holder.position.setTypeface(null, Typeface.BOLD)
-            holder.position.setTextColor(color)
-        }
-    }
-
-    private fun resetHighlight(holder: TableViewHolder) {
-        val context = holder.itemView.context
-        holder.itemView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent))
-        holder.position.setTextColor(ContextCompat.getColor(context, android.R.color.black))
-        holder.position.setTypeface(null, Typeface.NORMAL)
-    }
+    override fun getItemCount(): Int = items.size
 }

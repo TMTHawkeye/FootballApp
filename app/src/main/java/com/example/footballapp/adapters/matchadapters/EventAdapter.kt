@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.footballapi.modelClasses.matchSummary.Events
 import com.example.footballapi.sealedClasses.MatchEvent
+import com.example.footballapp.Helper.gone
 import com.example.footballapp.R
 import com.example.footballapp.databinding.ItemEventBinding
 
@@ -26,7 +27,7 @@ class EventAdapter(private val events: List<MatchEvent>) :
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val event = events[position]
 
-        holder.binding.eventTimee.text = event.minute.toString()
+        holder.binding.eventTimee.text = event.minute.toString()+"'"
 //        holder.binding.eventTypee.text = event
 //        holder.binding.eventDescriptionn.text = event.player
 //        holder.binding.teamLogoo.setImageResource(event.teamLogo)
@@ -35,28 +36,26 @@ class EventAdapter(private val events: List<MatchEvent>) :
         with(holder.binding) {
             when (event) {
                 is MatchEvent.GoalEvent -> {
-                    eventTypee.text = "Goal"
-                    eventDescriptionn.text = "${event.player} (${event.team})"
-                    eventIconn.setImageResource(R.drawable.app_icon) // your goal icon
+                    eventTypee.text = "${event.player} from ${event.team}"
+                    eventDescriptionn.text = "Goal"
+                    eventIconn.setImageResource(R.drawable.goal_logo) // your goal icon
                 }
 
                 is MatchEvent.YellowCardEvent -> {
-                    eventTypee.text = "Yellow Card"
-                    eventDescriptionn.text = "${event.player} (${event.team})"
-                    eventIconn.setImageResource(R.drawable.playerr)
+                    eventTypee.text = "${event.player} from ${event.team}"
+                    eventDescriptionn.text = "Foul"
+                    eventIconn.setImageResource(R.drawable.yellow_card)
                 }
 
                 is MatchEvent.RedCardEvent -> {
-                    eventTypee.text = "Red Card"
-                    eventDescriptionn.text = "${event.player} (${event.team})"
-                    eventIconn.setImageResource(R.drawable.redplayer)
+                    eventTypee.text = "${event.player} from ${event.team}"
+                    eventDescriptionn.text = "Foul"
+                    eventIconn.setImageResource(R.drawable.red_card)
                 }
 
                 is MatchEvent.SubstitutionEvent -> {
-                    eventTypee.text = "Substitution"
-                    eventDescriptionn.text =
-                        "${event.playerOut} ➜ ${event.playerIn} (${event.team})"
-                    eventIconn.setImageResource(R.drawable.app_icon)
+                    eventTypee.text =  "${event.playerOut} ➜ ${event.playerIn} (${event.team})"
+                    eventDescriptionn.gone()
                 }
             }
         }

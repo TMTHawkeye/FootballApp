@@ -2,8 +2,10 @@ package com.example.footballapi
 
  import com.example.footballapi.modelClasses.AllMatches
  import com.example.footballapi.modelClasses.MatchesRequest
+ import com.example.footballapi.modelClasses.matchLineups.LineupResponse
  import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
  import com.example.footballapi.modelClasses.matchSummary.MatchSummary
+ import com.example.footballapi.modelClasses.matchTable.matchTableResponse
  import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -31,16 +33,16 @@ interface FootballApiService {
         @Path("match_id") matchId: String
     ): MatchStatsResponse
 
-
     @GET("api/football/match/{match_id}/lineups")
-    suspend fun getMatchLineup(
+    suspend fun getMatchLineups(
         @Path("match_id") matchId: String
-    ): MatchStatsResponse
+    ): LineupResponse
 
 
-    @GET("api/football/match/{match_id}/table")
+    @GET("api/football/match/{match_id}/table/")
     suspend fun getMatchTable(
         @Path("match_id") matchId: String
-    ): MatchStatsResponse
+    ): matchTableResponse
+
 
 }

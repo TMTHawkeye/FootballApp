@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.footballapi.modelClasses.Stage
 import com.example.footballapp.Helper.ApiResultTAG
-import com.example.footballapp.Helper.imagePrefix
+ import com.example.footballapp.Helper.imagePrefixCompetition
 import com.example.footballapp.R
 import com.example.footballapp.databinding.ItemStageBinding
 import com.example.footballapp.interfaces.OnMatchSelected
@@ -50,7 +50,7 @@ class StageAdapter(
 
 
             Glide.with(competitionLogoooo.context)
-                .load(imagePrefix+stage.badge_url)
+                .load(imagePrefixCompetition+stage.badge_url)
                 .placeholder(R.drawable.app_icon)
                 .into(competitionLogoooo)
 

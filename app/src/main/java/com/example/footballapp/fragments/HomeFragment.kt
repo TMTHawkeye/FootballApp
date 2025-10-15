@@ -41,10 +41,13 @@ import com.example.footballapp.interfaces.OnMatchSelected
 import com.example.footballapp.interfaces.OnStageClickListener
 import com.example.footballapp.models.matchmodels.Match
 import com.example.footballapp.models.matchmodels.MatchDate
+import com.example.footballapp.viewmodels.MatchViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import kotlin.getValue
 
 class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
     lateinit var binding: FragmentHomeBinding
@@ -59,6 +62,9 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
     private val viewModel: FootballViewModel by activityViewModel()
     var formattedDate: String? = null
     var stageAdapter: StageAdapter? = null
+
+    private val matchViewModel: MatchViewModel by viewModel()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -432,18 +438,12 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
                 viewModel.matchesFlow.collect { result ->
                     when (result) {
                         is ApiResult.Loading -> {
-                            binding.matchesRecyclerView.invisible()
-                            binding.textView3.invisible()
-                            binding.matchesHeadingTv.invisible()
-                            binding.matchSliderViewPager.invisible()
+
                             showLoading(true)
                         }
 
                         is ApiResult.Success -> {
-                            binding.matchesRecyclerView.visible()
-                            binding.matchSliderViewPager.visible()
-                            binding.textView3.visible()
-                            binding.matchesHeadingTv.visible()
+
                             showLoading(false)
                             updateCompetitions(result.data)
 
@@ -463,9 +463,8 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
                         }
 
                         is ApiResult.Error -> {
-                            binding.matchesRecyclerView.gone()
-                            binding.matchSliderViewPager.gone()
-                            showLoading(false)
+
+                            showLoading(null)
                             showError(result.throwable)
                         }
                     }
@@ -479,20 +478,49 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
         stageAdapter?.updateData(data)
     }
 
-    private fun showLoading(show: Boolean) {
+    private fun showLoading(show: Boolean?) {
         Log.d(ApiResultTAG, "showLoading: $show")
 
-        if(show) {
-            binding.ctShimmers.visible()
-            binding.textView3shimmer.visible()
-            binding.matchesHeadingTvshimmer.visible()
-            binding.ctSliderShimmer.visible()
-        }
-        else{
-            binding.ctShimmers.gone()
-            binding.textView3shimmer.gone()
-            binding.matchesHeadingTvshimmer.gone()
-            binding.ctSliderShimmer.gone()
+        show?.let {
+            if (show) {
+                binding.ctShimmers.visible()
+                binding.textView3shimmer.visible()
+                binding.matchesHeadingTvshimmer.visible()
+                binding.ctSliderShimmer.visible()
+                binding.datesRecyclerViewshimmer.visible()
+                binding.seeAllShimmer.visible()
+
+
+                binding.datesRecyclerView.invisible()
+                binding.matchesRecyclerView.invisible()
+                binding.matchSliderViewPager.invisible()
+                binding.textView3.invisible()
+                binding.matchesHeadingTv.invisible()
+
+                binding.btnPrevious.invisible()
+                binding.btnNext.invisible()
+                binding.seeAll.invisible()
+
+            } else {
+                binding.ctShimmers.gone()
+                binding.textView3shimmer.gone()
+                binding.matchesHeadingTvshimmer.gone()
+                binding.ctSliderShimmer.gone()
+                binding.datesRecyclerViewshimmer.gone()
+                binding.seeAllShimmer.gone()
+
+                binding.datesRecyclerView.visible()
+                binding.matchesRecyclerView.visible()
+                binding.matchSliderViewPager.visible()
+                binding.textView3.visible()
+                binding.matchesHeadingTv.visible()
+                binding.btnPrevious.visible()
+                binding.btnNext.visible()
+                binding.seeAll.visible()
+            }
+        }?:run{
+            binding.matchesRecyclerView.gone()
+            binding.matchSliderViewPager.gone()
         }
     }
 
@@ -550,21 +578,39 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
         }
     */
     fun setLiveMAtchesList(matchesList: List<Stage>?) {
-        val liveMatches = matchesList.orEmpty()
-            .flatMap { stage ->
-                stage.matches.orEmpty().map { match ->
-                    match.copy(
-                        tournamentLogo = stage.badge_url?.takeIf { it != "null" }
-                            ?: match.tournamentLogo,
-                        tournamentName =
-                            adjustNameForTournament(stage)
-                    )
+            val liveMatches = matchesList.orEmpty()
+                .flatMap { stage ->
+                    stage.matches.orEmpty().map { match ->
+                        match.copy(
+                            tournamentLogo = stage.badge_url?.takeIf { it != "null" }
+                                ?: match.tournamentLogo,
+                            tournamentName =
+                                adjustNameForTournament(stage)
+                        )
+                    }
                 }
-            }
-            .filter { match -> match.match_status?.contains("'") == true }
+                .filter { match -> match.match_status?.contains("'") == true }
+        Log.d("TAG_setLiveMAtchesList", "setLiveMAtchesList: ${liveMatches.size}")
 
-        binding.textView3.text = getString(R.string.livematches) + " ${liveMatches.size}"
-        setupMatchSlider(liveMatches)
+        if(liveMatches.size!=0) {
+            if(liveMatches?.size==1){
+                binding.seeAll.invisible()
+            }
+            else{
+                binding.seeAll.visible()
+            }
+            binding.relativeLayout.visible()
+            binding.textView3.visible()
+            binding.textView3.text = getString(R.string.livematches) + " ${liveMatches.size}"
+            setupMatchSlider(liveMatches)
+        }
+        else{
+            binding.relativeLayout.gone()
+            binding.seeAll.invisible()
+            binding.textView3.text = getString(R.string.livematches) + " ${liveMatches.size}"
+
+//            binding.textView3.gone()
+        }
     }
 
     fun adjustNameForTournament(stage : Stage) : String{
@@ -583,6 +629,7 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
 
     override fun onMatchClicked(matche: Matche) {
         Log.d("TAG_MATCHDATA", "onMatchClicked: ${matche}")
+        matchViewModel.setMatch(matche)
         matche.match_id?.let { viewModel.loadMatchSummary(it) }
     }
 

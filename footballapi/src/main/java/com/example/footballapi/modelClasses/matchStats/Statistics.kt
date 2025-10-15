@@ -1,21 +1,20 @@
 package com.example.footballapi.modelClasses.matchStats
 
 data class Statistics(
-    val corners: String,
-    val counterAttacks: String,
-    val crosses: String,
-    val fouls: String,
-    val goalKicks: String,
-    val goalkeeperSaves: String,
-    val offsides: String,
-    val possession: String,
-    val redCards: String,
-    val shotsBlocked: String,
-    val shotsOffTarget: String,
-    val shotsOnTarget: String,
-    val statistics: String,
-    val throwIns: String,
-    val treatments: String,
-    val yellowCards: String,
-    val yellowRedCards: String
+    val corners: List<Int>,
+    val counterAttacks: List<Int>,
+    val crosses: List<Int>,
+    val fouls: List<Int>,
+    val goalKicks: List<Int>,
+    val goalkeeperSaves: List<Int>,
+    val offsides: List<Int>,
+    val possession: List<Int>,
+    val redCards: List<Int>,
+    val shotsBlocked: List<Int>,
+    val shotsOffTarget: List<Int>,
+    val shotsOnTarget: List<Int>,
+    val throwIns: List<Int>,
+    val treatments: List<Any>,
+    val yellowCards: List<Int>,
+    val yellowRedCards: List<Int>
 )
