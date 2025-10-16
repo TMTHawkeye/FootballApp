@@ -21,7 +21,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="footbalnow">FOOTBALL<font color="#FFFFFF"> NOW</font></string>
     <string name="livematches">Live Matches |</string>
-    <string name="followingss">Following |<font color="#B6E93D"> 4</font></string>
+    <string name="followingss">Following | </string>
     <string name="see_all_underlined"><u>See All</u></string>
 
     <string name="explore">Explore Features</string>

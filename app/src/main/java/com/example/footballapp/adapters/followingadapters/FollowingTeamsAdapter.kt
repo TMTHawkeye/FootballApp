@@ -1,3 +1,4 @@
+/*
 package com.example.footballapp.adapters.followingadapters
 
 import android.view.LayoutInflater
@@ -6,8 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.footballapp.databinding.ItemTeamBinding
-import com.example.footballapp.databinding.ItemSuggestedTeamBinding
-import com.example.footballapp.models.followingmodels.Team1
+ import com.example.footballapp.models.followingmodels.Team1
 
 
 class FollowingTeamsAdapter(private val onItemClick: (Team1) -> Unit) :
@@ -39,44 +39,58 @@ class FollowingTeamsAdapter(private val onItemClick: (Team1) -> Unit) :
     }
 }
 
-class SuggestedTeamsAdapter(
-    private val onItemClick: (Team1) -> Unit, // For entire item click
-    private val onFollowClick: (Team1) -> Unit // For follow button click
-) : ListAdapter<Team1, SuggestedTeamsAdapter.ViewHolder>(TeamDiffCallback()) {
 
-    class ViewHolder(
-        private val binding: ItemSuggestedTeamBinding,
-        private val onItemClick: (Team1) -> Unit,
-        private val onFollowClick: (Team1) -> Unit
+class TeamDiffCallback : DiffUtil.ItemCallback<Team1>() {
+    override fun areItemsTheSame(oldItem: Team1, newItem: Team1): Boolean = oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: Team1, newItem: Team1): Boolean = oldItem == newItem
+}*/
+
+
+
+
+package com.example.footballapp.adapters.followingadapters
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.footballapp.databinding.ItemTeamBinding
+import com.example.footballapp.models.followingmodels.Team1
+
+class FollowingTeamsAdapter(
+    private val teams: MutableList<Team1>,
+    private val onItemClick: (Team1) -> Unit
+) : RecyclerView.Adapter<FollowingTeamsAdapter.ViewHolder>() {
+
+    inner class ViewHolder(
+        private val binding: ItemTeamBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(team: Team1) {
             binding.teamImage.setImageResource(team.imageRes)
             binding.teamName.text = team.name
-
-            // Set click listener for the entire item
             binding.root.setOnClickListener { onItemClick(team) }
-
-            // Set click listener for the follow button
-            binding.followButton.setOnClickListener { onFollowClick(team) }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ItemSuggestedTeamBinding.inflate(
+        val binding = ItemTeamBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return ViewHolder(binding, onItemClick, onFollowClick)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(teams[position])
     }
-}
 
-class TeamDiffCallback : DiffUtil.ItemCallback<Team1>() {
-    override fun areItemsTheSame(oldItem: Team1, newItem: Team1): Boolean = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: Team1, newItem: Team1): Boolean = oldItem == newItem
+    override fun getItemCount(): Int = teams.size
+
+    /** ✅ Optional: to update list dynamically */
+    fun updateTeams(newTeams: List<Team1>) {
+        teams.clear()
+        teams.addAll(newTeams)
+        notifyDataSetChanged()
+    }
 }

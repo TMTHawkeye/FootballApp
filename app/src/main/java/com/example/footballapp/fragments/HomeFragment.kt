@@ -42,7 +42,9 @@ import com.example.footballapp.interfaces.OnStageClickListener
 import com.example.footballapp.models.matchmodels.Match
 import com.example.footballapp.models.matchmodels.MatchDate
 import com.example.footballapp.viewmodels.MatchViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDate
@@ -435,7 +437,7 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
 
 
     private fun observeCompetitions() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        this@HomeFragment.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.matchesFlow.collect { result ->
                     when (result) {
@@ -447,18 +449,38 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
                         is ApiResult.Success -> {
 
                             showLoading(false)
-                            updateCompetitions(result.data)
+                             withContext(Dispatchers.Main) {
+                                updateCompetitions(result.data)
+                            }
+
+
 
                             val todayFormatted =
                                 LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"))
                             Log.d("TAG_today", "observeCompetitions: $formattedDate")
-                            if (formattedDate == todayFormatted) {
-                                setLiveMAtchesList(result.data)
-                                binding.matchesHeadingTv.setText(binding.root.context.getString(R.string.other_today_s_matches))
-
+                            val isToday = formattedDate == todayFormatted
+                            val processedData = withContext(Dispatchers.Default) {
+                                if (isToday) result.data else null
                             }
-                            else{
-                                binding.matchesHeadingTv.setText(binding.root.context.getString(R.string.other_matches))
+//                            if (formattedDate == todayFormatted) {
+//                                setLiveMAtchesList(result.data)
+//                                binding.matchesHeadingTv.setText(binding.root.context.getString(R.string.other_today_s_matches))
+//
+//                            }
+//                            else{
+//                                binding.matchesHeadingTv.setText(binding.root.context.getString(R.string.other_matches))
+//                            }
+
+                            // 🔹 Back to main thread for UI updates
+                            withContext(Dispatchers.Main) {
+                                if (isToday) {
+                                    setLiveMAtchesList(processedData)
+                                    binding.matchesHeadingTv.text =
+                                        binding.root.context.getString(R.string.other_today_s_matches)
+                                } else {
+                                    binding.matchesHeadingTv.text =
+                                        binding.root.context.getString(R.string.other_matches)
+                                }
                             }
                         }
 

@@ -8,6 +8,7 @@ object Helper {
 
     var ApiResultTAG = "ApiResult_Tag"
     var MATCH_ID = "MATCH_ID"
+    var LEAGUE_ID = "LEAGUE_ID"
     var imagePrefixCompetition = "https://storage.livescore.com/images/competition/high/"
     var imagePrefix = "https://storage.livescore.com/images/team/high/"
 

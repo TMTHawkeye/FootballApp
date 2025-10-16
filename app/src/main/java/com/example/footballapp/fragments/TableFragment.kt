@@ -113,7 +113,7 @@ class TableFragment : Fragment() {
 //    }
 
     private fun observeMatchTable() {
-        viewLifecycleOwner.lifecycleScope.launch {
+        this@TableFragment.lifecycleScope.launch {
             viewModel.matchTableFlow.collect { result ->
                 when (result) {
                     is ApiResult.Loading -> showLoading(true)

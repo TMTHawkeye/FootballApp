@@ -2,25 +2,50 @@ package com.example.footballapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.footballapi.ApiResult
+import com.example.footballapi.FootballViewModel
+import com.example.footballapi.modelClasses.AllCompetitions.Stage
+import com.example.footballapp.Helper.ApiResultTAG
+import com.example.footballapp.Helper.LEAGUE_ID
+import com.example.footballapp.Helper.gone
+import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.activities.onboarding.LeagueDetailActivity
+import com.example.footballapp.adapters.followingadapters.FollowedLeaguesAdapter
 import com.example.footballapp.adapters.followingadapters.FollowingTeamsAdapter
-import com.example.footballapp.adapters.followingadapters.SuggestedTeamsAdapter
+import com.example.footballapp.adapters.followingadapters.SuggestedLeaguesAdapter
 import com.example.footballapp.databinding.FragmentLeaguesBinding
 import com.example.footballapp.models.followingmodels.Team1
+import com.example.footballapp.utils.LeagueListType
+import com.example.footballapp.viewmodels.FollowViewModel
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import kotlin.getValue
 
 
 class LeaguesFragment : Fragment() {
 
     private lateinit var binding: FragmentLeaguesBinding
-    private lateinit var followingLeaguesAdapter: FollowingTeamsAdapter
-    private lateinit var suggestedLeaguesAdapter: SuggestedTeamsAdapter
+    private  var followingLeaguesAdapter: SuggestedLeaguesAdapter?=null
+    private  var suggestedLeaguesAdapter: SuggestedLeaguesAdapter?=null
+
+    private val viewModel: FootballViewModel by activityViewModel()
+    private val followViewModel: FollowViewModel by activityViewModel()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,62 +58,152 @@ class LeaguesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupAdapters()
-        loadData()
+//        loadData()
+
+        observeCompetitions()
+
+
     }
 
     private fun setupAdapters() {
-        // Following Leagues RecyclerView
-        followingLeaguesAdapter = FollowingTeamsAdapter { league ->
-            navigateToLeagueDetail(league)
-        }
-        binding.rvFollowingTeams.adapter = followingLeaguesAdapter
-        binding.rvFollowingTeams.layoutManager = LinearLayoutManager(requireContext())
-
-        // Suggested Leagues RecyclerView - now with two click listeners
-        suggestedLeaguesAdapter = SuggestedTeamsAdapter(
-            onItemClick = { league -> // For item click (navigate to detail)
-                navigateToLeagueDetail(league)
+        // ✅ Following leagues
+        followingLeaguesAdapter = SuggestedLeaguesAdapter(
+            mutableListOf(),
+            onFollowClick = { league ->
+                followViewModel.toggleFollowLeague(league.stage_id) // unfollow
             },
-            onFollowClick = { league -> // For follow button click
-                followLeague(league)
-            }
+            onItemClick = {league->
+                     binding.root.context.startActivity(Intent(binding.root.context,
+                         LeagueDetailActivity::class.java))
+
+            },
+            listType = LeagueListType.FOLLOWING
         )
-        binding.rvSuggestedTeams.adapter = suggestedLeaguesAdapter
-        binding.rvSuggestedTeams.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.rvFollowingTeams.apply {
+            adapter = followingLeaguesAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        // ✅ Suggested leagues
+        suggestedLeaguesAdapter = SuggestedLeaguesAdapter(
+            mutableListOf(),
+            onFollowClick = { league ->
+                followViewModel.toggleFollowLeague(league.stage_id) // toggle follow
+            },
+            onItemClick = {league->
+                binding.root.context.startActivity(Intent(binding.root.context,
+                    LeagueDetailActivity::class.java)
+                    .putExtra(LEAGUE_ID, league.stage_id))
+            },
+            listType = LeagueListType.SUGGESTED
+        )
+
+        binding.rvSuggestedTeams.apply {
+            adapter = suggestedLeaguesAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
-    private fun loadData() {
-        val followingTeams = listOf(
-            Team1("team_1", "Arsenal", R.drawable.premirele),
-            Team1("team_2", "Manchester United", R.drawable.premirele),
-            Team1("team_3", "Liverpool", R.drawable.premirele),
-            Team1("team_1", "Arsenal", R.drawable.premirele),
-            Team1("team_2", "Manchester United", R.drawable.premirele),
-            Team1("team_3", "Liverpool", R.drawable.premirele),
-        )
 
-        val suggestedTeams = listOf(
-            Team1("team_4", "Chelsea", R.drawable.premirele),
-            Team1("team_5", "Manchester City", R.drawable.premirele),
-            Team1("team_6", "Tottenham", R.drawable.premirele)
-        )
 
-        followingLeaguesAdapter.submitList(followingTeams)
-        suggestedLeaguesAdapter.submitList(followingTeams)
-    }
 
-    private fun navigateToLeagueDetail(league: Team1) {
+    private fun navigateToLeagueDetail(league: Stage) {
         val intent = Intent(requireContext(), LeagueDetailActivity::class.java).apply {
-            putExtra("league_id", league.id)
-            putExtra("league_name", league.name)
+//            putExtra("league_id", league.id)
+//            putExtra("league_name", league.name)
         }
         startActivity(intent)
     }
 
-    private fun followLeague(league: Team1) {
-        // Implement follow functionality
-        Toast.makeText(requireContext(), "Followed ${league.name}", Toast.LENGTH_SHORT).show()
+    private fun showLoading(show: Boolean?) {
+        Log.d(ApiResultTAG, "showLoading: $show")
+
+        show?.let {
+            if (show) {
+
+
+            } else {
+
+            }
+        }?:run{
+        }
     }
+
+    private fun observeCompetitions() {
+        this@LeaguesFragment.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.allCompetitionsFlow.collect { result ->
+                    when (result) {
+                        is ApiResult.Loading -> {
+
+                            showLoading(true)
+                        }
+
+                        is ApiResult.Success -> {
+
+                            showLoading(false)
+                            val stages = result.data.stages
+                            suggestedLeaguesAdapter?.updateLeagues(stages)
+                            extractFollowedLeagues(stages)
+                            Log.d("AllCompetitions", "${stages.size}")
+
+                         }
+
+                        is ApiResult.Error -> {
+
+                            showLoading(null)
+
+                        }
+                    }
+                }
+            }
+        }
+
+        viewModel.loadAllCompetitions()
+    }
+
+    suspend fun extractFollowedLeagues(stages : List<Stage>){
+        followViewModel.followedLeagues.collect { followedIds ->
+             val followedStages = stages.filter { followedIds.contains(it.stage_id) }
+
+            suggestedLeaguesAdapter?.updateFollowedIds(followedIds)
+            followingLeaguesAdapter?.updateFollowedIds(followedIds)
+             followingLeaguesAdapter?.updateLeagues(followedStages)
+
+            Log.d("FollowedLeagues", "Count: ${followedStages.size}")
+            binding.textView6.text = setSpannedFollwoingCount(followedStages.size)
+            if(followedStages.size==0){
+                binding.constraintLayout6.gone()
+            }
+            else{
+                binding.constraintLayout6.visible()
+
+            }
+        }
+    }
+
+    private fun setSpannedFollwoingCount(followedStages: Int)  : SpannableString {
+        val context = binding.root.context
+        val baseText = context.getString(R.string.followingss) // e.g. "Followings: "
+        val countText = followedStages.toString()
+
+        val fullText = "$baseText $countText"
+
+        val spannable = SpannableString(fullText)
+        val start = baseText.length
+        val end = fullText.length
+
+        spannable.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(context, R.color.green_color)),
+            start,
+            end,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        return spannable
+
+    }
+
+
 }
 
-data class League(val name: String, val imageRes: Int, val id: String)

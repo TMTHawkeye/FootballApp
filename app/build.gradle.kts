@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")  // Add this line
+
 }
 
 android {
@@ -83,4 +84,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect: 1.9.0")
 
     implementation("com.google.code.gson:gson:2.11.0")
+
+
+     implementation("com.github.AliAsadi:PowerPreference:2.1.1")
+
+
+
 }

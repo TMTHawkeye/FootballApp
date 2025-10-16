@@ -12,7 +12,7 @@ data class Matche(
     val away_score: String? = null,
     val away_score_ht: String? = null,
     val away_score_original: String? = null,
-    val away_team: List<AwayTeam>? = null,
+    val away_team: List<HomeTeam>? = null,
     val event_coverage: Int? = null,
     val event_order: Long? = null,
     val event_order_extra: Long? = null,

@@ -3,6 +3,7 @@ package com.example.footballapi
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsResponse
 import com.example.footballapi.modelClasses.Stage
 import com.example.footballapi.modelClasses.matchLineups.LineupResponse
 import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
@@ -70,6 +71,15 @@ class FootballViewModel(
     fun loadMatchTable(matchId: String) {
         viewModelScope.launch {
             repo.fetchMatchTable(matchId)
+        }
+    }
+
+
+    val allCompetitionsFlow: StateFlow<ApiResult<AllCompetitionsResponse>> get() = repo.allCompetitionsFlow
+
+    fun loadAllCompetitions() {
+        viewModelScope.launch {
+            repo.fetchAllCompetitions()
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.footballapi
 
 import android.util.Log
+import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsResponse
 import com.example.footballapi.modelClasses.MatchesRequest
 import com.example.footballapi.modelClasses.Stage
 import com.example.footballapi.modelClasses.matchLineups.LineupResponse
@@ -150,6 +151,22 @@ class FootballRepository(private val api: FootballApiService) {
             _matchTableFlow.value = ApiResult.Success(response)
         } catch (e: Exception) {
             _matchTableFlow.value = ApiResult.Error(e)
+        }
+    }
+
+
+   // all Competitions
+
+  private val _allCompetitionsFlow = MutableStateFlow<ApiResult<AllCompetitionsResponse>>(ApiResult.Loading)
+    val allCompetitionsFlow: StateFlow<ApiResult<AllCompetitionsResponse>> = _allCompetitionsFlow
+
+    suspend fun fetchAllCompetitions() {
+        _allCompetitionsFlow.value = ApiResult.Loading
+        try {
+            val response = api.getAllCompetitions()
+            _allCompetitionsFlow.value = ApiResult.Success(response)
+        } catch (e: Exception) {
+            _allCompetitionsFlow.value = ApiResult.Error(e)
         }
     }
 

@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager2.widget.ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
 import com.example.footballapi.FootballViewModel
 import com.example.footballapp.R
 import com.example.footballapp.adapters.HomeAdapter
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         homeAdapter = HomeAdapter(this)
 
         binding.viewPager2.adapter = homeAdapter
-        binding.viewPager2.setOffscreenPageLimit(1) // This is correct - value must be ≥ 1
+        binding.viewPager2.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT_DEFAULT) // This is correct - value must be ≥ 1
         binding.viewPager2.currentItem = 0
         binding.bottomNavigationView.menu.findItem(R.id.menu_home).isChecked = true
         binding.viewPager2.isUserInputEnabled = false

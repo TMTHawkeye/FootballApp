@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.example.footballapp.R
 import com.example.footballapp.databinding.FragmentFollowingBinding
 import com.example.footballapp.databinding.FragmentNewsBinding
@@ -36,6 +37,7 @@ class FollowingFragment : Fragment() {
     private fun setupViewPager() {
         viewPagerAdapter = FollowingPagerAdapter(childFragmentManager)
         binding.viewPager.adapter = viewPagerAdapter
+        binding.viewPager.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
         val tabTitles = arrayOf(" Teams", " Leagues")

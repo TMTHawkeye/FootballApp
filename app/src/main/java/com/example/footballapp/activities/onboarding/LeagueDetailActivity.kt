@@ -18,7 +18,7 @@ import com.example.footballapp.fragments.TopPlayersFragment
 class LeagueDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLeagueDetailBinding
-    private lateinit var viewPagerAdapter: LeagueDetailPagerAdapter
+    private  var viewPagerAdapter: LeagueDetailPagerAdapter?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

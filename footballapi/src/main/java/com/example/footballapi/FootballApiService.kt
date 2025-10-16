@@ -1,5 +1,6 @@
 package com.example.footballapi
 
+ import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsResponse
  import com.example.footballapi.modelClasses.AllMatches
  import com.example.footballapi.modelClasses.MatchesRequest
  import com.example.footballapi.modelClasses.matchLineups.LineupResponse
@@ -43,6 +44,12 @@ interface FootballApiService {
     suspend fun getMatchTable(
         @Path("match_id") matchId: String
     ): matchTableResponse
+
+
+
+    @GET("/api/football/competitions/")
+    suspend fun getAllCompetitions(
+    ): AllCompetitionsResponse
 
 
 }
