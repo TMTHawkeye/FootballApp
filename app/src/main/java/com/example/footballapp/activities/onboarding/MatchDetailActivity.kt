@@ -20,6 +20,7 @@ import com.example.footballapp.Helper.MATCH_ID
 import com.example.footballapp.Helper.formatMatchStatus
 import com.example.footballapp.Helper.gone
 import com.example.footballapp.Helper.imagePrefix
+import com.example.footballapp.Helper.imagePrefixCompetition
 import com.example.footballapp.Helper.invisible
 import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
@@ -33,8 +34,8 @@ import kotlin.getValue
 
 class MatchDetailActivity : AppCompatActivity() {
 
-       var binding: ActivityMatchDetailBinding? = null
-       var match: Matche ? = null
+    var binding: ActivityMatchDetailBinding? = null
+    var match: Matche? = null
 
 //    var matchId : String? = null
 //    var match : Matche?=null
@@ -78,7 +79,7 @@ class MatchDetailActivity : AppCompatActivity() {
 
         match?.let {
             it.match_id?.let { matchId -> observeMatchSummary(matchId) }
-        }?:run{
+        } ?: run {
             Log.d("TAG_matchINMatchDetails", "onCreate: null match")
         }
     }
@@ -110,14 +111,27 @@ class MatchDetailActivity : AppCompatActivity() {
         binding?.team1Name?.text = summary.teams.home.name
         binding?.team2Name?.text = summary.teams.away.name
 
-        binding?.team1Logo?.let { Glide.with(this@MatchDetailActivity).load(imagePrefix+match?.home_team?.get(0)?.logo).into(it) }
-        binding?.team2Logo?.let { Glide.with(this@MatchDetailActivity).load(imagePrefix+match?.away_team?.get(0)?.logo).into(it) }
+        binding?.team1Logo?.let {
+            Glide.with(this@MatchDetailActivity).load(imagePrefix + match?.home_team?.get(0)?.logo)
+                .into(it)
+        }
+        binding?.team2Logo?.let {
+            Glide.with(this@MatchDetailActivity).load(imagePrefix + match?.away_team?.get(0)?.logo)
+                .into(it)
+        }
 
         // Set score if available, otherwise show time
         if (summary.teams.home.score != null && summary.teams.away.score != null) {
             binding?.score?.text = "${summary.teams.home.score} - ${summary.teams.away.score}"
         } else {
             binding?.score?.visibility = View.GONE
+        }
+
+        Log.d("TAG_tournamentLogo", "setupMatchHeader: ${match?.tournamentLogo}")
+        binding?.ivTeamLogo?.let {
+            binding?.root?.context?.let { context -> Glide.with(context) }
+                ?.load(imagePrefixCompetition+match?.tournamentLogo)?.
+                placeholder(R.drawable.app_icon)?.into(it)
         }
     }
 
@@ -156,12 +170,14 @@ class MatchDetailActivity : AppCompatActivity() {
                     is ApiResult.Loading -> {
                         showLoading(true)
                     }
+
                     is ApiResult.Success -> {
                         showLoading(false)
                         val summary = result.data
                         Log.d("MATCH_SUMMARY", "Summary: ${summary}")
                         setupMatchHeader(summary)
                     }
+
                     is ApiResult.Error -> {
                         showLoading(null)
 //                        showError(result.throwable)
@@ -194,7 +210,7 @@ class MatchDetailActivity : AppCompatActivity() {
                 binding?.title?.visible()
                 binding?.constraintLayout8?.visible()
             }
-        }?:run{
+        } ?: run {
 
         }
     }

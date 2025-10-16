@@ -55,7 +55,16 @@ class StageAdapter(
                 .into(competitionLogoooo)
 
             // Setup matches recycler
-            val matchAdapter = MatchesAdapter(mutableListOf(),matchSelectedListener)
+            val matchAdapter = MatchesAdapter(mutableListOf(),/*matchSelectedListener*/){match->
+//                match.copy(
+//                    tournamentLogo = stage.badge_url?.takeIf { it != "null" }
+//                        ?: match.tournamentLogo
+//                )
+                match.tournamentLogo = stage.badge_url
+                Log.d("TAG_tournamentLogo", "setupMatchHeader1: ${stage.badge_url}")
+
+                matchSelectedListener.onMatchClicked(match)
+            }
             matchesRecycler.layoutManager = LinearLayoutManager(root.context)
             matchesRecycler.adapter = matchAdapter
 

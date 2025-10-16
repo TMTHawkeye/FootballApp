@@ -65,6 +65,8 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
 
     private val matchViewModel: MatchViewModel by viewModel()
 
+    var stageBadge : String?=null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -447,8 +449,6 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
                             showLoading(false)
                             updateCompetitions(result.data)
 
-//                            setLiveMAtchesList(result.data)
-
                             val todayFormatted =
                                 LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"))
                             Log.d("TAG_today", "observeCompetitions: $formattedDate")
@@ -534,49 +534,6 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
     override fun onStageExpanded(stage: Stage) {
     }
 
-//    fun setLiveMAtchesList(matchesList : List<Stage>){
-//        val liveMatches = matchesList
-//            .flatMap { it.matches }
-//            .filter { match ->
-//                val status = match.match_status
-//                status.contains("\'")
-//            }
-//
-//        binding.textView3.text = getString(
-//            R.string.livematches
-//        ) + " ${liveMatches.size}"
-//
-//
-//
-//        setupMatchSlider(liveMatches)
-//
-//    }
-
-    /*
-        fun setLiveMAtchesList(matchesList: List<Stage>) {
-            val liveMatches = matchesList
-                .flatMap { stage ->
-                    stage.matches!!.map { match ->
-                        if(!stage.badge_url.equals("null")) {
-                            match.copy(tournamentLogo = stage.badge_url) // inject here
-                        }
-                        if(!stage.competition_name.equals("null")) {
-                            match.copy(tournamentName = stage.stage_name) // inject here
-                        }
-                        else{
-                            match
-                        }
-                    }
-                }
-                .filter { match ->
-                    val status = match.match_status
-                    status!!.contains("\'")
-                }
-
-            binding.textView3.text = getString(R.string.livematches) + " ${liveMatches.size}"
-            setupMatchSlider(liveMatches)
-        }
-    */
     fun setLiveMAtchesList(matchesList: List<Stage>?) {
             val liveMatches = matchesList.orEmpty()
                 .flatMap { stage ->
@@ -629,6 +586,7 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
 
     override fun onMatchClicked(matche: Matche) {
         Log.d("TAG_MATCHDATA", "onMatchClicked: ${matche}")
+//        matche.tournamentLogo = stageBadge
         matchViewModel.setMatch(matche)
         matche.match_id?.let { viewModel.loadMatchSummary(it) }
     }

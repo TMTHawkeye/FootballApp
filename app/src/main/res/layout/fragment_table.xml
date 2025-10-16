@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/_2sdp">
 
 
 
@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:text="@string/league_standings"
             android:textSize="@dimen/_12ssp"
+            android:layout_marginHorizontal="@dimen/_2sdp"
             android:fontFamily="@font/montserrat_medium"
             android:textColor="@color/grey"
 
@@ -35,6 +36,10 @@
             android:id="@+id/leagueTableRecyclerView"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/_12sdp"
+            tools:itemCount="10"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/item_table_row"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/textView8"
             tools:layout_editor_absoluteX="16dp" />

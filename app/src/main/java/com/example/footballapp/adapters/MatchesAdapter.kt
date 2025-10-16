@@ -22,7 +22,8 @@ import java.util.Locale
 
 class MatchesAdapter(
     private val matches: MutableList<Matche>,
-    private val matchSelectedListener : OnMatchSelected
+    private val onMatchClicked: (Matche) -> Unit
+//    private val matchSelectedListener : OnMatchSelected
 ) : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() {
 
     inner class MatchViewHolder(val binding: ItemSingleMatchBinding) :
@@ -72,8 +73,8 @@ class MatchesAdapter(
         holder.bind(matches[position])
 
         holder.itemView.setOnClickListener {
-            matchSelectedListener.onMatchClicked(matches[position])
-
+//            matchSelectedListener.onMatchClicked(matches[position])
+            onMatchClicked.invoke(matches[position])
             holder.binding.root.context.startActivity(
                 Intent(
                     holder.binding.root.context,
