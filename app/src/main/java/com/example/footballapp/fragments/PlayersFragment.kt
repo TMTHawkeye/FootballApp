@@ -1,22 +1,35 @@
 package com.example.footballapp.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.footballapi.ApiResult
+import com.example.footballapi.FootballViewModel
+import com.example.footballapp.Helper.ApiResultTAG
 import com.example.footballapp.R
+import com.example.footballapp.activities.onboarding.TeamDetailActivity
 import com.example.footballapp.adapters.followingadapters.CompetitionAdapter
 import com.example.footballapp.adapters.followingadapters.PlayersAdapter
 import com.example.footballapp.databinding.FragmentPlayersBinding
 import com.example.footballapp.models.followingmodels.Competition
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import kotlin.getValue
 
 class PlayersFragment : Fragment() {
 
     private lateinit var binding: FragmentPlayersBinding
-    private lateinit var competitionAdapter: CompetitionAdapter
-    private lateinit var playersAdapter: PlayersAdapter
+    private  var competitionAdapter: CompetitionAdapter?=null
+    private  var playersAdapter: PlayersAdapter?=null
+    private val viewModel: FootballViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,134 +41,101 @@ class PlayersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupAdapters()
-        setupSortButtons()
-        loadData()
+          setCompetitionAdapter()
+        observeCompetitions()
     }
 
-    private fun setupAdapters() {
-        // Competitions horizontal RecyclerView
-        competitionAdapter = CompetitionAdapter { competition, position ->
-            competitionAdapter.updateSelectedPosition(position)
-            loadPlayersForCompetition(competition.id)
+    fun setCompetitionAdapter() {
+        competitionAdapter = CompetitionAdapter(ArrayList()) { competition, position ->
+            competitionAdapter?.updateSelectedPosition(position)
+//            loadMatchesForCompetition(competition)
+            (context as? TeamDetailActivity)?.let { ctxt ->
+                ctxt.team?.let { team ->
+                    Toast.makeText(
+                        binding.root.context,
+                        "${team.incident_number} , ${team.team_id} , ${competition.stage_id}",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.d(
+                        "TAG_standingsDetails",
+                        "setCompetitionAdapter: ${team.incident_number} , ${team.team_id} , ${competition.stage_id}"
+                    )
+                    team.incident_number?.let {
+                        team.team_id?.let { teamId ->
+
+                        }
+                    }
+
+
+                }
+            }
+            binding.rvCompetitions.post {
+                binding.rvCompetitions.smoothScrollToPosition(position)
+            }
         }
+
         binding.rvCompetitions.layoutManager = LinearLayoutManager(
             requireContext(),
             LinearLayoutManager.HORIZONTAL,
             false
         )
+
+
         binding.rvCompetitions.adapter = competitionAdapter
 
-        // Players vertical RecyclerView
-        playersAdapter = PlayersAdapter()
-        binding.rvPlayers.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvPlayers.adapter = playersAdapter
+
     }
 
-    private fun setupSortButtons() {
-        /*binding.btnSortGoals.setOnClickListener {
-            sortPlayersByGoals()
+    private fun observeCompetitions() {
+        this@PlayersFragment.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.teamMatchesFlow.collect { result ->
+                    when (result) {
+                        is ApiResult.Loading -> {
+
+                            showLoading(true)
+                        }
+
+                        is ApiResult.Success -> {
+
+                            showLoading(false)
+                            val stages = result.data.stages
+                            Log.d("TAG_M", "observeMatches: ")
+                            competitionAdapter?.addCompetitions(stages)
+
+
+
+                            if (stages.isNotEmpty() || stages.size != 0) {
+                                competitionAdapter?.updateSelectedPosition(0)
+
+                                // 3️⃣ Load matches for the first competition
+//                                loadMatchesForCompetition(stages[0])
+                            }
+                        }
+
+                        is ApiResult.Error -> {
+
+                            showLoading(null)
+                        }
+                    }
+                }
+            }
         }
 
-        binding.btnSortName.setOnClickListener {
-            sortPlayersByName()
+    }
+
+    private fun showLoading(show: Boolean?) {
+        Log.d(ApiResultTAG, "showLoading: $show")
+
+        show?.let {
+            if (show) {
+
+
+            } else {
+
+            }
+        } ?: run {
         }
-
-        binding.btnSortNumber.setOnClickListener {
-            sortPlayersByNumber()
-        }*/
-    }
-
-    private fun loadData() {
-        val competitions = listOf(
-            Competition("comp_1", "Premier League"),
-            Competition("comp_2", "Champions League"),
-            Competition("comp_3", "FA Cup")
-        )
-        competitionAdapter.submitList(competitions)
-
-        // Load initial players
-        loadPlayersForCompetition("comp_1")
-
-        // Set first item as selected
-        competitionAdapter.updateSelectedPosition(0)
-    }
-
-    private fun loadPlayersForCompetition(competitionId: String) {
-        val players = when (competitionId) {
-            "comp_1" -> listOf(
-                Player1("player_1", "Erling Haaland", R.drawable.wbenizth, "Forward", 9, "Norway", 23, 15, true),
-                Player1("player_2", "Mohamed Salah", R.drawable.wbenizth, "Forward", 11, "Egypt", 31, 12, true),
-                Player1("player_3", "Kevin De Bruyne", R.drawable.wbenizth, "Midfielder", 17, "Belgium", 32, 4, true),
-                Player1("player_4", "Virgil van Dijk", R.drawable.wbenizth, "Defender", 4, "Netherlands", 32, 1, false),
-                Player1("player_5", "Bukayo Saka", R.drawable.wbenizth, "Forward", 7, "England", 22, 8, true),
-                Player1("player_6", "Rodri", R.drawable.wbenizth, "Midfielder", 16, "Spain", 27, 2, false),
-                Player1("player_7", "Alisson Becker", R.drawable.wbenizth, "Goalkeeper", 1, "Brazil", 31, 0, true),
-                Player1("player_1", "Erling Haaland", R.drawable.wbenizth, "Forward", 9, "Norway", 23, 15, true),
-                Player1("player_2", "Mohamed Salah", R.drawable.wbenizth, "Forward", 11, "Egypt", 31, 12, true),
-                Player1("player_3", "Kevin De Bruyne", R.drawable.wbenizth, "Midfielder", 17, "Belgium", 32, 4, true),
-                Player1("player_4", "Virgil van Dijk", R.drawable.wbenizth, "Defender", 4, "Netherlands", 32, 1, false),
-                Player1("player_5", "Bukayo Saka", R.drawable.wbenizth, "Forward", 7, "England", 22, 8, true),
-                Player1("player_6", "Rodri", R.drawable.wbenizth, "Midfielder", 16, "Spain", 27, 2, false),
-                Player1("player_7", "Alisson Becker", R.drawable.wbenizth, "Goalkeeper", 1, "Brazil", 31, 0, true),
-                Player1("player_1", "Erling Haaland", R.drawable.wbenizth, "Forward", 9, "Norway", 23, 15, true),
-                Player1("player_2", "Mohamed Salah", R.drawable.wbenizth, "Forward", 11, "Egypt", 31, 12, true),
-                Player1("player_3", "Kevin De Bruyne", R.drawable.wbenizth, "Midfielder", 17, "Belgium", 32, 4, true),
-                Player1("player_4", "Virgil van Dijk", R.drawable.wbenizth, "Defender", 4, "Netherlands", 32, 1, false),
-                Player1("player_5", "Bukayo Saka", R.drawable.wbenizth, "Forward", 7, "England", 22, 8, true),
-                Player1("player_6", "Rodri", R.drawable.wbenizth, "Midfielder", 16, "Spain", 27, 2, false),
-                Player1("player_7", "Alisson Becker", R.drawable.wbenizth, "Goalkeeper", 1, "Brazil", 31, 0, true),
-                Player1("player_1", "Erling Haaland", R.drawable.wbenizth, "Forward", 9, "Norway", 23, 15, true),
-                Player1("player_2", "Mohamed Salah", R.drawable.wbenizth, "Forward", 11, "Egypt", 31, 12, true),
-                Player1("player_3", "Kevin De Bruyne", R.drawable.wbenizth, "Midfielder", 17, "Belgium", 32, 4, true),
-                Player1("player_4", "Virgil van Dijk", R.drawable.wbenizth, "Defender", 4, "Netherlands", 32, 1, false),
-                Player1("player_5", "Bukayo Saka", R.drawable.wbenizth, "Forward", 7, "England", 22, 8, true),
-                Player1("player_6", "Rodri", R.drawable.wbenizth, "Midfielder", 16, "Spain", 27, 2, false),
-                Player1("player_7", "Alisson Becker", R.drawable.wbenizth, "Goalkeeper", 1, "Brazil", 31, 0, true),
-                Player1("player_1", "Erling Haaland", R.drawable.wbenizth, "Forward", 9, "Norway", 23, 15, true),
-                Player1("player_2", "Mohamed Salah", R.drawable.wbenizth, "Forward", 11, "Egypt", 31, 12, true),
-                Player1("player_3", "Kevin De Bruyne", R.drawable.wbenizth, "Midfielder", 17, "Belgium", 32, 4, true),
-                Player1("player_4", "Virgil van Dijk", R.drawable.wbenizth, "Defender", 4, "Netherlands", 32, 1, false),
-                Player1("player_5", "Bukayo Saka", R.drawable.wbenizth, "Forward", 7, "England", 22, 8, true),
-                Player1("player_6", "Rodri", R.drawable.wbenizth, "Midfielder", 16, "Spain", 27, 2, false),
-                Player1("player_7", "Alisson Becker", R.drawable.wbenizth, "Goalkeeper", 1, "Brazil", 31, 0, true)
-            )
-            "comp_2" -> listOf(
-                Player1("player_8", "Kylian Mbappé", R.drawable.wbenizth, "Forward", 7, "France", 24, 10, true),
-                Player1("player_9", "Robert Lewandowski", R.drawable.wbenizth, "Forward", 9, "Poland", 35, 8, true)
-            )
-            else -> emptyList()
-        }
-        playersAdapter.submitList(players)
-    }
-
-    private fun sortPlayersByGoals() {
-        val currentList = playersAdapter.currentList.toMutableList()
-        currentList.sortByDescending { it.goals }
-        playersAdapter.submitList(currentList)
-    }
-
-    private fun sortPlayersByName() {
-        val currentList = playersAdapter.currentList.toMutableList()
-        currentList.sortBy { it.name }
-        playersAdapter.submitList(currentList)
-    }
-
-    private fun sortPlayersByNumber() {
-        val currentList = playersAdapter.currentList.toMutableList()
-        currentList.sortBy { it.number }
-        playersAdapter.submitList(currentList)
     }
 }
 
-data class Player1(
-    val id: String,
-    val name: String,
-    val image: Int,
-    val position: String,
-    val number: Int,
-    val nationality: String,
-    val age: Int,
-    val goals: Int,
-    val isKeyPlayer: Boolean = false
-)

@@ -28,7 +28,6 @@ import kotlin.getValue
 class InfoFragment : Fragment() {
 
     private lateinit var binding: FragmentInfoBinding
-    private  var match: Match? = null
 
     private val viewModel: FootballViewModel by activityViewModel()
 
@@ -59,12 +58,7 @@ class InfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set competition information
-        binding.competitionName.text = match?.competition
 
-        // Set team names on buttons
-        binding.team1namee.text = match?.team1?.name
-        binding.team2namee.text = match?.team2?.name
 
         // Set up button click listeners
         setupButtonListeners()
@@ -97,9 +91,7 @@ class InfoFragment : Fragment() {
         binding.winprobabiltyLt.visibility = View.VISIBLE
         binding.whowinprobabiltyLt.visibility = View.INVISIBLE
 
-        // Set team names
-        binding.team1Name.text = match?.team1?.name
-        binding.team2Name.text = match?.team2?.name
+
 
         // Set progress
         binding.team1Probability.progress = team1Percent

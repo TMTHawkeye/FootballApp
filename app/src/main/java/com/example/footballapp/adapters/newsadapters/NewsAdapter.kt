@@ -7,15 +7,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+ import com.example.footballapi.modelClasses.latestNews.LatestNewsResponseItem
 import com.example.footballapp.R
-import com.example.footballapp.models.newsmodel.NewsItem
 
-class NewsAdapter(private val items: List<NewsItem>) :
+class NewsAdapter(private val items: MutableList<LatestNewsResponseItem>
+) :
     RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
-    private var onItemClickListener: ((NewsItem) -> Unit)? = null
+    private var onItemClickListener: ((LatestNewsResponseItem) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (NewsItem) -> Unit) {
+    fun setOnItemClickListener(listener: (LatestNewsResponseItem) -> Unit) {
         onItemClickListener = listener
     }
 
@@ -29,7 +30,7 @@ class NewsAdapter(private val items: List<NewsItem>) :
             itemView.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    onItemClickListener?.invoke(items[position])
+//                    onItemClickListener?.invoke(items[position])
                 }
             }
         }
@@ -44,10 +45,22 @@ class NewsAdapter(private val items: List<NewsItem>) :
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         val item = items[position]
 
-        holder.ivImage.setImageResource(item.imageResId)
+         Glide.with(holder.itemView.context)
+            .load(item.image)
+             .into(  holder.ivImage)
         holder.tvTitle.text = item.title
-        holder.tvDescription.text = item.description
-        holder.tvDate.text = item.date
+        holder.tvDescription.text = item.preview
+        holder.tvDate.text = item.publish_time
+
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.invoke(item)
+        }
+    }
+
+    fun updateData(newList : List<LatestNewsResponseItem>){
+        items.clear()
+        items.addAll(newList)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = items.size

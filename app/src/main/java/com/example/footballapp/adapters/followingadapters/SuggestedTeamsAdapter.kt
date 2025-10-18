@@ -56,19 +56,22 @@ package com.example.footballapp.adapters.followingadapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.footballapi.modelClasses.HomeTeam
 import com.example.footballapp.Helper.imagePrefix
 import com.example.footballapp.R
 import com.example.footballapp.databinding.ItemSuggestedTeamBinding
+import com.example.footballapp.interfaces.TeamItemCallback
 import com.example.footballapp.models.Team
 import com.example.footballapp.utils.LeagueListType
 
 class SuggestedTeamsAdapter(
     private val teams: MutableList<Team>,
     private val onItemClick: (Team) -> Unit,
-    private val onFollowClick: (Team) -> Unit ,
+    private val onFollowClick: (Team) -> Unit,
     private val listType: LeagueListType
 
 ) : RecyclerView.Adapter<SuggestedTeamsAdapter.ViewHolder>() {
@@ -89,13 +92,15 @@ class SuggestedTeamsAdapter(
             val isFollowed = followedIds.contains(team.team_id)
 
             // Update icon color
-            binding.followButton.setImageResource(R.drawable.followings)
-            binding.followButton.setColorFilter(
-                ContextCompat.getColor(
-                    binding.root.context,
-                    if (isFollowed) R.color.green_color else R.color.grey
+//            binding.followButton.setImageResource(R.drawable.followings)
+            if (isFollowed) {
+                binding.followButton.setColorFilter(
+                    ContextCompat.getColor(
+                        binding.root.context,
+                        R.color.green_color
+                    )
                 )
-            )
+            }
 
             binding.followButton.setOnClickListener {
                 when (listType) {
@@ -141,16 +146,19 @@ class SuggestedTeamsAdapter(
 
     override fun getItemCount(): Int = teams.size
 
-     fun updateTeams(newTeams: List<Team>?) {
+    fun updateTeams(newTeams: List<Team>?) {
+        if (newTeams == null) return
         teams.clear()
         newTeams?.let { teams.addAll(it) }
         notifyDataSetChanged()
     }
 
+
     fun updateFollowedIds(ids: List<String>) {
         followedIds = ids
         notifyDataSetChanged()
     }
+
     fun addTeam(team: Team) {
         teams.add(team)
         notifyItemInserted(teams.size - 1)
@@ -164,3 +172,5 @@ class SuggestedTeamsAdapter(
         }
     }
 }
+
+

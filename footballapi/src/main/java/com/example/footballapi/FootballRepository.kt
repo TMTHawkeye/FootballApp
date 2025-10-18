@@ -1,14 +1,20 @@
 package com.example.footballapi
 
 import android.util.Log
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsResponse
 import com.example.footballapi.modelClasses.MatchesRequest
 import com.example.footballapi.modelClasses.Stage
+import com.example.footballapi.modelClasses.latestNews.LatestNewsResponse
 import com.example.footballapi.modelClasses.matchLineups.LineupResponse
 import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
 import com.example.footballapi.modelClasses.matchSummary.MatchSummary
 import com.example.footballapi.modelClasses.matchTable.matchTableResponse
-import com.google.gson.Gson
+import com.example.footballapi.modelClasses.teamMatches.TeamMatchesResponse
+ import com.google.gson.Gson
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.json.JSONObject
@@ -169,5 +175,59 @@ class FootballRepository(private val api: FootballApiService) {
             _allCompetitionsFlow.value = ApiResult.Error(e)
         }
     }
+
+
+
+    // team matches
+
+  private val _teamMatchesFlow = MutableStateFlow<ApiResult<TeamMatchesResponse>>(ApiResult.Loading)
+    val teamMatchesFlow: StateFlow<ApiResult<TeamMatchesResponse>> = _teamMatchesFlow
+
+    suspend fun fetchTeamMatches(matchId :String) {
+        _teamMatchesFlow.value = ApiResult.Loading
+        try {
+            val response = api.getTeamMatches(matchId)
+            _teamMatchesFlow.value = ApiResult.Success(response)
+        } catch (e: Exception) {
+            _teamMatchesFlow.value = ApiResult.Error(e)
+        }
+    }
+
+
+
+    // team Standings
+
+  private val _teamStandingsFlow = MutableStateFlow<ApiResult<TeamMatchesResponse>>(ApiResult.Loading)
+    val teamStandingsFlow: StateFlow<ApiResult<TeamMatchesResponse>> = _teamStandingsFlow
+
+    suspend fun fetchTeamStandings(teamName :String,teamId :String,stageId :String,) {
+        _teamStandingsFlow.value = ApiResult.Loading
+        try {
+            val response = api.getTeamStandings(teamName, teamId, stageId)
+            _teamStandingsFlow.value = ApiResult.Success(response)
+        } catch (e: Exception) {
+            _teamStandingsFlow.value = ApiResult.Error(e)
+        }
+    }
+
+
+
+    // latest News
+
+  private val _latestNewsFlow = MutableStateFlow<ApiResult<LatestNewsResponse>>(ApiResult.Loading)
+    val latestNewsFlow: StateFlow<ApiResult<LatestNewsResponse>> = _latestNewsFlow
+
+    suspend fun fetchLatestNews(pageNo :String) {
+        _latestNewsFlow.value = ApiResult.Loading
+        try {
+            val response = api.getLatestNews(pageNo)
+            _latestNewsFlow.value = ApiResult.Success(response)
+        } catch (e: Exception) {
+            _latestNewsFlow.value = ApiResult.Error(e)
+        }
+    }
+
+
+
 
 }

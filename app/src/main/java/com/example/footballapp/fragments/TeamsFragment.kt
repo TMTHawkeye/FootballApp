@@ -12,28 +12,38 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.footballapi.ApiResult
 import com.example.footballapi.FootballViewModel
 import com.example.footballapi.modelClasses.HomeTeam
 import com.example.footballapi.modelClasses.Stage
 import com.example.footballapp.Helper.ApiResultTAG
+import com.example.footballapp.Helper.TEAM_ID
 import com.example.footballapp.Helper.gone
 import com.example.footballapp.Helper.invisible
 import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.activities.onboarding.TeamDetailActivity
+import com.example.footballapp.adapters.TeamsAdapter
 import com.example.footballapp.adapters.followingadapters.FollowingTeamsAdapter
 import com.example.footballapp.adapters.followingadapters.SuggestedTeamsAdapter
 import com.example.footballapp.databinding.FragmentTeamsBinding
 import com.example.footballapp.models.Team
-import com.example.footballapp.utils.LeagueListType
+ import com.example.footballapp.utils.LeagueListType
 import com.example.footballapp.viewmodels.FollowTeamViewModel
 import com.example.footballapp.viewmodels.FollowViewModel
+import com.example.footballapp.viewmodels.MatchViewModel
+import com.example.footballapp.viewmodels.TeamViewmodel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
@@ -44,11 +54,18 @@ import kotlin.getValue
 class TeamsFragment : Fragment() {
 
     private lateinit var binding: FragmentTeamsBinding
-    private  var followingTeamsAdapter: SuggestedTeamsAdapter?=null
-    private var suggestedTeamsAdapter: SuggestedTeamsAdapter? = null
 
     private val viewModel: FootballViewModel by activityViewModel()
     private val followViewModel: FollowTeamViewModel by activityViewModel()
+    private val teamViewModel: TeamViewmodel by activityViewModel()
+
+
+    private lateinit var teamsAdapter: TeamsAdapter
+    private var currentPage = 0
+    private val pageSize = 100
+    private var allTeams: List<Team> = emptyList()
+    private var followedTeamsList: List<Team> = emptyList()
+    private var moreTeamsList: MutableList<Team> = mutableListOf()
 
 
     override fun onCreateView(
@@ -62,65 +79,40 @@ class TeamsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupSuggestedTeamsAdapter()
-//        loadData()
-
-
-        observeCompetitions()
+//        observeCompetitions()
+//        observeFollowedTeams()
+        observeTeamsData()
     }
 
     private fun setupSuggestedTeamsAdapter() {
-        // Following Teams RecyclerView
-//        followingTeamsAdapter = FollowingTeamsAdapter() { team ->
-//            navigateToTeamDetail(team)
-//        }
-//        binding.rvFollowingTeams.adapter = followingTeamsAdapter
-//        binding.rvFollowingTeams.layoutManager = LinearLayoutManager(requireContext())
-
-
-        followingTeamsAdapter = SuggestedTeamsAdapter(mutableListOf(),
-            onItemClick = { team -> // For item click (navigate to detail)
-                navigateToTeamDetail(team)
-            },
-            onFollowClick = { team ->
-                team.team_id?.let { followViewModel.toggleFollowTeam(it) } // toggle follow
-            } ,
-            listType = LeagueListType.FOLLOWING
+        teamsAdapter = TeamsAdapter(
+            onItemClick = { navigateToTeamDetail(it) },
+            onFollowToggle = { it.team_id?.let { leagueId -> followViewModel.toggleFollowTeam(leagueId) } }
         )
-        binding.rvFollowingTeams.adapter = followingTeamsAdapter
-        binding.rvFollowingTeams.layoutManager = LinearLayoutManager(requireContext())
 
+        binding.rvTeams.apply {
+            adapter = teamsAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val totalItemCount = layoutManager.itemCount
+                    val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
 
-        suggestedTeamsAdapter = SuggestedTeamsAdapter(mutableListOf(),
-            onItemClick = { team -> // For item click (navigate to detail)
-                navigateToTeamDetail(team)
-            },
-            onFollowClick = { team ->
-                team.team_id?.let { followViewModel.toggleFollowTeam(it) } // toggle follow
-            } ,
-            listType = LeagueListType.SUGGESTED
-        )
-        binding.rvSuggestedTeams.adapter = suggestedTeamsAdapter
-        binding.rvSuggestedTeams.layoutManager = LinearLayoutManager(requireContext())
-        
+                    if (totalItemCount <= lastVisibleItem + 10) { // threshold
+                        loadNextPage()
+                    }
+                }
+            })
+        }
     }
-
-
-
 
     private fun navigateToTeamDetail(team: Team) {
-        val intent = Intent(requireContext(), TeamDetailActivity::class.java).apply {
-//            putExtra("team_id", team.team_id)
-//            putExtra("team_name", team.name)
-        }
+        teamViewModel.setTeam(team)
+        val intent = Intent(requireContext(), TeamDetailActivity::class.java)
         startActivity(intent)
     }
-
-    private fun followTeam(team: Team) {
-        // Implement follow functionality
-        Toast.makeText(requireContext(), "Followed ${team.incident_number}", Toast.LENGTH_SHORT).show()
-    }
-
-
 
     private fun showLoading(show: Boolean?) {
         Log.d(ApiResultTAG, "showLoading: $show")
@@ -137,40 +129,60 @@ class TeamsFragment : Fragment() {
     }
 
 
-
-    private fun observeCompetitions() {
-        this@TeamsFragment.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.matchesFlow.collect { result ->
+    private fun observeTeamsData() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                combine(
+                    viewModel.matchesFlow,
+                    followViewModel.followedTeams
+                ) { matchesResult, followedIds ->
+                    matchesResult to followedIds
+                }.collectLatest { (result, followedIds) ->
                     when (result) {
-                        is ApiResult.Loading -> {
-
-                            showLoading(true)
-                        }
-
                         is ApiResult.Success -> {
-
                             showLoading(false)
-                            val stages = result.data
-                            val uniqueTeams = withContext(Dispatchers.Default) {
-                                extractUniqueTeams(stages)
+                            allTeams = withContext(Dispatchers.IO) {
+                                extractUniqueTeams(result.data)
                             }
-                             Log.d("UniqueTeams", "Found ${uniqueTeams.size} unique teams")
 
-                            suggestedTeamsAdapter?.updateTeams(uniqueTeams)
-                            extractFollowedTeams(uniqueTeams)
+                            val (followed, more) = allTeams.partition { followedIds.contains(it.team_id) }
+
+                            followedTeamsList = followed
+                            moreTeamsList.clear()
+                            moreTeamsList.addAll(more)
+
+                            currentPage = 0
+                            loadNextPage()
                         }
 
-                        is ApiResult.Error -> {
-
-                            showLoading(null)
-
-                        }
+                        is ApiResult.Loading -> showLoading(true)
+                        is ApiResult.Error -> showLoading(null)
                     }
                 }
             }
         }
     }
+
+
+
+    private fun loadNextPage() {
+        val start = currentPage * pageSize
+        val end = minOf(start + pageSize, moreTeamsList.size)
+
+        if (start >= end) return // no more pages
+
+        val nextPage = moreTeamsList.subList(start, end)
+        if (currentPage == 0) {
+            teamsAdapter.setData(followedTeamsList, nextPage)
+        } else {
+            teamsAdapter.addMoreTeams(nextPage)
+        }
+
+        currentPage++
+    }
+
+
+
 
     fun extractUniqueTeams(stages: List<Stage>): List<Team> {
         val teamMap = mutableMapOf<String, Team>() // key: team_id
@@ -200,26 +212,6 @@ class TeamsFragment : Fragment() {
     }
 
 
-    suspend fun extractFollowedTeams(stages : List<Team>){
-        followViewModel.followedTeams.collect { followedIds ->
-            val followedTeams = stages.filter { followedIds.contains(it.team_id) }
-
-            suggestedTeamsAdapter?.updateFollowedIds(followedIds)
-            followingTeamsAdapter?.updateFollowedIds(followedIds)
-            followingTeamsAdapter?.updateTeams(followedTeams)
-
-            Log.d("FollowedLeagues", "Count: ${followedTeams.size}")
-            binding.textView6.text = setSpannedFollwoingCount(followedTeams.size)
-            if(followedTeams.size==0){
-                binding.constraintLayout6.gone()
-            }
-            else{
-                binding.constraintLayout6.visible()
-
-            }
-        }
-    }
-
     private fun setSpannedFollwoingCount(followedStages: Int)  : SpannableString {
         val context = binding.root.context
         val baseText = context.getString(R.string.followingss) // e.g. "Followings: "
@@ -243,4 +235,3 @@ class TeamsFragment : Fragment() {
 
 }
 
-//data class Team(val name: String, val imageRes: Int, val id: String)

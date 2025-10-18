@@ -3,12 +3,17 @@ package com.example.footballapi
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsResponse
 import com.example.footballapi.modelClasses.Stage
+import com.example.footballapi.modelClasses.latestNews.LatestNewsResponse
 import com.example.footballapi.modelClasses.matchLineups.LineupResponse
 import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
 import com.example.footballapi.modelClasses.matchSummary.MatchSummary
 import com.example.footballapi.modelClasses.matchTable.matchTableResponse
+import com.example.footballapi.modelClasses.teamMatches.TeamMatchesResponse
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -82,6 +87,37 @@ class FootballViewModel(
             repo.fetchAllCompetitions()
         }
     }
+
+
+
+    val teamMatchesFlow: StateFlow<ApiResult<TeamMatchesResponse>> get() = repo.teamMatchesFlow
+
+    fun loadTeamMatches(teamId : String) {
+        viewModelScope.launch {
+            repo.fetchTeamMatches(teamId)
+        }
+    }
+
+
+
+    val teamStandingsFlow: StateFlow<ApiResult<TeamMatchesResponse>> get() = repo.teamStandingsFlow
+
+    fun loadTeamStandings(teamName :String,teamId :String,stageId :String) {
+        viewModelScope.launch {
+            repo.fetchTeamStandings(teamName, teamId, stageId)
+        }
+    }
+
+
+
+    val latestNewsFlow: StateFlow<ApiResult<LatestNewsResponse>> get() = repo.latestNewsFlow
+
+    fun loadLatestNews(pageNo :String) {
+        viewModelScope.launch {
+            repo.fetchLatestNews(pageNo)
+        }
+    }
+
 
 
 }

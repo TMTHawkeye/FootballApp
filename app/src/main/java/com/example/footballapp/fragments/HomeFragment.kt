@@ -67,7 +67,11 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
 
     private val matchViewModel: MatchViewModel by viewModel()
 
-    var stageBadge : String?=null
+
+    private var allStages: List<Stage> = emptyList()
+    private val pageSize = 20
+    private var currentPage = 1
+    private var isLoadingMore = false
 
 
     override fun onCreateView(
@@ -427,13 +431,62 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
     */
 
 
-    private fun setUpCompetitionRV() {
+ /*   private fun setUpCompetitionRV() {
         binding.matchesRecyclerView.layoutManager = LinearLayoutManager((context as? MainActivity))
         stageAdapter = StageAdapter(mutableListOf<Stage>(), this@HomeFragment , this@HomeFragment)
         binding.matchesRecyclerView.adapter = stageAdapter
 
 
+    }*/
+
+    private fun loadNextPage() {
+        if (isLoadingMore) return
+        isLoadingMore = true
+
+        val startIndex = currentPage * pageSize
+        val endIndex = (startIndex + pageSize).coerceAtMost(allStages.size)
+
+        if (startIndex < allStages.size) {
+            val nextPageData = allStages.subList(startIndex, endIndex)
+
+            // Simulate loading delay if needed
+            lifecycleScope.launch(Dispatchers.Main) {
+                // Optional: show footer shimmer or progress here
+
+                stageAdapter?.addMoreStages(nextPageData)
+                currentPage++
+                isLoadingMore = false
+
+                Log.d("TAG_loadstages", "loadNextPage: morestages added")
+            }
+        } else {
+            isLoadingMore = false
+        }
     }
+
+
+    private fun setUpCompetitionRV() {
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.matchesRecyclerView.layoutManager = layoutManager
+        stageAdapter = StageAdapter(mutableListOf(), this@HomeFragment, this@HomeFragment)
+        binding.matchesRecyclerView.adapter = stageAdapter
+
+        // Pagination listener
+        binding.matchesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val totalItemCount = layoutManager.itemCount
+                val lastVisible = layoutManager.findLastVisibleItemPosition()
+
+                val threshold = totalItemCount - 5 // load when 5 items away from bottom
+                if (!isLoadingMore && lastVisible >= threshold) {
+                    loadNextPage()
+                }
+            }
+        })
+    }
+
 
 
     private fun observeCompetitions() {
@@ -454,32 +507,25 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
                             }
 
 
+                            withContext(Dispatchers.IO) {
 
-                            val todayFormatted =
-                                LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"))
-                            Log.d("TAG_today", "observeCompetitions: $formattedDate")
-                            val isToday = formattedDate == todayFormatted
-                            val processedData = withContext(Dispatchers.Default) {
-                                if (isToday) result.data else null
-                            }
-//                            if (formattedDate == todayFormatted) {
-//                                setLiveMAtchesList(result.data)
-//                                binding.matchesHeadingTv.setText(binding.root.context.getString(R.string.other_today_s_matches))
-//
-//                            }
-//                            else{
-//                                binding.matchesHeadingTv.setText(binding.root.context.getString(R.string.other_matches))
-//                            }
+                                val todayFormatted =
+                                    LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"))
+                                Log.d("TAG_today", "observeCompetitions: $formattedDate")
+                                val isToday = formattedDate == todayFormatted
+                                val processedData = withContext(Dispatchers.Default) {
+                                    if (isToday) result.data else null
+                                }
 
-                            // 🔹 Back to main thread for UI updates
-                            withContext(Dispatchers.Main) {
-                                if (isToday) {
-                                    setLiveMAtchesList(processedData)
-                                    binding.matchesHeadingTv.text =
-                                        binding.root.context.getString(R.string.other_today_s_matches)
-                                } else {
-                                    binding.matchesHeadingTv.text =
-                                        binding.root.context.getString(R.string.other_matches)
+                                 withContext(Dispatchers.Main) {
+                                    if (isToday) {
+                                        setLiveMAtchesList(processedData)
+                                        binding.matchesHeadingTv.text =
+                                            binding.root.context.getString(R.string.other_today_s_matches)
+                                    } else {
+                                        binding.matchesHeadingTv.text =
+                                            binding.root.context.getString(R.string.other_matches)
+                                    }
                                 }
                             }
                         }
@@ -496,9 +542,17 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
     }
 
 
-    private fun updateCompetitions(data: List<Stage>) {
+  /*  private fun updateCompetitions(data: List<Stage>) {
         stageAdapter?.updateData(data)
+    }*/
+
+    private fun updateCompetitions(data: List<Stage>) {
+        allStages = data
+        currentPage = 1
+        val initialList = data.take(pageSize).toMutableList()
+        stageAdapter?.updateData(initialList)
     }
+
 
     private fun showLoading(show: Boolean?) {
         Log.d(ApiResultTAG, "showLoading: $show")

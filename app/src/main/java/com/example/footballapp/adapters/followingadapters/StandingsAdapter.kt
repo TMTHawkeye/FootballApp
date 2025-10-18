@@ -5,25 +5,25 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.footballapi.modelClasses.teamMatches.Event
 import com.example.footballapp.databinding.ItemStandingBinding
-import com.example.footballapp.fragments.Standing
 
-class StandingsAdapter : ListAdapter<Standing, StandingsAdapter.ViewHolder>(StandingDiffCallback()) {
+class StandingsAdapter : ListAdapter<Event, StandingsAdapter.ViewHolder>(StandingDiffCallback()) {
 
     class ViewHolder(private val binding: ItemStandingBinding) : 
         RecyclerView.ViewHolder(binding.root) {
         
-        fun bind(standing: Standing) {
+        fun bind(standing: Event) {
             binding.apply {
-                tvPosition.text = standing.position.toString()
-                ivTeamLogo.setImageResource(standing.teamIcon)
-                tvTeamName.text = standing.teamName
-                tvPlayed.text = standing.played.toString()
-                tvWon.text = standing.won.toString()
-                tvLost.text = standing.lost.toString()
-                tvDrawn.text = standing.drawn.toString()
-                tvGoalDifference.text = standing.goalDifference.toString()
-                tvPoints.text = standing.points.toString()
+//                tvPosition.text = standing.position.toString()
+//                ivTeamLogo.setImageResource(standing.teamIcon)
+//                tvTeamName.text = standing.teamName
+//                tvPlayed.text = standing.played.toString()
+//                tvWon.text = standing.won.toString()
+//                tvLost.text = standing.lost.toString()
+//                tvDrawn.text = standing.drawn.toString()
+//                tvGoalDifference.text = standing.goalDifference.toString()
+//                tvPoints.text = standing.points.toString()
 
                 // Highlight top positions with different colors
 
@@ -48,10 +48,10 @@ class StandingsAdapter : ListAdapter<Standing, StandingsAdapter.ViewHolder>(Stan
     }
 }
 
-class StandingDiffCallback : DiffUtil.ItemCallback<Standing>() {
-    override fun areItemsTheSame(oldItem: Standing, newItem: Standing): Boolean = 
-        oldItem.teamName == newItem.teamName
-    
-    override fun areContentsTheSame(oldItem: Standing, newItem: Standing): Boolean = 
+class StandingDiffCallback : DiffUtil.ItemCallback<Event>() {
+    override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean =
+        oldItem.home_team == newItem.home_team
+
+    override fun areContentsTheSame(oldItem: Event, newItem: Event): Boolean =
         oldItem == newItem
 }

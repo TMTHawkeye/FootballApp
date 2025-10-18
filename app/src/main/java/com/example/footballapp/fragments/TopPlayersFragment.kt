@@ -28,29 +28,29 @@ class TopPlayersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupAdapters()
+//        setupAdapters()
         loadData()
     }
 
-    private fun setupAdapters() {
-        competitionAdapter = CompetitionAdapter { competition, position ->
-            competitionAdapter.updateSelectedPosition(position)
-            loadTopPlayersForCompetition(competition.id)
-        }
-        binding.rvCompetitions.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvCompetitions.adapter = competitionAdapter
-
-        topPlayersAdapter = TopPlayersAdapter()
-        binding.rvPlayers.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvPlayers.adapter = topPlayersAdapter
-    }
+//    private fun setupAdapters() {
+//        competitionAdapter = CompetitionAdapter { competition, position ->
+//            competitionAdapter.updateSelectedPosition(position)
+//            loadTopPlayersForCompetition(competition.id)
+//        }
+//        binding.rvCompetitions.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+//        binding.rvCompetitions.adapter = competitionAdapter
+//
+//        topPlayersAdapter = TopPlayersAdapter()
+//        binding.rvPlayers.layoutManager = LinearLayoutManager(requireContext())
+//        binding.rvPlayers.adapter = topPlayersAdapter
+//    }
 
     private fun loadData() {
         val competitions = listOf(
             Competition("comp_1", "Premier League"),
             Competition("comp_2", "Super Cup")
         )
-        competitionAdapter.submitList(competitions)
+//        competitionAdapter.submitList(competitions)
 
         // Load initial top players
         loadTopPlayersForCompetition("comp_1")

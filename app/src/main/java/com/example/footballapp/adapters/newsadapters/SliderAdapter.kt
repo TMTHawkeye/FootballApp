@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.footballapi.modelClasses.latestNews.LatestNewsResponseItem
 import com.example.footballapp.R
-import com.example.footballapp.models.newsmodel.SliderItem
 
-class SliderAdapter(private val items: List<SliderItem>) :
+class SliderAdapter(private val items: MutableList<LatestNewsResponseItem>) :
     RecyclerView.Adapter<SliderAdapter.SliderViewHolder>() {
 
     inner class SliderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -25,8 +25,15 @@ class SliderAdapter(private val items: List<SliderItem>) :
     override fun onBindViewHolder(holder: SliderViewHolder, position: Int) {
         val item = items[position]
 
-        // Load image from drawable resource
-        holder.imageView.setImageResource(item.imageResId)
+        Glide.with(holder.imageView.context)
+            .load(item.image)
+            .into(holder.imageView)
+    }
+
+    fun updateList(newList : List<LatestNewsResponseItem>){
+        items.clear()
+        items?.addAll(newList)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = items.size

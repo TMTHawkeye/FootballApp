@@ -5,23 +5,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.footballapi.modelClasses.teamMatches.Stage
 import com.example.footballapp.databinding.ItemPlayerBinding
-import com.example.footballapp.fragments.Player1
 
-class PlayersAdapter : ListAdapter<Player1, PlayersAdapter.ViewHolder>(PlayerDiffCallback()) {
+class PlayersAdapter : ListAdapter<Stage, PlayersAdapter.ViewHolder>(PlayerDiffCallback()) {
 
     class ViewHolder(private val binding: ItemPlayerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(player: Player1) {
+        fun bind(player: Stage) {
             binding.apply {
                 // Set player image
-                ivPlayer.setImageResource(player.image)
-
-                // Set player information
-                tvPlayerName.text = player.name
-
-                tvPlayerNumber.text = "#${player.number}"
+//                ivPlayer.setImageResource(player.image)
+//
+//                // Set player information
+//                tvPlayerName.text = player.name
+//
+//                tvPlayerNumber.text = "#${player.number}"
 
 
                 // Highlight important players
@@ -45,10 +45,10 @@ class PlayersAdapter : ListAdapter<Player1, PlayersAdapter.ViewHolder>(PlayerDif
     }
 }
 
-class PlayerDiffCallback : DiffUtil.ItemCallback<Player1>() {
-    override fun areItemsTheSame(oldItem: Player1, newItem: Player1): Boolean =
-        oldItem.id == newItem.id
+class PlayerDiffCallback : DiffUtil.ItemCallback<Stage>() {
+    override fun areItemsTheSame(oldItem: Stage, newItem: Stage): Boolean =
+        oldItem.stage_id == newItem.stage_id
 
-    override fun areContentsTheSame(oldItem: Player1, newItem: Player1): Boolean =
+    override fun areContentsTheSame(oldItem: Stage, newItem: Stage): Boolean =
         oldItem == newItem
 }

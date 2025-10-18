@@ -2,12 +2,20 @@ package com.example.footballapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.example.footballapi.ApiResult
+import com.example.footballapi.FootballViewModel
+import com.example.footballapi.modelClasses.latestNews.LatestNewsResponseItem
+import com.example.footballapp.Helper.ApiResultTAG
 import com.example.footballapp.R
 import com.example.footballapp.activities.NewsDetailActivity
 import com.example.footballapp.adapters.newsadapters.NewsAdapter
@@ -16,12 +24,22 @@ import com.example.footballapp.databinding.FragmentHomeBinding
 import com.example.footballapp.databinding.FragmentNewsBinding
 import com.example.footballapp.models.newsmodel.NewsItem
 import com.example.footballapp.models.newsmodel.SliderItem
+import com.example.footballapp.viewmodels.TeamViewmodel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 
 class NewsFragment : Fragment() {
     private lateinit var binding: FragmentNewsBinding
-    private lateinit var sliderAdapter: SliderAdapter
-    private lateinit var newsAdapter: NewsAdapter
+    private  var sliderAdapter: SliderAdapter?=null
+    private  var newsAdapter: NewsAdapter?=null
+
+    val viewModel : FootballViewModel by activityViewModel()
+    val teamViewModel : TeamViewmodel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,39 +55,73 @@ class NewsFragment : Fragment() {
         setupSlider()
         setupRecyclerView()
         setupSliderIndicator()
-    }
+        observeNewsData()
+
+        binding.refreshNews.setOnClickListener {
+            viewModel.loadLatestNews("1")
+        }
+
+     }
 
     private fun setupSlider() {
-        val sliderItems = listOf(
-            SliderItem(
-                R.drawable.foot1,  // Drawable resource ID
-                "Breaking News 1",
-                "Today"
-            ),
-            SliderItem(
-                R.drawable.app_icon,
-                "Breaking News 2",
-                "Yesterday"
-            ),
-            SliderItem(
-                R.drawable.arrow_back,
-                "Breaking News 3",
-                "2 days ago"
-            ),
-            SliderItem(
-                R.drawable.arrow_back,
-                "Breaking News 4",
-                "3 days ago"
-            ),
-            SliderItem(
-                R.drawable.arrow_back,
-                "Breaking News 5",
-                "4 days ago"
-            )
-        )
-        sliderAdapter = SliderAdapter(sliderItems)
+
+        sliderAdapter = SliderAdapter(mutableListOf())
         binding.newsSliderViewPager.adapter = sliderAdapter
 
+
+    }
+
+    private fun setupRecyclerView() {
+        newsAdapter = NewsAdapter(mutableListOf())
+        binding.rvLatestNews.apply {
+            adapter = newsAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        // Set click listener
+        newsAdapter?.setOnItemClickListener { newsItem ->
+            teamViewModel.setSelectedNews(newsItem)
+            val intent = Intent(requireContext(), NewsDetailActivity::class.java).apply {
+//                putExtra("NEWS_ITEM", newsItem)
+            }
+            startActivity(intent)
+
+        }
+    }
+
+    private fun observeNewsData() {
+        this@NewsFragment.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.latestNewsFlow.collect { result ->
+                    when (result) {
+                        is ApiResult.Loading -> {
+
+                            showLoading(true)
+                        }
+
+                        is ApiResult.Success -> {
+
+                            showLoading(false)
+                            val newsList = result.data
+                            Log.d("TAG_newsList", "observeNewsData: ${newsList.size}")
+                            newsAdapter?.updateData(newsList)
+                            sliderAdapter?.updateList(newsList)
+                            setSliderPageChangeCallback(newsList)
+                        }
+
+                        is ApiResult.Error -> {
+
+                            showLoading(null)
+                        }
+                    }
+                }
+            }
+        }
+
+        viewModel.loadLatestNews("1")
+
+    }
+
+    fun setSliderPageChangeCallback(sliderItems : List<LatestNewsResponseItem>){
         // Update text views based on current slider item
         binding.newsSliderViewPager.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
@@ -77,147 +129,21 @@ class NewsFragment : Fragment() {
                 super.onPageSelected(position)
                 val currentItem = sliderItems[position]
                 binding.tvNewsTitle.text = currentItem.title
-                binding.tvNewsDate.text = currentItem.date
+                binding.tvNewsDate.text = currentItem.publish_time
             }
         })
     }
+    private fun showLoading(show: Boolean?) {
+        Log.d(ApiResultTAG, "showLoading: $show")
 
-    private fun setupRecyclerView() {
-        val newsItems = listOf(
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 1",
-                getString(R.string.long_news_description_1),
-                "1 hour ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 2",
-                getString(R.string.long_news_description_2),
-                "2 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 3",
-                getString(R.string.long_news_description_3),
-                "3 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 4",
-                getString(R.string.long_news_description_4),
-                "4 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 1",
-                getString(R.string.long_news_description_1),
-                "1 hour ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 2",
-                getString(R.string.long_news_description_2),
-                "2 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 3",
-                getString(R.string.long_news_description_3),
-                "3 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 4",
-                getString(R.string.long_news_description_4),
-                "4 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 1",
-                getString(R.string.long_news_description_1),
-                "1 hour ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 2",
-                getString(R.string.long_news_description_2),
-                "2 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 3",
-                getString(R.string.long_news_description_3),
-                "3 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 4",
-                getString(R.string.long_news_description_4),
-                "4 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 1",
-                getString(R.string.long_news_description_1),
-                "1 hour ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 2",
-                getString(R.string.long_news_description_2),
-                "2 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 3",
-                getString(R.string.long_news_description_3),
-                "3 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 4",
-                getString(R.string.long_news_description_4),
-                "4 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 1",
-                getString(R.string.long_news_description_1),
-                "1 hour ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 2",
-                getString(R.string.long_news_description_2),
-                "2 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 3",
-                getString(R.string.long_news_description_3),
-                "3 hours ago"
-            ),
-            NewsItem(
-                R.drawable.foot1,
-                "Latest News 4",
-                getString(R.string.long_news_description_4),
-                "4 hours ago"
-            )
-        )
+        show?.let {
+            if (show) {
 
-        newsAdapter = NewsAdapter(newsItems)
-        binding.rvLatestNews.apply {
-            adapter = newsAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-        }
 
-        // Set click listener
-        newsAdapter.setOnItemClickListener { newsItem ->
-            val intent = Intent(requireContext(), NewsDetailActivity::class.java).apply {
-                putExtra("NEWS_ITEM", newsItem)
+            } else {
+
             }
-            startActivity(intent)
+        } ?: run {
         }
     }
 

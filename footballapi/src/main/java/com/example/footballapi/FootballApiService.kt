@@ -3,10 +3,12 @@ package com.example.footballapi
  import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsResponse
  import com.example.footballapi.modelClasses.AllMatches
  import com.example.footballapi.modelClasses.MatchesRequest
+ import com.example.footballapi.modelClasses.latestNews.LatestNewsResponse
  import com.example.footballapi.modelClasses.matchLineups.LineupResponse
  import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
  import com.example.footballapi.modelClasses.matchSummary.MatchSummary
  import com.example.footballapi.modelClasses.matchTable.matchTableResponse
+ import com.example.footballapi.modelClasses.teamMatches.TeamMatchesResponse
  import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -50,6 +52,35 @@ interface FootballApiService {
     @GET("/api/football/competitions/")
     suspend fun getAllCompetitions(
     ): AllCompetitionsResponse
+
+
+    @GET("/api/football/team/{match_id}/matches/")
+    suspend fun getTeamMatches(
+        @Path("match_id") matchId: String
+    ): TeamMatchesResponse
+
+
+
+    @GET("/api/football/team/{team_name}/{team_id}/{stage_id}/tables/")
+    suspend fun getTeamStandings(
+        @Path("team_name") teamNAme: String,
+        @Path("team_id") teamId: String,
+        @Path("stage_id") stageId: String,
+    ): TeamMatchesResponse
+
+
+
+    @GET("/api/football/news/latest/{page}/")
+    suspend fun getLatestNews(
+        @Path("page") pageNo: String
+    ): LatestNewsResponse
+
+
+
+    @GET("/api/football/news/article/{article_id}/")
+    suspend fun getSelectedNewsArticle(
+        @Path("article_id") articleId: String
+    ): LatestNewsResponse
 
 
 }

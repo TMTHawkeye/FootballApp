@@ -126,4 +126,11 @@ class StageAdapter(
 
         notifyDataSetChanged()
     }
+
+    fun addMoreStages(newStages: List<Stage>) {
+        val startPosition = stages.size
+        stages.addAll(newStages)
+        notifyItemRangeInserted(startPosition, newStages.size)
+    }
+
 }

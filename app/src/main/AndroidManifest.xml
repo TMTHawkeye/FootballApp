@@ -40,7 +40,7 @@
             android:name=".activities.onboarding.ExitScreen"
             android:exported="false" />
         <activity
-            android:name=".activities.onboarding.LanguageActivity"
+            android:name=".activities.onboarding.SplashActivity"
             android:exported="false" />
         <activity
             android:name=".activities.onboarding.OnBoardingActivity"
@@ -49,7 +49,7 @@
             android:name=".activities.onboarding.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.onboarding.SplashActivity"
+            android:name=".activities.onboarding.LanguageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
