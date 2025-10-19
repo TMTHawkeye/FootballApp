@@ -6,13 +6,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.footballapi.modelClasses.Matche
+import com.example.footballapp.Helper.imagePrefix
+import com.example.footballapp.Helper.imagePrefixCompetition
 import com.example.footballapp.R
 import com.example.footballapp.models.matchmodels.Match
 
 class MatchListAdapter(
-    val matches: List<Match>,
-    private val onExpandClick: (Match) -> Unit, // For expand/collapse
-    private val onItemClick: (Match) -> Unit // For navigation
+    val matches: List<Matche>,
+    private val onExpandClick: (Matche) -> Unit, // For expand/collapse
+    private val onItemClick: (Matche) -> Unit // For navigation
 ) : RecyclerView.Adapter<MatchListAdapter.MatchListViewHolder>() {
 
     class MatchListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,47 +42,57 @@ class MatchListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchListViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_match_list, parent, false)
+            .inflate(R.layout.item_single_match, parent, false)
         return MatchListViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MatchListViewHolder, position: Int) {
         val match = matches[position]
 
-        holder.matchName.text = match.competition
+        holder.matchName.text = match.tournamentName
 
-        if (match.isExpanded) {
-            holder.expandedContent.visibility = View.VISIBLE
-            holder.expandIcon.setImageResource(R.drawable.downarrow)
+//        if (match.isExpanded) {
+        holder.expandedContent.visibility = View.VISIBLE
+        holder.expandIcon.setImageResource(R.drawable.downarrow)
 
-            // Set competition data
-            if (match.competitionLogoResId != null) {
-                holder.competitionLogo1.setImageResource(match.competitionLogoResId)
-            }
-
-            // Set team data
-            holder.team1Logo.setImageResource(match.team1.logoResId)
-            holder.team1Name.text = match.team1.name
-            holder.team2Logo.setImageResource(match.team2.logoResId)
-            holder.team2Name.text = match.team2.name
-
-            // Set scores
-            if (match.team1Goals != null && match.team2Goals != null) {
-                holder.team1Score.text = match.team1Goals.toString()
-                holder.team2Score.text = match.team2Goals.toString()
-                holder.team1Score.visibility = View.VISIBLE
-                holder.team2Score.visibility = View.VISIBLE
-            } else {
-                holder.team1Score.visibility = View.GONE
-                holder.team2Score.visibility = View.GONE
-            }
-
-            // Set date and time
-            holder.date.text = "${match.date}\n${match.time}"
-        } else {
-            holder.expandedContent.visibility = View.GONE
-            holder.expandIcon.setImageResource(R.drawable.forwardarrow1)
+        // Set competition data
+        if (match.tournamentLogo != null) {
+            Glide.with(holder.itemView.context)
+                .load(imagePrefixCompetition + match.tournamentLogo)
+                .into(holder.competitionLogo1)
+//                holder.competitionLogo1.setImageResource(match.tournamentLogo)
         }
+
+        // Set team data
+        Glide.with(holder.itemView.context)
+            .load(imagePrefix + match.home_team?.get(0)?.logo)
+            .into(holder.team1Logo)
+
+//            holder.team1Logo.setImageResource(match.home_team?.get(0)?.logo)
+        holder.team1Name.text = match.home_team?.get(0)?.incident_number
+//            holder.team2Logo.setImageResource(match.team2.logoResId)
+        Glide.with(holder.itemView.context)
+            .load(imagePrefix + match.away_team?.get(0)?.logo)
+            .into(holder.team2Logo)
+        holder.team2Name.text = match.away_team?.get(0)?.incident_number
+
+        // Set scores
+        if (match.home_score != null && match.away_score != null) {
+            holder.team1Score.text = match.home_score.toString()
+            holder.team2Score.text = match.away_score.toString()
+            holder.team1Score.visibility = View.VISIBLE
+            holder.team2Score.visibility = View.VISIBLE
+        } else {
+            holder.team1Score.visibility = View.GONE
+            holder.team2Score.visibility = View.GONE
+        }
+
+        // Set date and time
+        holder.date.text = "${match.start_datetime}"
+//        } else {
+//            holder.expandedContent.visibility = View.GONE
+//            holder.expandIcon.setImageResource(R.drawable.forwardarrow1)
+//        }
 
         // Set click listener for expand icon (only expands/collapses)
         holder.expandIcon.setOnClickListener {

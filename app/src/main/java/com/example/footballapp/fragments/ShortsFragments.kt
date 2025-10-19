@@ -1,18 +1,25 @@
 package com.example.footballapp.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.example.footballapi.ApiResult
+import com.example.footballapi.FootballViewModel
+import com.example.footballapp.Helper.ApiResultTAG
 import com.example.footballapp.R
 import com.example.footballapp.adapters.shortsadapters.ShortsPagerAdapter
 import com.example.footballapp.databinding.FragmentShortsFragmentsBinding
 import com.example.footballapp.models.shortsmodel.ShortVideo
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class ShortsFragments : Fragment() {
 
@@ -20,6 +27,8 @@ class ShortsFragments : Fragment() {
     private lateinit var forYouAdapter: ShortsPagerAdapter
     private lateinit var followingAdapter: ShortsPagerAdapter
     private var currentTabPosition = 0
+
+    val footbalViewmodel: FootballViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +44,8 @@ class ShortsFragments : Fragment() {
         setupDummyViewPager() // Setup dummy first
         setupTabLayout() // Then setup tabs
         setupShortsViewPager() // Finally setup shorts viewpager
+
+        observeYoutubeShorts()
     }
 
     private fun setupAdapters() {
@@ -74,10 +85,12 @@ class ShortsFragments : Fragment() {
                     setCurrentAdapter(position)
                 }
             }
+
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }
+
     private fun setupShortsViewPager() {
         binding.viewPagerShorts.orientation = ViewPager2.ORIENTATION_VERTICAL
         binding.viewPagerShorts.isUserInputEnabled = true
@@ -86,7 +99,8 @@ class ShortsFragments : Fragment() {
         setCurrentAdapter(currentTabPosition)
 
         // Add page change callback to handle video auto-play
-        binding.viewPagerShorts.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.viewPagerShorts.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 // Auto-play the new video and pause others
@@ -183,5 +197,39 @@ class ShortsFragments : Fragment() {
     }
 
 
+    fun observeYoutubeShorts() {
+        this@ShortsFragments.lifecycleScope.launch {
+            footbalViewmodel.youtubeShortsFlow.collect { result ->
+                when (result) {
+                    is ApiResult.Loading -> showLoading(true)
+                    is ApiResult.Success -> {
+                        val shortsList = result.data
+                        showLoading(false)
+                        Log.d("TAG_shorts", "observeYoutubeShorts: ${shortsList.size}")
+                    }
+
+                    is ApiResult.Error -> {
+                        showLoading(null)
+                    }
+                }
+            }
+        }
+
+        footbalViewmodel.loadYoutubeShorts()
+    }
+
+    private fun showLoading(show: Boolean?) {
+        Log.d(ApiResultTAG, "showLoading shorts: $show")
+
+        show?.let {
+            if (show) {
+
+
+            } else {
+
+            }
+        } ?: run {
+        }
+    }
 
 }

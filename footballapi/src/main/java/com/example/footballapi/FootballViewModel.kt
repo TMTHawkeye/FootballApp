@@ -8,11 +8,13 @@ import androidx.paging.cachedIn
 import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsResponse
 import com.example.footballapi.modelClasses.Stage
 import com.example.footballapi.modelClasses.latestNews.LatestNewsResponse
+import com.example.footballapi.modelClasses.latestNews.LatestNewsResponseItem
 import com.example.footballapi.modelClasses.matchLineups.LineupResponse
 import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
 import com.example.footballapi.modelClasses.matchSummary.MatchSummary
 import com.example.footballapi.modelClasses.matchTable.matchTableResponse
 import com.example.footballapi.modelClasses.teamMatches.TeamMatchesResponse
+import com.example.footballapi.modelClasses.youtube_shorts.YouTubeShortsResponseItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -75,6 +77,7 @@ class FootballViewModel(
 
     fun loadMatchTable(matchId: String) {
         viewModelScope.launch {
+
             repo.fetchMatchTable(matchId)
         }
     }
@@ -116,6 +119,30 @@ class FootballViewModel(
         viewModelScope.launch {
             repo.fetchLatestNews(pageNo)
         }
+    }
+
+
+    val latestPagedNewsFlow: Flow<PagingData<LatestNewsResponseItem>> =
+        repo.getPagedNews().cachedIn(viewModelScope)
+
+
+    val youtubeShortsFlow: StateFlow<ApiResult<List<YouTubeShortsResponseItem>>> get() = repo.youtubeShortsFlow
+
+    fun loadYoutubeShorts() {
+        viewModelScope.launch {
+            repo.fetchYoutubeShorts()
+        }
+    }
+
+
+
+    fun clearMatchData(){
+        repo.clearMatchData()
+    }
+
+
+    fun clearTeamDetailsData(){
+        repo.clearTeamDetilsData()
     }
 
 

@@ -9,13 +9,32 @@
         android:id="@+id/rvCompetitions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         tools:listitem="@layout/item_competition"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="horizontal"
-        android:layout_marginBottom="16dp"
+         android:layout_marginBottom="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/rvCompetitionsShimmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:orientation="horizontal"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+     </LinearLayout>
 
 
     <!-- Matches Vertical RecyclerView -->
@@ -25,11 +44,37 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_12sdp"
-
+        android:visibility="invisible"
         android:background="@drawable/footballnow_bggraystrokewbg1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rvCompetitions" />
 
 
+    <LinearLayout
+        android:id="@+id/rvMatchesShimmer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/footballnow_bggraystrokewbg1"
+
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingHorizontal="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingVertical="@dimen/_5sdp"
+        app:layout_constraintTop_toBottomOf="@id/rvCompetitionsShimmer">
+
+        <include layout="@layout/item_match_listshimer" />
+        <include layout="@layout/item_matchshimer" />
+        <include layout="@layout/item_match_listshimer" />
+        <include layout="@layout/item_matchshimer" />
+        <include layout="@layout/item_match_listshimer" />
+        <include layout="@layout/item_matchshimer" />
+        <include layout="@layout/item_matchshimer" />
+        <include layout="@layout/item_match_listshimer" />
+        <include layout="@layout/item_matchshimer" />
+        <include layout="@layout/item_matchshimer" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

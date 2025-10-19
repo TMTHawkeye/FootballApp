@@ -15,6 +15,9 @@ import com.example.footballapi.ApiResult
 import com.example.footballapi.FootballViewModel
 import com.example.footballapi.modelClasses.teamMatches.Stage
 import com.example.footballapp.Helper.ApiResultTAG
+import com.example.footballapp.Helper.gone
+import com.example.footballapp.Helper.invisible
+import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.activities.onboarding.TeamDetailActivity
 import com.example.footballapp.adapters.followingadapters.CompetitionAdapter
@@ -100,9 +103,18 @@ class MatchesFragment : Fragment() {
 
         show?.let {
             if (show) {
+                binding.rvMatchesShimmer.visible()
+                binding.rvCompetitionsShimmer.visible()
 
+                binding.rvMatches.invisible()
+                binding.rvCompetitions.invisible()
 
             } else {
+                binding.rvMatches.visible()
+                binding.rvCompetitions.visible()
+
+                binding.rvMatchesShimmer.gone()
+                binding.rvCompetitionsShimmer.gone()
 
             }
         }?:run{

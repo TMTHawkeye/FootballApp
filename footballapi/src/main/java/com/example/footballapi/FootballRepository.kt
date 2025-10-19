@@ -8,12 +8,15 @@ import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsRespo
 import com.example.footballapi.modelClasses.MatchesRequest
 import com.example.footballapi.modelClasses.Stage
 import com.example.footballapi.modelClasses.latestNews.LatestNewsResponse
+import com.example.footballapi.modelClasses.latestNews.LatestNewsResponseItem
 import com.example.footballapi.modelClasses.matchLineups.LineupResponse
 import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
 import com.example.footballapi.modelClasses.matchSummary.MatchSummary
 import com.example.footballapi.modelClasses.matchTable.matchTableResponse
 import com.example.footballapi.modelClasses.teamMatches.TeamMatchesResponse
- import com.google.gson.Gson
+import com.example.footballapi.modelClasses.youtube_shorts.YouTubeShortsResponseItem
+import com.example.footballapi.pagination.NewsPagingSource
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -228,6 +231,47 @@ class FootballRepository(private val api: FootballApiService) {
     }
 
 
+    fun getPagedNews(): Flow<PagingData<LatestNewsResponseItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 10,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { NewsPagingSource(api) }
+        ).flow
+    }
 
+
+
+    private val _youtubeShortsFlow =
+        MutableStateFlow<ApiResult<List<YouTubeShortsResponseItem>>>(ApiResult.Loading)
+
+    val youtubeShortsFlow: StateFlow<ApiResult<List<YouTubeShortsResponseItem>>> =
+        _youtubeShortsFlow
+
+    suspend fun fetchYoutubeShorts() {
+        _youtubeShortsFlow.value = ApiResult.Loading
+        try {
+            val response = api.getYouTubeShorts()
+            _youtubeShortsFlow.value = ApiResult.Success(response)
+        } catch (e: Exception) {
+            _youtubeShortsFlow.value = ApiResult.Error(e)
+        }
+    }
+
+
+
+    fun clearMatchData(){
+        _matchSummaryFlow.value =  ApiResult.Loading
+        _matchTableFlow.value =  ApiResult.Loading
+        _matchStatsFlow.value =  ApiResult.Loading
+        _matchLineupFlow.value =  ApiResult.Loading
+     }
+
+
+    fun clearTeamDetilsData(){
+        _teamMatchesFlow.value =  ApiResult.Loading
+        _teamStandingsFlow.value =  ApiResult.Loading
+     }
 
 }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/android"
+    xmlns:app2="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:background="@color/transparent"
+
+
+    tools:ignore="NamespaceTypo">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app2:layout_constraintStart_toStartOf="parent"
+        app2:layout_constraintTop_toTopOf="parent"
+        app2:layout_constraintEnd_toEndOf="parent"
+        app2:layout_constraintBottom_toBottomOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:orientation="vertical"
+            app2:layout_constraintBottom_toBottomOf="parent"
+            app2:layout_constraintStart_toStartOf="parent"
+            app2:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:background="@drawable/shimmer_bg"
+                android:id="@+id/ivNewsImage"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                 app2:layout_constraintBottom_toBottomOf="parent"
+                app2:layout_constraintStart_toStartOf="parent"
+                app2:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                app2:layout_constraintEnd_toEndOf="parent"
+                app2:layout_constraintStart_toEndOf="@+id/ivNewsImage"
+                app2:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:background="@drawable/shimmer_bg"
+                    android:id="@+id/tvNewsTitle"
+                    android:layout_width="0dp"
+                    app2:layout_constraintEnd_toEndOf="parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:maxLines="2"
+                     android:textColor="@color/white"
+                    android:textSize="@dimen/_12ssp"
+                    app2:layout_constraintStart_toStartOf="parent"
+                    app2:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:background="@drawable/shimmer_bg"
+                    android:id="@+id/tvNewsDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:fontFamily="@font/montserrat"
+                    android:maxLines="2"
+                     android:textColor="@color/grey"
+                    android:textSize="@dimen/_8ssp"
+                    app2:layout_constraintStart_toStartOf="parent"
+                    app2:layout_constraintTop_toBottomOf="@+id/tvNewsTitle" />
+
+                <TextView
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/shimmer_bg"
+                    android:id="@+id/tvNewsDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                     android:textColor="@color/grey"
+                    android:textSize="@dimen/_8ssp"
+                    app2:layout_constraintTop_toBottomOf="@+id/tvNewsDescription" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

@@ -9,6 +9,7 @@ package com.example.footballapi
  import com.example.footballapi.modelClasses.matchSummary.MatchSummary
  import com.example.footballapi.modelClasses.matchTable.matchTableResponse
  import com.example.footballapi.modelClasses.teamMatches.TeamMatchesResponse
+ import com.example.footballapi.modelClasses.youtube_shorts.YouTubeShortsResponseItem
  import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -81,6 +82,11 @@ interface FootballApiService {
     suspend fun getSelectedNewsArticle(
         @Path("article_id") articleId: String
     ): LatestNewsResponse
+
+
+
+    @GET("api/youtube-shorts/")
+    suspend fun getYouTubeShorts(): List<YouTubeShortsResponseItem>
 
 
 }

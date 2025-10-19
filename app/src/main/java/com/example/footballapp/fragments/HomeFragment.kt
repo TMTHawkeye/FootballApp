@@ -4,7 +4,8 @@ import android.content.Intent
 import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -30,18 +31,18 @@ import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.activities.AllMatchesActivity
 import com.example.footballapp.activities.MatchDetailActivity
-import com.example.footballapp.activities.onboarding.MainActivity
 import com.example.footballapp.activities.onboarding.SettingActivity
 import com.example.footballapp.adapters.StageAdapter
 import com.example.footballapp.adapters.matchadapters.DateAdapter
-import com.example.footballapp.adapters.matchadapters.MatchListAdapter
-import com.example.footballapp.adapters.matchadapters.MatchSliderAdapter
+ import com.example.footballapp.adapters.matchadapters.MatchSliderAdapter
 import com.example.footballapp.databinding.FragmentHomeBinding
 import com.example.footballapp.interfaces.OnMatchSelected
 import com.example.footballapp.interfaces.OnStageClickListener
 import com.example.footballapp.models.matchmodels.Match
 import com.example.footballapp.models.matchmodels.MatchDate
+import com.example.footballapp.utils.DepthPageTransformer
 import com.example.footballapp.viewmodels.MatchViewModel
+import com.example.footballapp.viewmodels.TeamViewmodel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -55,13 +56,13 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
     lateinit var binding: FragmentHomeBinding
     private lateinit var dateAdapter: DateAdapter
     private lateinit var matchSliderAdapter: MatchSliderAdapter
-    private lateinit var matchListAdapter: MatchListAdapter
 
     private val dates = mutableListOf<MatchDate>()
     private val matchesByDate = mutableMapOf<String, List<Match>>()
     private var currentDate: String = ""
 
     private val viewModel: FootballViewModel by activityViewModel()
+    private val teamViewModel: TeamViewmodel by activityViewModel()
     var formattedDate: String? = null
     var stageAdapter: StageAdapter? = null
 
@@ -72,8 +73,9 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
     private val pageSize = 20
     private var currentPage = 1
     private var isLoadingMore = false
-
-
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var autoSlideRunnable: Runnable
+    private var isAutoSliding = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -97,12 +99,7 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
         }
 
         // Add click listener for "See All" button
-        binding.seeAll.setOnClickListener {
-            val allMatches = getAllMatches()
-            val intent = Intent(requireContext(), AllMatchesActivity::class.java)
-            intent.putParcelableArrayListExtra("MATCH_DATA", ArrayList(allMatches))
-            startActivity(intent)
-        }
+
 
         binding.btnHistory.setOnClickListener {
             viewModel.loadMatchesWithStages(formattedDate)
@@ -303,6 +300,9 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
                     outRect.right = horizontalMargin / 2
                 }
             })
+
+
+            setPageTransformer(DepthPageTransformer())
         }
     }
 
@@ -338,31 +338,6 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
         }
     */
 
-    private fun updateMatchListAdapter(matches: List<Match>) {
-        matchListAdapter = MatchListAdapter(
-            matches,
-            onExpandClick = { match ->
-                // Handle expand/collapse
-                val currentMatches = matchesByDate[currentDate] ?: emptyList()
-                val updatedMatches = currentMatches.map {
-                    if (it.id == match.id) {
-                        it.copy(isExpanded = !it.isExpanded)
-                    } else {
-                        it
-                    }
-                }
-                matchesByDate[currentDate] = updatedMatches
-//                updateMatchListAdapter(updatedMatches)
-            },
-            onItemClick = { match ->
-                // Navigate to MatchDetailActivity
-                val intent = Intent(requireContext(), MatchDetailActivity::class.java)
-                intent.putExtra("MATCH_DATA", match as Parcelable)
-                startActivity(intent)
-            }
-        )
-        binding.matchesRecyclerView.adapter = matchListAdapter
-    }
 
     private fun setupNavigationButtons() {
         binding.btnPrevious.setOnClickListener {
@@ -466,10 +441,32 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
 
 
     private fun setUpCompetitionRV() {
+//        binding.matchesRecyclerView.isNestedScrollingEnabled = false
         val layoutManager = LinearLayoutManager(requireContext())
         binding.matchesRecyclerView.layoutManager = layoutManager
         stageAdapter = StageAdapter(mutableListOf(), this@HomeFragment, this@HomeFragment)
         binding.matchesRecyclerView.adapter = stageAdapter
+
+//        binding.matchesRecyclerView.setHasFixedSize(true)
+//        binding.matchesRecyclerView.apply {
+//            isNestedScrollingEnabled = false
+//
+//            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                    super.onScrolled(recyclerView, dx, dy)
+//
+//                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+//                    val totalItemCount = layoutManager.itemCount
+//                    val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+//
+//                    val threshold = 5 // items before end
+//                    if (!isLoadingMore && totalItemCount <= lastVisibleItem + threshold) {
+//                        loadNextPage()
+//                    }
+//                }
+//            })
+//        }
+
 
         // Pagination listener
         binding.matchesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -479,12 +476,16 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
                 val totalItemCount = layoutManager.itemCount
                 val lastVisible = layoutManager.findLastVisibleItemPosition()
 
-                val threshold = totalItemCount - 5 // load when 5 items away from bottom
+                val threshold = totalItemCount - 10
                 if (!isLoadingMore && lastVisible >= threshold) {
                     loadNextPage()
                 }
             }
         })
+
+
+
+
     }
 
 
@@ -614,6 +615,8 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
             val liveMatches = matchesList.orEmpty()
                 .flatMap { stage ->
                     stage.matches.orEmpty().map { match ->
+                        match.tournamentLogo = stage.badge_url
+                        match.tournamentName = stage.stage_name
                         match.copy(
                             tournamentLogo = stage.badge_url?.takeIf { it != "null" }
                                 ?: match.tournamentLogo,
@@ -626,6 +629,7 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
         Log.d("TAG_setLiveMAtchesList", "setLiveMAtchesList: ${liveMatches.size}")
 
         if(liveMatches.size!=0) {
+            autoSlideLiveMatches(liveMatches)
             if(liveMatches?.size==1){
                 binding.seeAll.invisible()
             }
@@ -643,6 +647,14 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
             binding.textView3.text = getString(R.string.livematches) + " ${liveMatches.size}"
 
 //            binding.textView3.gone()
+        }
+
+        binding.seeAll.setOnClickListener {
+            teamViewModel.setLiveMatches(liveMatches)
+//            val allMatches = getAllMatches()
+            val intent = Intent(requireContext(), AllMatchesActivity::class.java)
+//            intent.putParcelableArrayListExtra("MATCH_DATA", ArrayList(allMatches))
+            startActivity(intent)
         }
     }
 
@@ -668,4 +680,52 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
     }
 
 
+   /* fun autoSlideLiveMatches(liveMatches: List<Matche>) {
+        // Auto-slide functionality
+
+        autoSlideRunnable = object : Runnable {
+            override fun run() {
+                val currentItem = binding.matchSliderViewPager.currentItem
+                val nextItem = if (currentItem == liveMatches.size - 1) 0 else currentItem + 1
+                binding.matchSliderViewPager.setCurrentItem(nextItem, true)
+                handler.postDelayed(this, 3000)
+            }
+        }
+        handler.postDelayed(autoSlideRunnable, 3000)
+    }
+*/
+
+    fun autoSlideLiveMatches(liveMatches: List<Matche>) {
+        if (isAutoSliding || liveMatches.isEmpty()) return // prevent multiple starts
+
+        isAutoSliding = true
+        autoSlideRunnable = object : Runnable {
+            override fun run() {
+                val viewPager = binding.matchSliderViewPager
+                val currentItem = viewPager.currentItem
+                val nextItem = if (currentItem == liveMatches.size - 1) 0 else currentItem + 1
+                viewPager.setCurrentItem(nextItem, true)
+                handler.postDelayed(this, 3000)
+            }
+        }
+//        handler.removeCallbacksAndMessages(null)
+
+        handler.postDelayed(autoSlideRunnable, 3000)
+    }
+     override fun onPause() {
+        super.onPause()
+        stopAutoSlide()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        stopAutoSlide()
+    }
+
+    private fun stopAutoSlide() {
+        autoSlideRunnable?.let {
+            handler.removeCallbacks(it)
+        }
+        isAutoSliding = false
+    }
 }

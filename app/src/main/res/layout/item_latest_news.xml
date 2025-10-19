@@ -25,7 +25,8 @@
             android:layout_width="@dimen/_70sdp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/arrow_back"
+            android:background="@color/light_grey"
+
             app2:layout_constraintBottom_toBottomOf="parent"
             app2:layout_constraintStart_toStartOf="parent"
             app2:layout_constraintTop_toTopOf="parent" />

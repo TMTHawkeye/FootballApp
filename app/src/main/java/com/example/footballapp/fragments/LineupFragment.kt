@@ -85,11 +85,11 @@ class LineupFragment : Fragment() {
             }
         }
 
-        viewModel.loadMatchLineups("1426226")
+//        viewModel.loadMatchLineups("1426226")
 
-//        (context as? MatchDetailActivity)?.match?.match_id?.let {
-//            viewModel.loadMatchLineups(it)
-//        }
+        (context as? MatchDetailActivity)?.match?.match_id?.let {
+            viewModel.loadMatchLineups(it)
+        }
     }
 
     private fun showLoading(show: Boolean) {

@@ -59,6 +59,7 @@ class TeamsFragment : Fragment() {
     private val followViewModel: FollowTeamViewModel by activityViewModel()
     private val teamViewModel: TeamViewmodel by activityViewModel()
 
+    private var isLoadingNextPage = false
 
     private lateinit var teamsAdapter: TeamsAdapter
     private var currentPage = 0
@@ -93,18 +94,36 @@ class TeamsFragment : Fragment() {
         binding.rvTeams.apply {
             adapter = teamsAdapter
             layoutManager = LinearLayoutManager(requireContext())
+//            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                    super.onScrolled(recyclerView, dx, dy)
+//                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+//                    val totalItemCount = layoutManager.itemCount
+//                    val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+//
+//                    if (totalItemCount <= lastVisibleItem + 10) { // threshold
+//                        loadNextPage()
+//                    }
+//                }
+//            })\
+
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
+
+                    if (dy <= 0) return // ignore upward scrolls
+
                     val layoutManager = recyclerView.layoutManager as LinearLayoutManager
                     val totalItemCount = layoutManager.itemCount
                     val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
 
-                    if (totalItemCount <= lastVisibleItem + 10) { // threshold
+                    if (!isLoadingNextPage && lastVisibleItem + 10 >= totalItemCount) {
+                        isLoadingNextPage = true
                         loadNextPage()
                     }
                 }
             })
+
         }
     }
 
@@ -119,10 +138,13 @@ class TeamsFragment : Fragment() {
 
         show?.let {
             if (show) {
+                binding.rvTeamsShimmer.visible()
+                binding.rvTeams.invisible()
 
 
             } else {
-
+                binding.rvTeamsShimmer.invisible()
+                binding.rvTeams.visible()
             }
         }?:run{
         }
@@ -165,7 +187,7 @@ class TeamsFragment : Fragment() {
 
 
 
-    private fun loadNextPage() {
+   /* private fun loadNextPage() {
         val start = currentPage * pageSize
         val end = minOf(start + pageSize, moreTeamsList.size)
 
@@ -179,6 +201,27 @@ class TeamsFragment : Fragment() {
         }
 
         currentPage++
+    }
+*/
+
+    private fun loadNextPage() {
+        val start = currentPage * pageSize
+        val end = minOf(start + pageSize, moreTeamsList.size)
+
+        if (start >= end) {
+            isLoadingNextPage = false
+            return // no more pages
+        }
+
+        val nextPage = moreTeamsList.subList(start, end)
+        if (currentPage == 0) {
+            teamsAdapter.setData(followedTeamsList, nextPage)
+        } else {
+            teamsAdapter.addMoreTeams(nextPage)
+        }
+
+        currentPage++
+        isLoadingNextPage = false
     }
 
 

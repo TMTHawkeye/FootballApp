@@ -176,12 +176,12 @@ class StatsFragment : Fragment() {
                 }
             }
         }
-        viewModel.loadMatchStats("1426226")
+//        viewModel.loadMatchStats("1426226")
 
-//        (context as? MatchDetailActivity)?.match?.match_id?.let {
-//
-//            viewModel.loadMatchStats(it)
-//        }
+        (context as? MatchDetailActivity)?.match?.match_id?.let {
+
+            viewModel.loadMatchStats(it)
+        }
     }
 
     private fun showLoading(show: Boolean) {

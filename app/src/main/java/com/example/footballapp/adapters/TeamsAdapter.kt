@@ -79,17 +79,14 @@ class TeamsAdapter(
         }
     }
 
-    // ---------------------------
-    // View Holders
-    // ---------------------------
 
-    inner class HeaderViewHolder(private val binding: ItemTextHeaderBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+        private inner class HeaderViewHolder(private val binding: ItemTextHeaderBinding) :
+            RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(title: String) {
-            binding.textView.text = title
+            fun bind(title: String) {
+                binding.textView.text = title
+            }
         }
-    }
 
     inner class TeamViewHolder(private val binding: ItemSuggestedTeamBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -105,7 +102,7 @@ class TeamsAdapter(
         }
     }
 
-    inner class FollowedGroupViewHolder(private val binding: ItemFollowedGroupBinding) :
+    private inner class FollowedGroupViewHolder(private val binding: ItemFollowedGroupBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(followedTeams: List<Team>) {

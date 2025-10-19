@@ -18,6 +18,7 @@ import com.example.footballapp.adapters.matchadapters.TableAdapter
 import com.example.footballapp.databinding.FragmentTableBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.getValue
 
 class TableFragment : Fragment() {
@@ -25,7 +26,7 @@ class TableFragment : Fragment() {
     private lateinit var binding: FragmentTableBinding
 
     //    private lateinit var match: Match
-    private val viewModel: FootballViewModel by activityViewModel()
+    private val viewModel: FootballViewModel by viewModel()
 
 
     /* companion object {
@@ -149,6 +150,8 @@ class TableFragment : Fragment() {
                                             points = team.points
                                         )
                                     )
+
+                                    Log.d("TAG_teamTable", "observeMatchTable: ${team}")
                                 }
                             }
 
@@ -163,11 +166,11 @@ class TableFragment : Fragment() {
             }
         }
 
-        viewModel.loadMatchTable("1426226")
-//        (context as? MatchDetailActivity)?.match?.match_id?.let {
-//            viewModel.loadMatchTable(it)
+//        viewModel.loadMatchTable("1426226")
+        (context as? MatchDetailActivity)?.match?.match_id?.let {
+             viewModel.loadMatchTable(it)
 //            Toast.makeText(binding.root.context, "$it", Toast.LENGTH_SHORT).show()
-//        }
+        }
 
     }
 

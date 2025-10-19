@@ -117,4 +117,10 @@ class TeamDetailActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
     }
+
+    override fun onDestroy() {
+        viewModel.clearTeamDetailsData()
+        super.onDestroy()
+
+    }
 }

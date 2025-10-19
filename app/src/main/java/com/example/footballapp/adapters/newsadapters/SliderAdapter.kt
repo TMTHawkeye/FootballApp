@@ -1,5 +1,6 @@
 package com.example.footballapp.adapters.newsadapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,7 @@ class SliderAdapter(private val items: MutableList<LatestNewsResponseItem>) :
     fun updateList(newList : List<LatestNewsResponseItem>){
         items.clear()
         items?.addAll(newList)
+        Log.d("TAG_newsList", "updateList: ${newList?.size}")
         notifyDataSetChanged()
     }
 

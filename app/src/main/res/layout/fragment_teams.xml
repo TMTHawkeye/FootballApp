@@ -12,11 +12,53 @@
         android:id="@+id/rvTeams"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="invisible"
         android:layout_marginTop="@dimen/_12sdp"
+        tools:listitem="@layout/item_team"
+        tools:itemCount="30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/rvTeamsShimmer"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@+id/rvTeams"
+        app:layout_constraintEnd_toEndOf="@+id/rvTeams"
+        app:layout_constraintTop_toTopOf="@+id/rvTeams"
+        app:layout_constraintBottom_toBottomOf="@+id/rvTeams">
+
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+        <include layout="@layout/item_teamshimer"/>
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,6 +3,7 @@ package com.example.footballapp.activities
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -53,6 +54,8 @@ class MatchDetailActivity : AppCompatActivity() {
 
         binding = ActivityMatchDetailBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+
+        Toast.makeText(this@MatchDetailActivity, "${match?.match_id}", Toast.LENGTH_SHORT).show()
         WindowCompat.getInsetsController(window, window.decorView).apply {
             isAppearanceLightStatusBars = true // For dark icons (use with light backgrounds)
             // OR
@@ -215,4 +218,9 @@ class MatchDetailActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        viewModel.clearMatchData()
+        super.onDestroy()
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.footballapp.activities.onboarding
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -14,11 +15,16 @@ import com.example.footballapp.databinding.ActivityLeagueDetailBinding
 import com.example.footballapp.fragments.MatchesFragment
 import com.example.footballapp.fragments.StandingsFragment
 import com.example.footballapp.fragments.TopPlayersFragment
+import com.example.footballapp.viewmodels.TeamViewmodel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.getValue
 
 class LeagueDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLeagueDetailBinding
     private  var viewPagerAdapter: LeagueDetailPagerAdapter?=null
+    private val teamViewModel : TeamViewmodel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +46,9 @@ class LeagueDetailActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }
+
+        val league = teamViewModel.getLeague()
+        Toast.makeText(binding.root.context, "${league?.competition_id} & ${league?.stage_id}", Toast.LENGTH_SHORT).show()
         setupToolbar()
         setupViewPager()
     }
@@ -91,4 +100,6 @@ class LeagueDetailActivity : AppCompatActivity() {
         super.onBackPressed()
 
     }
+
+
 }
