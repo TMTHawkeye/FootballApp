@@ -13,13 +13,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.footballapi.ApiResult
 import com.example.footballapi.FootballViewModel
+import com.example.footballapi.sealedClasses.sealedTableItem
 import com.example.footballapp.Helper.ApiResultTAG
-import com.example.footballapp.R
+import com.example.footballapp.Helper.invisible
+import com.example.footballapp.Helper.visible
 import com.example.footballapp.activities.onboarding.TeamDetailActivity
 import com.example.footballapp.adapters.followingadapters.CompetitionAdapter
 import com.example.footballapp.adapters.followingadapters.PlayersAdapter
 import com.example.footballapp.databinding.FragmentPlayersBinding
-import com.example.footballapp.models.followingmodels.Competition
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import kotlin.getValue
@@ -27,8 +28,8 @@ import kotlin.getValue
 class PlayersFragment : Fragment() {
 
     private lateinit var binding: FragmentPlayersBinding
-    private  var competitionAdapter: CompetitionAdapter?=null
-    private  var playersAdapter: PlayersAdapter?=null
+    private var competitionAdapter: CompetitionAdapter? = null
+    private var playersAdapter: PlayersAdapter? = null
     private val viewModel: FootballViewModel by activityViewModel()
 
     override fun onCreateView(
@@ -41,8 +42,19 @@ class PlayersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-          setCompetitionAdapter()
+        setCompetitionAdapter()
+        setPlayerAdapter()
         observeCompetitions()
+        observeTeamPlayerStats()
+    }
+
+    fun setPlayerAdapter() {
+        playersAdapter = PlayersAdapter()
+
+        binding.rvPlayers.apply {
+            adapter  = playersAdapter
+            layoutManager = LinearLayoutManager(binding.root.context)
+        }
     }
 
     fun setCompetitionAdapter() {
@@ -51,18 +63,22 @@ class PlayersFragment : Fragment() {
 //            loadMatchesForCompetition(competition)
             (context as? TeamDetailActivity)?.let { ctxt ->
                 ctxt.team?.let { team ->
-                    Toast.makeText(
-                        binding.root.context,
-                        "${team.incident_number} , ${team.team_id} , ${competition.stage_id}",
-                        Toast.LENGTH_LONG
-                    ).show()
+//                    Toast.makeText(
+//                        binding.root.context,
+//                        "${team.incident_number} , ${team.team_id} , ${competition.stage_id}",
+//                        Toast.LENGTH_LONG
+//                    ).show()
                     Log.d(
                         "TAG_standingsDetails",
                         "setCompetitionAdapter: ${team.incident_number} , ${team.team_id} , ${competition.stage_id}"
                     )
                     team.incident_number?.let {
                         team.team_id?.let { teamId ->
-
+                            loadPlayersForCompetition(
+                                it,
+                                teamId,
+                                competition.stage_id
+                            )
                         }
                     }
 
@@ -83,6 +99,43 @@ class PlayersFragment : Fragment() {
 
         binding.rvCompetitions.adapter = competitionAdapter
 
+
+    }
+
+
+    private fun observeTeamPlayerStats() {
+        this@PlayersFragment.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.teamPlayerStatsFlow.collect { result ->
+                    when (result) {
+                        is ApiResult.Loading -> {
+
+                            showLoadingPlayerStats(true)
+                        }
+
+                        is ApiResult.Success -> {
+
+                            showLoadingPlayerStats(false)
+                            val playerStats = result.data.pageProps.initialPlayerStats.stats
+                            Log.d("TAG_teamPlayerStatsFlow", "observeMatches: ${playerStats}")
+
+                            val allPlayers = playerStats.flatMap { it.players }
+//
+//                            val goalStat = playerStats.find { it.statId == "goals" }
+                            allPlayers?.let {
+                                playersAdapter?.submitList(it)
+                            }
+
+                        }
+
+                        is ApiResult.Error -> {
+
+                            showLoadingPlayerStats(null)
+                        }
+                    }
+                }
+            }
+        }
 
     }
 
@@ -110,6 +163,31 @@ class PlayersFragment : Fragment() {
 
                                 // 3️⃣ Load matches for the first competition
 //                                loadMatchesForCompetition(stages[0])
+
+                                (context as? TeamDetailActivity)?.let { ctxt ->
+                                    ctxt.team?.let { team ->
+//                                        Toast.makeText(
+//                                            binding.root.context,
+//                                            "${team.incident_number} , ${team.team_id} , ${stages[0].competition_id}",
+//                                            Toast.LENGTH_LONG
+//                                        ).show()
+                                        Log.d(
+                                            "TAG_standingsDetails",
+                                            "setCompetitionAdapter: ${team.incident_number} , ${team.team_id} , ${stages[0].stage_id}"
+                                        )
+                                        team.incident_number?.let {
+                                            team.team_id?.let { teamId ->
+                                                loadPlayersForCompetition(
+                                                    it,
+                                                    teamId,
+                                                    stages[0].stage_id
+                                                )
+                                            }
+                                        }
+
+
+                                    }
+                                }
                             }
                         }
 
@@ -129,12 +207,39 @@ class PlayersFragment : Fragment() {
 
         show?.let {
             if (show) {
+                binding.rvCompetitions.invisible()
 
 
             } else {
+                binding.rvCompetitions.visible()
 
             }
         } ?: run {
+        }
+    }
+
+    fun loadPlayersForCompetition(teamName: String, teamId: String, stageId: String) {
+        viewModel.loadTeamPlayerStats(teamName, teamId, stageId)
+    }
+
+    private fun showLoadingPlayerStats(show: Boolean?) {
+        Log.d(ApiResultTAG, "showLoading standing or competitions: $show")
+
+        show?.let {
+            if (show) {
+                binding.rvPlayers.invisible()
+//                binding.rvCompetitions.gone()
+//                Toast.makeText(binding.root.context, "Loading data for Player stats", Toast.LENGTH_SHORT).show()
+
+            } else {
+                binding.rvPlayers.visible()
+//                binding.rvCompetitions.visible()
+
+//                Toast.makeText(binding.root.context, "Data available for Player stats", Toast.LENGTH_SHORT).show()
+
+            }
+        } ?: run {
+//            Toast.makeText(binding.root.context, "No data available for Player stats", Toast.LENGTH_SHORT).show()
         }
     }
 }

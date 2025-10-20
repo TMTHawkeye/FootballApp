@@ -8,11 +8,14 @@ import com.example.footballapi.modelClasses.teamMatches.Event
 import com.example.footballapp.Helper.imagePrefix
 import com.example.footballapp.databinding.ItemSingleMatchBinding
 import com.example.footballapp.databinding.ItemTextHeaderBinding
+import com.example.footballapp.models.Team
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 class MatchesAdapter(
-    private val matches: MutableList<Event> = mutableListOf()
+    private val matches: MutableList<Event> = mutableListOf(),
+    private val onMatchClick: ((Event) -> Unit)? = null
+
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -65,7 +68,11 @@ class MatchesAdapter(
 
                 team1Name.text = match.home_team[0].team_name
                 team2Name.text = match.away_team[0].team_name
+
+
             }
+
+
         }
     }
 
@@ -88,6 +95,9 @@ class MatchesAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MatchViewHolder) {
             holder.bind(matches[position - 1]) // offset by 1 because first is "All Matches"
+            holder.itemView.rootView.setOnClickListener {
+                onMatchClick?.invoke(matches.get(position-1))
+            }
         } else if (holder is AllMatchesViewHolder) {
             holder.bind()
         }

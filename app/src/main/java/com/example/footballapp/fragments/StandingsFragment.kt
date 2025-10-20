@@ -13,10 +13,16 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.footballapi.ApiResult
 import com.example.footballapi.FootballViewModel
+import com.example.footballapi.sealedClasses.sealedTableItem
 import com.example.footballapp.Helper.ApiResultTAG
+import com.example.footballapp.Helper.gone
+import com.example.footballapp.Helper.invisible
+import com.example.footballapp.Helper.visible
 import com.example.footballapp.activities.onboarding.TeamDetailActivity
+import com.example.footballapp.adapters.TeamsAdapter
 import com.example.footballapp.adapters.followingadapters.CompetitionAdapter
 import com.example.footballapp.adapters.followingadapters.StandingsAdapter
+import com.example.footballapp.adapters.matchadapters.TableAdapter
 import com.example.footballapp.databinding.FragmentStandingsBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
@@ -26,7 +32,7 @@ class StandingsFragment : Fragment() {
 
     private lateinit var binding: FragmentStandingsBinding
     private var competitionAdapter: CompetitionAdapter? = null
-    private var standingsAdapter: StandingsAdapter? = null
+    private var standingsAdapter: TableAdapter? = null
     private val viewModel: FootballViewModel by activityViewModel()
 
     override fun onCreateView(
@@ -39,10 +45,9 @@ class StandingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        setupAdapters()
-        setCompetitionAdapter()
+         setCompetitionAdapter()
         observeCompetitions()
-//        observeTeamStandings()
+        observeTeamStandings()
     }
 
 
@@ -70,6 +75,31 @@ class StandingsFragment : Fragment() {
 
                                 // 3️⃣ Load matches for the first competition
 //                                loadMatchesForCompetition(stages[0])
+
+                                (context as? TeamDetailActivity)?.let { ctxt ->
+                                    ctxt.team?.let { team ->
+//                                        Toast.makeText(
+//                                            binding.root.context,
+//                                            "${team.incident_number} , ${team.team_id} , ${stages[0].stage_id}",
+//                                            Toast.LENGTH_LONG
+//                                        ).show()
+                                        Log.d(
+                                            "TAG_standingsDetails",
+                                            "setCompetitionAdapter: ${team.incident_number} , ${team.team_id} , ${stages[0].stage_id}"
+                                        )
+                                        team.incident_number?.let {
+                                            team.team_id?.let { teamId ->
+                                                loadStandingsForCompetition(
+                                                    it,
+                                                    teamId,
+                                                    stages[0].stage_id
+                                                )
+                                            }
+                                        }
+
+
+                                    }
+                                }
                             }
                         }
 
@@ -91,20 +121,50 @@ class StandingsFragment : Fragment() {
                     when (result) {
                         is ApiResult.Loading -> {
 
-                            showLoading(true)
+                            showLoadingStanding(true)
                         }
 
                         is ApiResult.Success -> {
 
-                            showLoading(false)
-                            val stages = result.data.stages
-                            Log.d("TAG_M", "observeMatches: ")
+                            showLoadingStanding(false)
+                            val leagueMap = result.data.pageProps.initialData.leagueTables.league[""] ?: emptyList()
+                            Log.d("TAG_stagesForStandings", "observeMatches: ${leagueMap}")
+
+
+                            val allItems = mutableListOf<sealedTableItem>()
+
+                            leagueMap.forEachIndexed { index, league ->
+                                allItems.add(sealedTableItem.LeagueDivider(league.name))
+                                allItems.add(sealedTableItem.HeaderRow)
+//                                }
+
+                                league.teams.forEach { team ->
+                                    allItems.add(
+                                        sealedTableItem.TeamRow(
+                                            position = team.rank,
+                                            teamName = team.name,
+                                            teamLogo = team.teamBadge.medium,
+                                            matchesPlayed = team.played,
+                                            wins = team.wins,
+                                            draws = team.draws,
+                                            losses = team.losses,
+                                            goalDifference = team.goalsDiff,
+                                            points = team.points
+                                        )
+                                    )
+
+                                    Log.d("TAG_teamTable", "observeMatchTable: ${team}")
+                                }
+                            }
+
+
+                            setupLeagueTable(allItems)
 
                         }
 
                         is ApiResult.Error -> {
 
-                            showLoading(null)
+                            showLoadingStanding(null)
                         }
                     }
                 }
@@ -113,14 +173,38 @@ class StandingsFragment : Fragment() {
 
     }
 
-    private fun showLoading(show: Boolean?) {
-        Log.d(ApiResultTAG, "showLoading: $show")
+    private fun showLoadingStanding(show: Boolean?) {
+        Log.d(ApiResultTAG, "showLoading standing or competitions: $show")
 
         show?.let {
             if (show) {
-
+                binding.rvStandings.invisible()
+//                binding.rvCompetitions.gone()
 
             } else {
+                binding.rvStandings.visible()
+//                binding.rvCompetitions.visible()
+
+
+            }
+        } ?: run {
+            Toast.makeText(binding.root.context, "No data available for Standings", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun showLoading(show: Boolean?) {
+        Log.d(ApiResultTAG, "showLoading standing or competitions: $show")
+
+        show?.let {
+            if (show) {
+//                binding.rvStandings.gone()
+                binding.rvCompetitions.invisible()
+
+            } else {
+//                binding.rvStandings.visible()
+                binding.rvCompetitions.visible()
+
+
 
             }
         } ?: run {
@@ -133,11 +217,11 @@ class StandingsFragment : Fragment() {
 //            loadMatchesForCompetition(competition)
             (context as? TeamDetailActivity)?.let { ctxt ->
                 ctxt.team?.let { team ->
-                    Toast.makeText(
-                        binding.root.context,
-                        "${team.incident_number} , ${team.team_id} , ${competition.competition_id}",
-                        Toast.LENGTH_LONG
-                    ).show()
+//                    Toast.makeText(
+//                        binding.root.context,
+//                        "${team.incident_number} , ${team.team_id} , ${competition.stage_id}",
+//                        Toast.LENGTH_LONG
+//                    ).show()
                     Log.d(
                         "TAG_standingsDetails",
                         "setCompetitionAdapter: ${team.incident_number} , ${team.team_id} , ${competition.stage_id}"
@@ -173,8 +257,14 @@ class StandingsFragment : Fragment() {
     }
 
     fun loadStandingsForCompetition(teamName: String, teamId: String, stageId: String) {
-//        viewModel.loadTeamStandings(teamName,teamId,stageId)
+        viewModel.loadTeamStandings(teamName,teamId,stageId)
     }
 
+
+    private fun setupLeagueTable(tableItems: MutableList<sealedTableItem>) {
+       standingsAdapter = TableAdapter(tableItems)
+        binding.rvStandings.adapter = standingsAdapter
+        binding.rvStandings.layoutManager = LinearLayoutManager(requireContext())
+    }
 }
 

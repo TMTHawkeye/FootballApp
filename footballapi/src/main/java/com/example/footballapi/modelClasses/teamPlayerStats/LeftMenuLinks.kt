@@ -1,0 +1,3 @@
+package com.example.footballapi.modelClasses.teamPlayerStats
+
+class LeftMenuLinks

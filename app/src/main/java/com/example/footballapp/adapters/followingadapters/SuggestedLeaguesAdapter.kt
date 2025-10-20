@@ -14,6 +14,7 @@ import com.example.footballapp.R
 import com.example.footballapp.databinding.ItemFollowedGroupBinding
 import com.example.footballapp.databinding.ItemSuggestedTeamBinding
  import com.example.footballapp.databinding.ItemTextHeaderBinding
+import com.example.footballapp.models.Team
 
 class SuggestedLeaguesAdapter(
      private val onFollowClick: (Stage) -> Unit,
@@ -21,6 +22,7 @@ class SuggestedLeaguesAdapter(
  ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<Any>()
+    private val originalItems = mutableListOf<Any>()
 
     companion object {
         private const val TYPE_FOLLOWED_GROUP = 0
@@ -37,6 +39,7 @@ class SuggestedLeaguesAdapter(
 
         items.add("Follow More")
         items.addAll(moreLeagues)
+        originalItems.addAll(items)
 
         notifyDataSetChanged()
     }
@@ -77,13 +80,6 @@ class SuggestedLeaguesAdapter(
             is Stage -> (holder as LeagueViewHolder).bind(item)
         }
     }
-
-
-    private var followedIds: List<String> = emptyList()
-
-
-
-
 
 
     private inner class HeaderViewHolder(private val binding: ItemTextHeaderBinding) :
@@ -194,6 +190,17 @@ class SuggestedLeaguesAdapter(
         val insertStart = if (headerIndex != -1) headerIndex + 1 else items.size
 
         items.addAll(insertStart, newLeague)
+        originalItems.addAll(insertStart,newLeague)
+
         notifyItemRangeInserted(insertStart, newLeague.size)
+    }
+
+    fun filterList(filteredTeams: List<Stage>) {
+        items.clear()
+
+        // When a search query is active, we only show the flat filtered list
+        items.addAll(filteredTeams)
+
+        notifyDataSetChanged()
     }
 }

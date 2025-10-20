@@ -22,35 +22,14 @@ class TeamsAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<Any>()
-
+    private val originalItems = mutableListOf<Any>()
     companion object {
         private const val TYPE_FOLLOWED_GROUP = 0
         private const val TYPE_HEADER_MORE = 1
         private const val TYPE_TEAM_MORE = 2
     }
 
-    fun setData(followedTeams: List<Team>, moreTeams: List<Team>) {
-        items.clear()
 
-        // Add grouped followed teams section (including header inside)
-        if (followedTeams.isNotEmpty()) {
-            items.add(followedTeams)
-        }
-
-        // Add the rest (unfollowed)
-        items.add("Follow More")
-        items.addAll(moreTeams)
-
-        notifyDataSetChanged()
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return when (val item = items[position]) {
-            is List<*> -> TYPE_FOLLOWED_GROUP
-            is String -> TYPE_HEADER_MORE
-            else -> TYPE_TEAM_MORE
-        }
-    }
 
     override fun getItemCount(): Int = items.size
 
@@ -161,6 +140,59 @@ class TeamsAdapter(
         val insertStart = if (headerIndex != -1) headerIndex + 1 else items.size
 
         items.addAll(insertStart, newTeams)
+        originalItems.addAll(insertStart,newTeams)
         notifyItemRangeInserted(insertStart, newTeams.size)
     }
+
+  /*  fun setData(followedTeams: List<Team>, moreTeams: List<Team>) {
+        items.clear()
+
+        // Add grouped followed teams section (including header inside)
+        if (followedTeams.isNotEmpty()) {
+            items.add(followedTeams)
+        }
+
+        // Add the rest (unfollowed)
+        items.add("Follow More")
+        items.addAll(moreTeams)
+
+        notifyDataSetChanged()
+    }*/
+
+    fun setData(followedTeams: List<Team>, moreTeams: List<Team>) {
+        items.clear()
+        originalItems.clear()
+
+        // Build the default grouped structure
+        if (followedTeams.isNotEmpty()) {
+            items.add(followedTeams)
+        }
+
+        items.add("Follow More")
+        items.addAll(moreTeams)
+
+        // Keep a copy of the original grouped list
+        originalItems.addAll(items)
+
+        notifyDataSetChanged()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (val item = items[position]) {
+            is List<*> -> TYPE_FOLLOWED_GROUP
+            is String -> TYPE_HEADER_MORE
+            else -> TYPE_TEAM_MORE
+        }
+    }
+
+
+    fun filterList(filteredTeams: List<Team>) {
+        items.clear()
+
+        // When a search query is active, we only show the flat filtered list
+        items.addAll(filteredTeams)
+
+        notifyDataSetChanged()
+    }
+
 }

@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsResponse
 import com.example.footballapi.modelClasses.MatchesRequest
 import com.example.footballapi.modelClasses.Stage
+import com.example.footballapi.modelClasses.TeamTable.TeamTableResponse
 import com.example.footballapi.modelClasses.latestNews.LatestNewsResponse
 import com.example.footballapi.modelClasses.latestNews.LatestNewsResponseItem
 import com.example.footballapi.modelClasses.matchLineups.LineupResponse
@@ -14,6 +15,7 @@ import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
 import com.example.footballapi.modelClasses.matchSummary.MatchSummary
 import com.example.footballapi.modelClasses.matchTable.matchTableResponse
 import com.example.footballapi.modelClasses.teamMatches.TeamMatchesResponse
+import com.example.footballapi.modelClasses.teamPlayerStats.TeamPlayerStatsResponse
 import com.example.footballapi.modelClasses.youtube_shorts.YouTubeShortsResponseItem
 import com.example.footballapi.pagination.NewsPagingSource
 import com.google.gson.Gson
@@ -200,8 +202,8 @@ class FootballRepository(private val api: FootballApiService) {
 
     // team Standings
 
-  private val _teamStandingsFlow = MutableStateFlow<ApiResult<TeamMatchesResponse>>(ApiResult.Loading)
-    val teamStandingsFlow: StateFlow<ApiResult<TeamMatchesResponse>> = _teamStandingsFlow
+  private val _teamStandingsFlow = MutableStateFlow<ApiResult<TeamTableResponse>>(ApiResult.Loading)
+    val teamStandingsFlow: StateFlow<ApiResult<TeamTableResponse>> = _teamStandingsFlow
 
     suspend fun fetchTeamStandings(teamName :String,teamId :String,stageId :String,) {
         _teamStandingsFlow.value = ApiResult.Loading
@@ -210,6 +212,21 @@ class FootballRepository(private val api: FootballApiService) {
             _teamStandingsFlow.value = ApiResult.Success(response)
         } catch (e: Exception) {
             _teamStandingsFlow.value = ApiResult.Error(e)
+        }
+    }
+
+    // team PlayerStats
+
+  private val _teamPlayerStatsFlow = MutableStateFlow<ApiResult<TeamPlayerStatsResponse>>(ApiResult.Loading)
+    val teamPlayerStatsFlow: StateFlow<ApiResult<TeamPlayerStatsResponse>> = _teamPlayerStatsFlow
+
+    suspend fun fetchTeamPlayerStats(teamName :String,teamId :String,stageId :String,) {
+        _teamPlayerStatsFlow.value = ApiResult.Loading
+        try {
+            val response = api.getTeamPlayerStats(teamName, teamId, stageId)
+            _teamPlayerStatsFlow.value = ApiResult.Success(response)
+        } catch (e: Exception) {
+            _teamPlayerStatsFlow.value = ApiResult.Error(e)
         }
     }
 

@@ -141,7 +141,7 @@ class AllMatchesActivity : AppCompatActivity() {
         Log.d("TAG_MATCHDATA", "onMatchClicked: ${matche}")
 //        matche.tournamentLogo = stageBadge
         matchViewModel.setMatch(matche)
-        matche.match_id?.let { viewModel.loadMatchSummary(it) }
+//        matche.match_id?.let { viewModel.loadMatchSummary(it) }
     }
 
     override fun onBackPressed() {

@@ -1,0 +1,32 @@
+package com.example.footballapi.modelClasses.TeamTable
+
+data class Team(
+    val allCompetitions: String,
+    val form: String,
+    val inPlay: String,
+    val lastFive: String,
+    val nextMatch: String,
+    val noDataAvailable: String,
+    val seeAll: String,
+    val stat_all: String,
+    val stat_assists: String,
+    val stat_goals: String,
+    val stat_goals_by_head: String,
+    val stat_goals_by_penalty: String,
+    val stat_minutes_played: String,
+    val stat_own_goal: String,
+    val stat_points: String,
+    val stat_red_cards: String,
+    val stat_shots_off_target: String,
+    val stat_shots_on_target: String,
+    val stat_yellow_cards: String,
+    val stat_yellow_red_card: String,
+    val subSec_all: String,
+    val subSec_fixtures: String,
+    val subSec_results: String,
+    val tab_matches: String,
+    val tab_news: String,
+    val tab_overview: String,
+    val tab_playerStats: String,
+    val tab_tables: String
+)

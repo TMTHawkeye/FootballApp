@@ -2,17 +2,17 @@ package com.example.footballapp.adapters.followingadapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.footballapi.modelClasses.teamMatches.Event
 import com.example.footballapp.databinding.ItemStandingBinding
 
-class StandingsAdapter : ListAdapter<Event, StandingsAdapter.ViewHolder>(StandingDiffCallback()) {
+class StandingsAdapter : RecyclerView.Adapter<StandingsAdapter.ViewHolder>() {
 
-    class ViewHolder(private val binding: ItemStandingBinding) : 
+    private val standings = mutableListOf<Event>()
+
+    inner class ViewHolder(private val binding: ItemStandingBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        
+
         fun bind(standing: Event) {
             binding.apply {
 //                tvPosition.text = standing.position.toString()
@@ -24,12 +24,14 @@ class StandingsAdapter : ListAdapter<Event, StandingsAdapter.ViewHolder>(Standin
 //                tvDrawn.text = standing.drawn.toString()
 //                tvGoalDifference.text = standing.goalDifference.toString()
 //                tvPoints.text = standing.points.toString()
-
-                // Highlight top positions with different colors
-
-
-
-
+//
+//                // 🎨 Example: highlight top 3 teams
+//                when (standing.position) {
+//                    1 -> root.setBackgroundColor(root.context.getColor(android.R.color.holo_green_light))
+//                    2 -> root.setBackgroundColor(root.context.getColor(android.R.color.holo_blue_light))
+//                    3 -> root.setBackgroundColor(root.context.getColor(android.R.color.holo_orange_light))
+//                    else -> root.setBackgroundColor(root.context.getColor(android.R.color.transparent))
+//                }
             }
         }
     }
@@ -43,15 +45,31 @@ class StandingsAdapter : ListAdapter<Event, StandingsAdapter.ViewHolder>(Standin
         return ViewHolder(binding)
     }
 
+    override fun getItemCount(): Int = standings.size
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(standings[position])
     }
-}
 
-class StandingDiffCallback : DiffUtil.ItemCallback<Event>() {
-    override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean =
-        oldItem.home_team == newItem.home_team
+    // 🔹 Update full list
+    fun setData(newList: List<Event>) {
+        standings.clear()
+        standings.addAll(newList)
+        notifyDataSetChanged()
+    }
 
-    override fun areContentsTheSame(oldItem: Event, newItem: Event): Boolean =
-        oldItem == newItem
+    // 🔹 Optional: Update a single item
+    fun updateItem(position: Int, updatedEvent: Event) {
+        if (position in standings.indices) {
+            standings[position] = updatedEvent
+            notifyItemChanged(position)
+        }
+    }
+
+    // 🔹 Optional: Add more standings
+    fun addMore(newItems: List<Event>) {
+        val start = standings.size
+        standings.addAll(newItems)
+        notifyItemRangeInserted(start, newItems.size)
+    }
 }

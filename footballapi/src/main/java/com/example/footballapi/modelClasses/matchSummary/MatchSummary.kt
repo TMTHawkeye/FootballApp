@@ -1,12 +1,12 @@
 package com.example.footballapi.modelClasses.matchSummary
 
 data class MatchSummary(
-    val competition: Competition,
-    val events: Events,
-    val kickoff: String,
-    val match_id: String,
-    val media: List<Media>,
-    val scores: Scores,
-    val status: String,
-    val teams: Teams
+    val competition: Competition?=null,
+    val events: Events?=null,
+    val kickoff: String?=null,
+    val match_id: String?=null,
+    val media: List<Media>?=null,
+    val scores: Scores?=null,
+    val status: String?=null,
+    val teams: Teams?=null
 )

@@ -5,23 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.footballapi.modelClasses.teamMatches.Stage
+import com.bumptech.glide.Glide
+import com.example.footballapi.modelClasses.teamPlayerStats.Player
 import com.example.footballapp.databinding.ItemPlayerBinding
 
-class PlayersAdapter : ListAdapter<Stage, PlayersAdapter.ViewHolder>(PlayerDiffCallback()) {
+class PlayersAdapter : ListAdapter<Player, PlayersAdapter.ViewHolder>(PlayerDiffCallback()) {
 
     class ViewHolder(private val binding: ItemPlayerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(player: Stage) {
+        fun bind(player: Player) {
             binding.apply {
                 // Set player image
-//                ivPlayer.setImageResource(player.image)
-//
-//                // Set player information
-//                tvPlayerName.text = player.name
-//
-//                tvPlayerNumber.text = "#${player.number}"
+//                ivPlayer.setImageResource(player.teamBadge)
+                Glide.with(binding.root.context)
+                    .load(player.teamBadge.high)
+                    .into(binding.ivPlayer)
+
+                // Set player information
+                tvPlayerName.text = player.name
+
+                tvPlayerNumber.text = "#${player.rank}"
 
 
                 // Highlight important players
@@ -45,10 +49,10 @@ class PlayersAdapter : ListAdapter<Stage, PlayersAdapter.ViewHolder>(PlayerDiffC
     }
 }
 
-class PlayerDiffCallback : DiffUtil.ItemCallback<Stage>() {
-    override fun areItemsTheSame(oldItem: Stage, newItem: Stage): Boolean =
-        oldItem.stage_id == newItem.stage_id
+class PlayerDiffCallback : DiffUtil.ItemCallback<Player>() {
+    override fun areItemsTheSame(oldItem: Player, newItem: Player): Boolean =
+        oldItem.playerId == newItem.playerId
 
-    override fun areContentsTheSame(oldItem: Stage, newItem: Stage): Boolean =
+    override fun areContentsTheSame(oldItem: Player, newItem: Player): Boolean =
         oldItem == newItem
 }

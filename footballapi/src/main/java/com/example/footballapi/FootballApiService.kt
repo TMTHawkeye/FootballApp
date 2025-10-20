@@ -3,12 +3,14 @@ package com.example.footballapi
  import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsResponse
  import com.example.footballapi.modelClasses.AllMatches
  import com.example.footballapi.modelClasses.MatchesRequest
+ import com.example.footballapi.modelClasses.TeamTable.TeamTableResponse
  import com.example.footballapi.modelClasses.latestNews.LatestNewsResponse
  import com.example.footballapi.modelClasses.matchLineups.LineupResponse
  import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
  import com.example.footballapi.modelClasses.matchSummary.MatchSummary
  import com.example.footballapi.modelClasses.matchTable.matchTableResponse
  import com.example.footballapi.modelClasses.teamMatches.TeamMatchesResponse
+ import com.example.footballapi.modelClasses.teamPlayerStats.TeamPlayerStatsResponse
  import com.example.footballapi.modelClasses.youtube_shorts.YouTubeShortsResponseItem
  import retrofit2.http.Body
 import retrofit2.http.GET
@@ -67,7 +69,16 @@ interface FootballApiService {
         @Path("team_name") teamNAme: String,
         @Path("team_id") teamId: String,
         @Path("stage_id") stageId: String,
-    ): TeamMatchesResponse
+    ): TeamTableResponse
+
+
+
+    @GET("/api/football/team/{team_name}/{team_id}/{stage_id}/playerstats/")
+    suspend fun getTeamPlayerStats(
+        @Path("team_name") teamNAme: String,
+        @Path("team_id") teamId: String,
+        @Path("stage_id") stageId: String,
+    ): TeamPlayerStatsResponse
 
 
 

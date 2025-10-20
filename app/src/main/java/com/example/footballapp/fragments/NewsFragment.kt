@@ -42,7 +42,7 @@ class NewsFragment : Fragment() {
     val teamViewModel : TeamViewmodel by activityViewModel()
 
     private val handler = Handler(Looper.getMainLooper())
-    private lateinit var autoSlideRunnable: Runnable
+    private  var autoSlideRunnable: Runnable?=null
     private var isAutoSliding = false
 
     override fun onCreateView(
@@ -301,7 +301,7 @@ class NewsFragment : Fragment() {
         }
 //        handler.removeCallbacksAndMessages(null)
 
-        handler.postDelayed(autoSlideRunnable, 3000)
+        autoSlideRunnable?.let { handler.postDelayed(it, 3000) }
     }
     override fun onPause() {
         super.onPause()

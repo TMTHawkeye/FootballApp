@@ -74,7 +74,7 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
     private var currentPage = 1
     private var isLoadingMore = false
     private val handler = Handler(Looper.getMainLooper())
-    private lateinit var autoSlideRunnable: Runnable
+    private  var autoSlideRunnable: Runnable?=null
     private var isAutoSliding = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -287,19 +287,19 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
             adapter = matchSliderAdapter
             offscreenPageLimit = 3
 
-            val horizontalMargin =
-                resources.getDimensionPixelOffset(R.dimen.viewpager_horizontal_margin)
-            addItemDecoration(object : RecyclerView.ItemDecoration() {
-                override fun getItemOffsets(
-                    outRect: Rect,
-                    view: View,
-                    parent: RecyclerView,
-                    state: RecyclerView.State
-                ) {
-                    outRect.left = horizontalMargin / 2
-                    outRect.right = horizontalMargin / 2
-                }
-            })
+//            val horizontalMargin =
+//                resources.getDimensionPixelOffset(R.dimen.viewpager_horizontal_margin)
+//            addItemDecoration(object : RecyclerView.ItemDecoration() {
+//                override fun getItemOffsets(
+//                    outRect: Rect,
+//                    view: View,
+//                    parent: RecyclerView,
+//                    state: RecyclerView.State
+//                ) {
+//                    outRect.left = horizontalMargin / 2
+//                    outRect.right = horizontalMargin / 2
+//                }
+//            })
 
 
             setPageTransformer(DepthPageTransformer())
@@ -676,7 +676,6 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
         Log.d("TAG_MATCHDATA", "onMatchClicked: ${matche}")
 //        matche.tournamentLogo = stageBadge
         matchViewModel.setMatch(matche)
-        matche.match_id?.let { viewModel.loadMatchSummary(it) }
     }
 
 
@@ -710,7 +709,7 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
         }
 //        handler.removeCallbacksAndMessages(null)
 
-        handler.postDelayed(autoSlideRunnable, 3000)
+        autoSlideRunnable?.let { handler.postDelayed(it, 3000) }
     }
      override fun onPause() {
         super.onPause()

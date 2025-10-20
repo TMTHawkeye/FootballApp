@@ -35,6 +35,7 @@ import com.example.footballapp.models.Team
 import com.example.footballapp.models.followingmodels.Team1
 import com.example.footballapp.utils.LeagueListType
 import com.example.footballapp.viewmodels.FollowViewModel
+import com.example.footballapp.viewmodels.SearchSharedViewModel
 import com.example.footballapp.viewmodels.TeamViewmodel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -42,6 +43,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import kotlin.collections.plus
 import kotlin.getValue
 
 
@@ -49,13 +51,16 @@ class LeaguesFragment : Fragment() {
 
     private lateinit var binding: FragmentLeaguesBinding
 
-    //    private  var followingLeaguesAdapter: SuggestedLeaguesAdapter?=null
-    private var suggestedLeaguesAdapter: SuggestedLeaguesAdapter? = null
+     private var suggestedLeaguesAdapter: SuggestedLeaguesAdapter? = null
 
     private val viewModel: FootballViewModel by activityViewModel()
     private val followViewModel: FollowViewModel by activityViewModel()
 
     private val teamViewModel: TeamViewmodel by activityViewModel()
+    private val sharedViewModel: SearchSharedViewModel by activityViewModel()
+
+
+    private var fullTeamList: List<Stage> = emptyList()
 
 
     private var currentPage = 0
@@ -77,31 +82,11 @@ class LeaguesFragment : Fragment() {
         setupAdapters()
 
         observeCompetitions()
-
+        observeSearchQuery()
 
     }
 
     private fun setupAdapters() {
-        // ✅ Following leagues
-//        followingLeaguesAdapter = SuggestedLeaguesAdapter(
-//            mutableListOf(),
-//            onFollowClick = { league ->
-//                followViewModel.toggleFollowLeague(league.stage_id) // unfollow
-//            },
-//            onItemClick = {league->
-//                     binding.root.context.startActivity(Intent(binding.root.context,
-//                         LeagueDetailActivity::class.java))
-//
-//            },
-//            listType = LeagueListType.FOLLOWING
-//        )
-//
-//        binding.rvFollowingTeams.apply {
-//            adapter = followingLeaguesAdapter
-//            layoutManager = LinearLayoutManager(requireContext())
-//        }
-
-        // ✅ Suggested leagues
         suggestedLeaguesAdapter = SuggestedLeaguesAdapter(
             onFollowClick = { league ->
                 followViewModel.toggleFollowLeague(league.stage_id) // toggle follow
@@ -114,10 +99,8 @@ class LeaguesFragment : Fragment() {
                         LeagueDetailActivity::class.java
                     )
                 )
-//                    .putExtra(LEAGUE_ID, league.stage_id))
-            },
-//            listType = LeagueListType.SUGGESTED
-        )
+             },
+         )
 
         binding.rvLeagues.apply {
             adapter = suggestedLeaguesAdapter
@@ -135,15 +118,6 @@ class LeaguesFragment : Fragment() {
                 }
             })
         }
-    }
-
-
-    private fun navigateToLeagueDetail(league: Stage) {
-        val intent = Intent(requireContext(), LeagueDetailActivity::class.java).apply {
-//            putExtra("league_id", league.id)
-//            putExtra("league_name", league.name)
-        }
-        startActivity(intent)
     }
 
     private fun showLoading(show: Boolean?) {
@@ -173,15 +147,6 @@ class LeaguesFragment : Fragment() {
                 ) { matchesResult, followedIds ->
                     matchesResult to followedIds
                 }.collectLatest { (result, followedIds) ->
-//                    when (result) {
-//
-//                    }
-//                }
-//            }
-//        }
-//        this@LeaguesFragment.lifecycleScope.launch {
-//            repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                viewModel.allCompetitionsFlow.collect { result ->
                     when (result) {
                         is ApiResult.Loading -> {
 
@@ -189,24 +154,10 @@ class LeaguesFragment : Fragment() {
                         }
 
                         is ApiResult.Success -> {
-
-//                            showLoading(false)
-//                            val stages = result.data.stages
-//                            suggestedLeaguesAdapter?.updateLeagues(stages)
-//                            extractFollowedLeagues(stages)
-//                            Log.d("AllCompetitions", "${stages.size}")
-
-
                             showLoading(false)
                             allLeagues = result.data.stages
                             Log.d("TAG_leagues", "observeCompetitions: ${allLeagues.size}")
-
-                            //                                extractUniqueTeams(result.data)
-//                                extractFollowedLeagues(stages) {
-                            //                                    allLeagues = it
-
-
-                            val (followed, more) = allLeagues.partition {
+                             val (followed, more) = allLeagues.partition {
                                 followedIds.contains(
                                     it.stage_id
                                 )
@@ -219,7 +170,6 @@ class LeaguesFragment : Fragment() {
 
                             currentPage = 0
                             loadNextPage()
-//                                }
 
                         }
 
@@ -245,58 +195,40 @@ class LeaguesFragment : Fragment() {
 
         val nextPage = moreLeaguesList.subList(start, end)
         if (currentPage == 0) {
+            fullTeamList = followedLeaguesList + nextPage
+
             suggestedLeaguesAdapter?.setData(followedLeaguesList, nextPage)
         } else {
+            fullTeamList = followedLeaguesList + nextPage
+
             suggestedLeaguesAdapter?.addMoreLeagues(nextPage)
         }
 
         currentPage++
     }
 
-    suspend fun extractFollowedLeagues(stages: List<Stage>, callback: (List<Stage>) -> Unit) {
-        followViewModel.followedLeagues.collect { followedIds ->
-            val followedStages = stages.filter { followedIds.contains(it.competition_id) }
-            Log.d("TAG_leagues", "observeCompetitions1: ${followedStages.size}")
 
-            callback.invoke(followedStages)
 
-//            suggestedLeaguesAdapter?.updateFollowedIds(followedIds)
-////            followingLeaguesAdapter?.updateFollowedIds(followedIds)
-////             followingLeaguesAdapter?.updateLeagues(followedStages)
-//
-//            Log.d("FollowedLeagues", "Count: ${followedStages.size}")
-//            binding.textView6.text = setSpannedFollwoingCount(followedStages.size)
-//            if(followedStages.size==0){
-//                binding.constraintLayout6.gone()
-//            }
-//            else{
-//                binding.constraintLayout6.visible()
-//
-//            }
+
+
+    private fun observeSearchQuery() {
+        sharedViewModel.searchQuery.observe(viewLifecycleOwner) { query ->
+            filterTeams(query)
         }
     }
 
-    private fun setSpannedFollwoingCount(followedStages: Int): SpannableString {
-        val context = binding.root.context
-        val baseText = context.getString(R.string.followingss) // e.g. "Followings: "
-        val countText = followedStages.toString()
-
-        val fullText = "$baseText $countText"
-
-        val spannable = SpannableString(fullText)
-        val start = baseText.length
-        val end = fullText.length
-
-        spannable.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(context, R.color.green_color)),
-            start,
-            end,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        return spannable
-
+    private fun filterTeams(query: String) {
+        if (query.isBlank()) {
+            // ✅ Restore default grouped view
+            suggestedLeaguesAdapter?.setData(followedLeaguesList, moreLeaguesList)
+        } else {
+            // ✅ Filtered flat list (no headers)
+            val filtered = fullTeamList.filter {
+                it.competition_name?.contains(query, ignoreCase = true) == true
+            }
+            suggestedLeaguesAdapter?.filterList(filtered)
+        }
     }
-
 
 }
 

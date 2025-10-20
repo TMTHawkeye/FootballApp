@@ -89,5 +89,6 @@ dependencies {
      implementation("com.github.AliAsadi:PowerPreference:2.1.1")
 
 
+    implementation("com.google.android.material:material:1.11.0")
 
 }

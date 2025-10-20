@@ -25,24 +25,8 @@ class TableFragment : Fragment() {
 
     private lateinit var binding: FragmentTableBinding
 
-    //    private lateinit var match: Match
-    private val viewModel: FootballViewModel by viewModel()
+     private val viewModel: FootballViewModel by viewModel()
 
-
-    /* companion object {
-         fun newInstance(match: Match?): TableFragment {
-             val fragment = TableFragment()
-             val args = Bundle()
-             args.putSerializable("MATCH", match)
-             fragment.arguments = args
-             return fragment
-         }
-     }*/
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        match = arguments?.getSerializable("MATCH") as Match
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,21 +39,8 @@ class TableFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeMatchTable()
-        // Set up win probability
-//        setupWinProbability()
-//
-//        // Set up league table - replace with your actual data
-//        setupLeagueTable()
     }
 
-    private fun setupWinProbability() {
-        // Sample win probability data
-        val team1WinProbability = 45
-        val team2WinProbability = 30
-        val drawProbability = 25
-
-
-    }
 
     private fun setupLeagueTable(tableItems: MutableList<sealedTableItem>) {
 
@@ -91,28 +62,6 @@ class TableFragment : Fragment() {
         }
     }
 
-//    private fun observeMatchTable() {
-//        this@TableFragment.lifecycleScope.launch {
-//            viewModel.matchTableFlow.collect { result ->
-//                when (result) {
-//                    is ApiResult.Loading -> showLoading(true)
-//                    is ApiResult.Success -> {
-//                        showLoading(false)
-//                        val table = result.data
-//                        Log.d("MATCH_Table", "stats: ${table.event.tables.league.leagueList}")
-//                     }
-//
-//                    is ApiResult.Error -> {
-//                        showLoading(false)
-////                        showError(result.throwable)
-//                    }
-//                }
-//            }
-//        }
-//
-//        viewModel.loadMatchTable("1426226")
-//    }
-
     private fun observeMatchTable() {
         this@TableFragment.lifecycleScope.launch {
             viewModel.matchTableFlow.collect { result ->
@@ -129,14 +78,11 @@ class TableFragment : Fragment() {
                          val allItems = mutableListOf<sealedTableItem>()
 
                         leagueMap.forEachIndexed { index, league ->
-//                                // ✅ Only add divider if it's NOT the first league
-//                                if (index > 0) {
                                     allItems.add(sealedTableItem.LeagueDivider(league.name))
                             allItems.add(sealedTableItem.HeaderRow)
 //                                }
 
-                                // Add all team rows for this league
-                                league.teams.forEach { team ->
+                                 league.teams.forEach { team ->
                                     allItems.add(
                                         sealedTableItem.TeamRow(
                                             position = team.rank,

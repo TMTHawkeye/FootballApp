@@ -50,6 +50,7 @@ class TeamDetailActivity : AppCompatActivity() {
 
         team?.let { it.team_id?.let { teamId -> viewModel.loadTeamMatches(teamId) } }
 
+//        Toast.makeText(binding.root.context, "${team?.incident_number} & ${team?.team_id}", Toast.LENGTH_SHORT).show()
 
         WindowCompat.getInsetsController(window, window.decorView).apply {
             isAppearanceLightStatusBars = true // For dark icons (use with light backgrounds)

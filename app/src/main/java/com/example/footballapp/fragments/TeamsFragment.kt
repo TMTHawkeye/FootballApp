@@ -40,6 +40,7 @@ import com.example.footballapp.models.Team
 import com.example.footballapp.viewmodels.FollowTeamViewModel
 import com.example.footballapp.viewmodels.FollowViewModel
 import com.example.footballapp.viewmodels.MatchViewModel
+import com.example.footballapp.viewmodels.SearchSharedViewModel
 import com.example.footballapp.viewmodels.TeamViewmodel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -49,6 +50,7 @@ import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import kotlin.collections.forEach
 import kotlin.getValue
 
 class TeamsFragment : Fragment() {
@@ -69,6 +71,12 @@ class TeamsFragment : Fragment() {
     private var moreTeamsList: MutableList<Team> = mutableListOf()
 
 
+     private var fullTeamList: List<Team> = emptyList()
+
+
+    private val sharedViewModel: SearchSharedViewModel by activityViewModel()
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -83,6 +91,7 @@ class TeamsFragment : Fragment() {
 //        observeCompetitions()
 //        observeFollowedTeams()
         observeTeamsData()
+        observeSearchQuery()
     }
 
     private fun setupSuggestedTeamsAdapter() {
@@ -187,7 +196,7 @@ class TeamsFragment : Fragment() {
 
 
 
-   /* private fun loadNextPage() {
+    private fun loadNextPage() {
         val start = currentPage * pageSize
         val end = minOf(start + pageSize, moreTeamsList.size)
 
@@ -195,16 +204,17 @@ class TeamsFragment : Fragment() {
 
         val nextPage = moreTeamsList.subList(start, end)
         if (currentPage == 0) {
+            fullTeamList = followedTeamsList + nextPage
             teamsAdapter.setData(followedTeamsList, nextPage)
         } else {
+            fullTeamList = followedTeamsList + nextPage
             teamsAdapter.addMoreTeams(nextPage)
         }
 
         currentPage++
     }
-*/
 
-    private fun loadNextPage() {
+ /*   private fun loadNextPage() {
         val start = currentPage * pageSize
         val end = minOf(start + pageSize, moreTeamsList.size)
 
@@ -222,7 +232,7 @@ class TeamsFragment : Fragment() {
 
         currentPage++
         isLoadingNextPage = false
-    }
+    }*/
 
 
 
@@ -237,15 +247,17 @@ class TeamsFragment : Fragment() {
 
                 allTeams.forEach { t ->
                     if (!teamMap.containsKey(t.team_id)) {
-                        teamMap[t.team_id] = Team(
-                            team_id = t.team_id,
-                            abbreviation = t.abbreviation,
-                            incident_number = t.incident_number,
-                            logo = t.logo,
-                            news_tag = t.news_tag,
-                            primary_color = t.primary_color,
-                            secondary_color = t.secondary_color
-                        )
+                        t.team_id?.let {
+                            teamMap[t.team_id!!] = Team(
+                                team_id = t.team_id,
+                                abbreviation = t.abbreviation,
+                                incident_number = t.incident_number,
+                                logo = t.logo,
+                                news_tag = t.news_tag,
+                                primary_color = t.primary_color,
+                                secondary_color = t.secondary_color
+                            )
+                        }
                     }
                 }
             }
@@ -275,6 +287,27 @@ class TeamsFragment : Fragment() {
         return spannable
 
     }
+
+
+    private fun observeSearchQuery() {
+        sharedViewModel.searchQuery.observe(viewLifecycleOwner) { query ->
+            filterTeams(query)
+        }
+    }
+
+    private fun filterTeams(query: String) {
+        if (query.isBlank()) {
+            // ✅ Restore default grouped view
+            teamsAdapter.setData(followedTeamsList, moreTeamsList)
+        } else {
+            // ✅ Filtered flat list (no headers)
+            val filtered = fullTeamList.filter {
+                it.incident_number?.contains(query, ignoreCase = true) == true
+            }
+            teamsAdapter.filterList(filtered)
+        }
+    }
+
 
 }
 

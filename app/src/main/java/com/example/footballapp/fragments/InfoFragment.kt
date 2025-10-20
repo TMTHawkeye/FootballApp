@@ -105,12 +105,12 @@ class InfoFragment : Fragment() {
     }
 
     private fun setupEvents(summary  : MatchSummary) {
-        val matchEvents = summary.events.toMatchEventList()
+        val matchEvents = summary.events?.toMatchEventList()
 //        Log.d("TAG_matchevents", "setupEvents: ${matchEvents.size}")
 
-        if(matchEvents.size!=0) {
+        if(matchEvents?.size!=0) {
             binding.eventLt.visible()
-            val adapter = EventAdapter(matchEvents)
+            val adapter = matchEvents?.let { EventAdapter(it) }
             binding.eventsRecyclerView.adapter = adapter
             binding.eventsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         }
@@ -130,8 +130,8 @@ class InfoFragment : Fragment() {
                         Log.d("MATCH_SUMMARY", "Summary: ${summary}")
                         setupEvents(summary)
 
-                        val compName = summary.competition.name.takeIf { it != "null" } ?: ""
-                        val stageName = summary.competition.stage_name.takeIf { it != "null" } ?: ""
+                        val compName = summary.competition?.name.takeIf { it != "null" } ?: ""
+                        val stageName = summary.competition?.stage_name.takeIf { it != "null" } ?: ""
 
                         val displayName = when {
                             compName.equals(stageName, ignoreCase = true) -> compName // if both same
@@ -141,7 +141,7 @@ class InfoFragment : Fragment() {
                             else -> "Unknown Competition"
                         }
                         binding.competitionName.setText("${displayName}")
-                        binding.venueName.setText("${summary.competition.country}")
+                        binding.venueName.setText("${summary.competition?.country}")
                     }
                     is ApiResult.Error -> {
                         showLoading(false)

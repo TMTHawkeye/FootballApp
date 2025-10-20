@@ -55,6 +55,8 @@ class MatchDetailActivity : AppCompatActivity() {
         binding = ActivityMatchDetailBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+        match?.match_id?.let { viewModel.loadMatchSummary(it) }
+
         Toast.makeText(this@MatchDetailActivity, "${match?.match_id}", Toast.LENGTH_SHORT).show()
         WindowCompat.getInsetsController(window, window.decorView).apply {
             isAppearanceLightStatusBars = true // For dark icons (use with light backgrounds)
@@ -93,8 +95,8 @@ class MatchDetailActivity : AppCompatActivity() {
 
     private fun setupMatchHeader(summary: MatchSummary) {
         // Set competition name
-        val compName = summary.competition.name?.takeIf { it != "null" } ?: ""
-        val stageName = summary.competition.stage_name?.takeIf { it != "null" } ?: ""
+        val compName = summary.competition?.name?.takeIf { it != "null" } ?: ""
+        val stageName = summary.competition?.stage_name?.takeIf { it != "null" } ?: ""
 
         val displayName = when {
             compName.equals(stageName, ignoreCase = true) -> compName // if both same
@@ -111,8 +113,8 @@ class MatchDetailActivity : AppCompatActivity() {
         binding?.matchTime?.text = formatMatchStatus(summary.status)
 
         // Set team names
-        binding?.team1Name?.text = summary.teams.home.name
-        binding?.team2Name?.text = summary.teams.away.name
+        binding?.team1Name?.text = summary.teams?.home?.name
+        binding?.team2Name?.text = summary.teams?.away?.name
 
         binding?.team1Logo?.let {
             Glide.with(this@MatchDetailActivity).load(imagePrefix + match?.home_team?.get(0)?.logo)
@@ -124,8 +126,8 @@ class MatchDetailActivity : AppCompatActivity() {
         }
 
         // Set score if available, otherwise show time
-        if (summary.teams.home.score != null && summary.teams.away.score != null) {
-            binding?.score?.text = "${summary.teams.home.score} - ${summary.teams.away.score}"
+        if (summary.teams?.home?.score != null && summary.teams?.away?.score != null) {
+            binding?.score?.text = "${summary.teams?.home?.score} - ${summary?.teams?.away?.score}"
         } else {
             binding?.score?.visibility = View.GONE
         }

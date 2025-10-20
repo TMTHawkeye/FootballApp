@@ -24,7 +24,7 @@ class HighlightsFragment : Fragment() {
     private lateinit var videosAdapter: VideosAdapter
     private lateinit var tabAdapter: TabAdapter
     private val handler = Handler(Looper.getMainLooper())
-    private lateinit var autoSlideRunnable: Runnable
+    private  var autoSlideRunnable: Runnable?=null
 
     // Tab data
     private val tabs = listOf(
@@ -74,7 +74,7 @@ class HighlightsFragment : Fragment() {
                 handler.postDelayed(this, 3000)
             }
         }
-        handler.postDelayed(autoSlideRunnable, 3000)
+        autoSlideRunnable?.let { handler.postDelayed(it, 3000) }
     }
 
     private fun setupTabRecyclerView() {
@@ -138,12 +138,8 @@ class HighlightsFragment : Fragment() {
 
     private fun getMostTrendingVideos(): List<Video> {
         return listOf(
-
             Video("Top Goals of the Week", "2:30", R.drawable.foot1, "https://example.com/video1.mp4"),
             Video("Best Saves", "1:45", R.drawable.foot1, "https://example.com/video2.mp4"),
-
-
-
         )
     }
 
@@ -151,10 +147,6 @@ class HighlightsFragment : Fragment() {
         return listOf(
             Video("Top Goals of the Week", "2:30", R.drawable.foot1, "https://example.com/video1.mp4"),
             Video("Best Saves", "1:45", R.drawable.foot1, "https://example.com/video2.mp4"),
-
-
-
-
         )
     }
 
@@ -162,8 +154,6 @@ class HighlightsFragment : Fragment() {
         return listOf(
             Video("Top Goals of the Week", "2:30", R.drawable.foot1, "https://example.com/video1.mp4"),
             Video("Best Saves", "1:45", R.drawable.foot1, "https://example.com/video2.mp4"),
-
-
         )
     }
 
@@ -171,12 +161,11 @@ class HighlightsFragment : Fragment() {
         return listOf(
             Video("Top Goals of the Week", "2:30", R.drawable.foot1, "https://example.com/video1.mp4"),
 
-
         )
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        handler.removeCallbacks(autoSlideRunnable)
+        autoSlideRunnable?.let { handler.removeCallbacks(it) }
     }
 }
