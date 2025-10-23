@@ -5,11 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.example.footballapi.leaguePlayerStats.LeagueTopScorerResponse
 import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsResponse
 import com.example.footballapi.modelClasses.Stage
 import com.example.footballapi.modelClasses.TeamTable.TeamTableResponse
 import com.example.footballapi.modelClasses.latestNews.LatestNewsResponse
 import com.example.footballapi.modelClasses.latestNews.LatestNewsResponseItem
+import com.example.footballapi.modelClasses.leagueMatches.LeagueMatchesResponse
+import com.example.footballapi.modelClasses.leagueStandings.LeagueStandingsResponse
 import com.example.footballapi.modelClasses.matchLineups.LineupResponse
 import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
 import com.example.footballapi.modelClasses.matchSummary.MatchSummary
@@ -31,8 +34,7 @@ class FootballViewModel(
     val matchesFlow: StateFlow<ApiResult<List<Stage>>>
         get() = repo.matchesFlow
 
-
-      fun loadMatchesWithStages(date: String? = getTodayDate(), page: Int=1) {
+       fun loadMatchesWithStages(date: String? = getTodayDate(), page: Int=1) {
         viewModelScope.launch {
             Log.d("ApiResult_Tag", "loadMatches: date: $date , page : $page")
             date?.let { repo.fetchAllMatchesWithStages(it, page) }?:run{
@@ -103,6 +105,14 @@ class FootballViewModel(
         }
     }
 
+    val leagueMatchesFlow: StateFlow<ApiResult<LeagueMatchesResponse>> get() = repo.leagueMatchesFlow
+
+    fun loadLeagueMatches(compID : String,stageID : String) {
+        viewModelScope.launch {
+            repo.fetchLeagueMatches(compID,stageID)
+        }
+    }
+
 
 
     val teamStandingsFlow: StateFlow<ApiResult<TeamTableResponse>> get() = repo.teamStandingsFlow
@@ -114,11 +124,28 @@ class FootballViewModel(
     }
 
 
+    val leagueStandingsFlow: StateFlow<ApiResult<LeagueStandingsResponse>> get() = repo.leagueStandingsFlow
+
+    fun loadLeagueStandings(compID :String) {
+        viewModelScope.launch {
+            repo.fetchLeagueStandings(compID)
+        }
+    }
+
+
   val teamPlayerStatsFlow: StateFlow<ApiResult<TeamPlayerStatsResponse>> get() = repo.teamPlayerStatsFlow
 
     fun loadTeamPlayerStats(teamName :String,teamId :String,stageId :String) {
         viewModelScope.launch {
             repo.fetchTeamPlayerStats(teamName, teamId, stageId)
+        }
+    }
+
+    val leagueTopScorerFlow: StateFlow<ApiResult<LeagueTopScorerResponse>> get() = repo.leagueTopScorerFlow
+
+    fun loadLeaguePlayerStats(compID :String) {
+        viewModelScope.launch {
+            repo.fetchLeaguePlayerStats(compID)
         }
     }
 
@@ -142,6 +169,7 @@ class FootballViewModel(
     fun loadYoutubeShorts() {
         viewModelScope.launch {
             repo.fetchYoutubeShorts()
+
         }
     }
 
@@ -154,6 +182,12 @@ class FootballViewModel(
 
     fun clearTeamDetailsData(){
         repo.clearTeamDetilsData()
+    }
+
+    fun clearLeagueDetailsData(){
+        repo.clearLeagueDetilsData()
+
+
     }
 
 

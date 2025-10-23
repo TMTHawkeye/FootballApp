@@ -55,7 +55,8 @@ class MatchDetailActivity : AppCompatActivity() {
         binding = ActivityMatchDetailBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        match?.match_id?.let { viewModel.loadMatchSummary(it) }
+        viewModel.loadMatchSummary(match?.match_id?:"")
+//        match?.match_id?.let { viewModel.loadMatchSummary(it) }
 
         Toast.makeText(this@MatchDetailActivity, "${match?.match_id}", Toast.LENGTH_SHORT).show()
         WindowCompat.getInsetsController(window, window.decorView).apply {

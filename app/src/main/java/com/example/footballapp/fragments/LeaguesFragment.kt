@@ -89,7 +89,7 @@ class LeaguesFragment : Fragment() {
     private fun setupAdapters() {
         suggestedLeaguesAdapter = SuggestedLeaguesAdapter(
             onFollowClick = { league ->
-                followViewModel.toggleFollowLeague(league.stage_id) // toggle follow
+                league.stage_id?.let { league.competition_name?.let { leagueName -> followViewModel.toggleFollowLeague(it,leagueName) } } // toggle follow
             },
             onItemClick = { league ->
                 teamViewModel.setLeague(league)
@@ -157,11 +157,16 @@ class LeaguesFragment : Fragment() {
                             showLoading(false)
                             allLeagues = result.data.stages
                             Log.d("TAG_leagues", "observeCompetitions: ${allLeagues.size}")
-                             val (followed, more) = allLeagues.partition {
+                           /*  val (followed, more) = allLeagues.partition {
                                 followedIds.contains(
                                     it.stage_id
                                 )
+                            }*/
+
+                            val (followed, more) = allLeagues.partition { league ->
+                                followedIds.any { it.id == league.stage_id }
                             }
+
 
                             followedLeaguesList = followed
                             moreLeaguesList.clear()

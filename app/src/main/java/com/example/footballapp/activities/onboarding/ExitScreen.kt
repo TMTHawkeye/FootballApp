@@ -1,5 +1,7 @@
 package com.example.footballapp.activities.onboarding
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -48,6 +50,21 @@ class ExitScreen : AppCompatActivity() {
                 exitProcess(0)
             }, 3000)
         }
+
+        binding.followingLt.setOnClickListener {
+            val resultIntent = Intent()
+            resultIntent.putExtra("fragment_position", 1)
+            setResult(Activity.RESULT_OK, resultIntent)
+            finish()
+        }
+
+        binding.higlightsLt.setOnClickListener {
+            val resultIntent = Intent()
+            resultIntent.putExtra("fragment_position", 3)
+            setResult(Activity.RESULT_OK, resultIntent)
+            finish()
+        }
+
 
     }
 }

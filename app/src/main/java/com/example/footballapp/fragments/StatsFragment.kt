@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.footballapi.ApiResult
@@ -13,6 +14,7 @@ import com.example.footballapi.FootballViewModel
 import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
 import com.example.footballapp.Helper.ApiResultTAG
 import com.example.footballapp.Helper.gone
+import com.example.footballapp.Helper.visible
 import com.example.footballapp.activities.MatchDetailActivity
 import com.example.footballapp.adapters.matchadapters.StatAdapter
 import com.example.footballapp.databinding.FragmentStatsBinding
@@ -164,13 +166,13 @@ class StatsFragment : Fragment() {
                             setupStatistics(stats)
                         }
                         else{
-
+                            showLoading(null)
                         }
 
                     }
 
                     is ApiResult.Error -> {
-                        showLoading(false)
+                        showLoading(null)
 //                        showError(result.throwable)
                     }
                 }
@@ -178,21 +180,28 @@ class StatsFragment : Fragment() {
         }
 //        viewModel.loadMatchStats("1426226")
 
-        (context as? MatchDetailActivity)?.match?.match_id?.let {
+//        (context as? MatchDetailActivity)?.match?.match_id?.let {
 
-            viewModel.loadMatchStats(it)
-        }
+            viewModel.loadMatchStats((context as? MatchDetailActivity)?.match?.match_id?:"")
+//        }
     }
 
-    private fun showLoading(show: Boolean) {
-        Log.d(ApiResultTAG, "showLoading: $show")
+    private fun showLoading(show: Boolean?) {
+        Log.d(ApiResultTAG, "showLoading stats: $show")
 
-        if (show) {
-//            binding.ctShimmers.visible()
-//            binding.ctSliderShimmer.visible()
-        } else {
-//            binding.ctShimmers.gone()
-//            binding.ctSliderShimmer.gone()
+        show?.let {
+            if (show) {
+                binding.statsRecyclerView.gone()
+                binding.statsRecyclerViewShimmer.visible()
+            } else {
+                binding.statsRecyclerView.visible()
+                binding.statsRecyclerViewShimmer.gone()
+            }
+        }?:run{
+            binding.statsRecyclerView.gone()
+            binding.statsRecyclerViewShimmer.gone()
+
+            Toast.makeText(binding.root.context, "No stats available", Toast.LENGTH_SHORT).show()
         }
     }
 }

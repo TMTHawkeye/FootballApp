@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/footballnow_bggraystrokewbg1"
+    android:layout_marginHorizontal="@dimen/_8sdp"
+    android:padding="16dp">
+
+
+
+
+
+    <!-- Players Vertical RecyclerView -->
+    <TextView
+        android:id="@+id/playerr1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/league_top_scorer"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/_12ssp"
+          app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/montserrat_medium"
+
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="8dp" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/playerr1Shimmer"
+        android:visibility="gone"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_2sdp"
+        android:background="@drawable/shimmer_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/playerrnumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/goals"
+        android:textColor="@color/grey"
+
+         android:layout_marginEnd="@dimen/_10sdp"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+         android:fontFamily="@font/montserrat_medium"
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:layout_marginBottom="8dp" />
+
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/playerrnumberShimmer"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_12sdp"
+          android:background="@drawable/shimmer_bg"
+         android:layout_marginEnd="@dimen/_10sdp"
+         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:visibility="gone"
+        android:fontFamily="@font/montserrat_medium"
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:layout_marginBottom="8dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPlayers"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+         android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/playerr1" />
+
+    <LinearLayout
+        android:id="@+id/rvPlayersShimmer"
+
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playerrnumberShimmer"
+        android:orientation="vertical">
+
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

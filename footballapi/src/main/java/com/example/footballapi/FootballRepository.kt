@@ -4,12 +4,15 @@ import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.footballapi.leaguePlayerStats.LeagueTopScorerResponse
 import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsResponse
 import com.example.footballapi.modelClasses.MatchesRequest
 import com.example.footballapi.modelClasses.Stage
 import com.example.footballapi.modelClasses.TeamTable.TeamTableResponse
 import com.example.footballapi.modelClasses.latestNews.LatestNewsResponse
 import com.example.footballapi.modelClasses.latestNews.LatestNewsResponseItem
+import com.example.footballapi.modelClasses.leagueMatches.LeagueMatchesResponse
+import com.example.footballapi.modelClasses.leagueStandings.LeagueStandingsResponse
 import com.example.footballapi.modelClasses.matchLineups.LineupResponse
 import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
 import com.example.footballapi.modelClasses.matchSummary.MatchSummary
@@ -19,6 +22,7 @@ import com.example.footballapi.modelClasses.teamPlayerStats.TeamPlayerStatsRespo
 import com.example.footballapi.modelClasses.youtube_shorts.YouTubeShortsResponseItem
 import com.example.footballapi.pagination.NewsPagingSource
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -199,6 +203,20 @@ class FootballRepository(private val api: FootballApiService) {
     }
 
 
+    private val _leagueMatchesFlow = MutableStateFlow<ApiResult<LeagueMatchesResponse>>(ApiResult.Loading)
+    val leagueMatchesFlow: StateFlow<ApiResult<LeagueMatchesResponse>> = _leagueMatchesFlow
+
+    suspend fun fetchLeagueMatches(compe_id :String,stage_id :String) {
+        _leagueMatchesFlow.value = ApiResult.Loading
+        try {
+            val response = api.getLeagueMatches(compe_id,stage_id)
+            _leagueMatchesFlow.value = ApiResult.Success(response)
+        } catch (e: Exception) {
+            _leagueMatchesFlow.value = ApiResult.Error(e)
+        }
+    }
+
+
 
     // team Standings
 
@@ -215,6 +233,22 @@ class FootballRepository(private val api: FootballApiService) {
         }
     }
 
+
+    // league Standings
+
+  private val _leagueStandingsFlow = MutableStateFlow<ApiResult<LeagueStandingsResponse>>(ApiResult.Loading)
+    val leagueStandingsFlow: StateFlow<ApiResult<LeagueStandingsResponse>> = _leagueStandingsFlow
+
+    suspend fun fetchLeagueStandings(compId :String) {
+        _leagueStandingsFlow.value = ApiResult.Loading
+        try {
+            val response = api.getLeagueStandings(compId)
+            _leagueStandingsFlow.value = ApiResult.Success(response)
+        } catch (e: Exception) {
+            _leagueStandingsFlow.value = ApiResult.Error(e)
+        }
+    }
+
     // team PlayerStats
 
   private val _teamPlayerStatsFlow = MutableStateFlow<ApiResult<TeamPlayerStatsResponse>>(ApiResult.Loading)
@@ -227,6 +261,20 @@ class FootballRepository(private val api: FootballApiService) {
             _teamPlayerStatsFlow.value = ApiResult.Success(response)
         } catch (e: Exception) {
             _teamPlayerStatsFlow.value = ApiResult.Error(e)
+        }
+    }
+
+
+    private val _leagueTopScorerFlow = MutableStateFlow<ApiResult<LeagueTopScorerResponse>>(ApiResult.Loading)
+    val leagueTopScorerFlow: StateFlow<ApiResult<LeagueTopScorerResponse>> = _leagueTopScorerFlow
+
+    suspend fun fetchLeaguePlayerStats(comp_id :String) {
+        _leagueTopScorerFlow.value = ApiResult.Loading
+        try {
+            val response = api.getLeagueTopScorer(comp_id)
+            _leagueTopScorerFlow.value = ApiResult.Success(response)
+        } catch (e: Exception) {
+            _leagueTopScorerFlow.value = ApiResult.Error(e)
         }
     }
 
@@ -263,15 +311,50 @@ class FootballRepository(private val api: FootballApiService) {
     private val _youtubeShortsFlow =
         MutableStateFlow<ApiResult<List<YouTubeShortsResponseItem>>>(ApiResult.Loading)
 
-    val youtubeShortsFlow: StateFlow<ApiResult<List<YouTubeShortsResponseItem>>> =
-        _youtubeShortsFlow
+    val youtubeShortsFlow: StateFlow<ApiResult<List<YouTubeShortsResponseItem>>> = _youtubeShortsFlow
 
     suspend fun fetchYoutubeShorts() {
         _youtubeShortsFlow.value = ApiResult.Loading
+
         try {
             val response = api.getYouTubeShorts()
-            _youtubeShortsFlow.value = ApiResult.Success(response)
+
+            if (response.isSuccessful) {
+                val rawBody = response.body()?.string()?.trim()
+
+                if (rawBody.isNullOrEmpty()) {
+                    Log.e("YouTubeShorts", "Empty response body")
+                    _youtubeShortsFlow.value = ApiResult.Error(Exception("Empty response body"))
+                    return
+                }
+
+                val validJson = buildString {
+                    append("[")
+                    append(
+                        rawBody
+                            .replace("}\n\n{", "},{")
+                            .replace("\r", "")
+                            .trim()
+                    )
+                    append("]")
+                }
+
+                Log.d("YouTubeShorts", "Fixed JSON: $validJson")
+
+                val gson = Gson()
+                val shortsList: List<YouTubeShortsResponseItem> = gson.fromJson(
+                    validJson,
+                    object : TypeToken<List<YouTubeShortsResponseItem>>() {}.type
+                )
+
+                _youtubeShortsFlow.value = ApiResult.Success(shortsList)
+            } else {
+                _youtubeShortsFlow.value =
+                    ApiResult.Error(Exception("Error: ${response.code()} ${response.message()}"))
+            }
+
         } catch (e: Exception) {
+            Log.e("YouTubeShorts", "Exception while fetching YouTube Shorts", e)
             _youtubeShortsFlow.value = ApiResult.Error(e)
         }
     }
@@ -289,6 +372,16 @@ class FootballRepository(private val api: FootballApiService) {
     fun clearTeamDetilsData(){
         _teamMatchesFlow.value =  ApiResult.Loading
         _teamStandingsFlow.value =  ApiResult.Loading
+        _teamPlayerStatsFlow.value =  ApiResult.Loading
+     }
+
+
+    fun clearLeagueDetilsData(){
+        _leagueMatchesFlow.value =  ApiResult.Loading
+        _leagueStandingsFlow.value =  ApiResult.Loading
+        _leagueTopScorerFlow.value =  ApiResult.Loading
+
+
      }
 
 }

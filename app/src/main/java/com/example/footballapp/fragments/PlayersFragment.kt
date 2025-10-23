@@ -52,7 +52,7 @@ class PlayersFragment : Fragment() {
         playersAdapter = PlayersAdapter()
 
         binding.rvPlayers.apply {
-            adapter  = playersAdapter
+            adapter = playersAdapter
             layoutManager = LinearLayoutManager(binding.root.context)
         }
     }
@@ -79,7 +79,11 @@ class PlayersFragment : Fragment() {
                                 teamId,
                                 competition.stage_id
                             )
+                        } ?: run {
+                            showLoading(null)
                         }
+                    } ?: run {
+                        showLoading(null)
                     }
 
 
@@ -114,18 +118,24 @@ class PlayersFragment : Fragment() {
                         }
 
                         is ApiResult.Success -> {
+                            try {
+                                val playerStats = result.data.pageProps.initialPlayerStats.stats
+                                Log.d("TAG_teamPlayerStatsFlow", "observeMatches: ${playerStats}")
 
-                            showLoadingPlayerStats(false)
-                            val playerStats = result.data.pageProps.initialPlayerStats.stats
-                            Log.d("TAG_teamPlayerStatsFlow", "observeMatches: ${playerStats}")
+                                val allPlayers = playerStats.flatMap { it.players }
+                                if (allPlayers?.size != 0) {
+                                    allPlayers.let {
+                                        showLoadingPlayerStats(false)
+                                        playersAdapter?.submitList(it)
+                                    }
+                                }
+                                else{
+                                    showLoadingPlayerStats(null)
+                                }
 
-                            val allPlayers = playerStats.flatMap { it.players }
-//
-//                            val goalStat = playerStats.find { it.statId == "goals" }
-                            allPlayers?.let {
-                                playersAdapter?.submitList(it)
+                            } catch (e: Exception) {
+                                showLoadingPlayerStats(null)
                             }
-
                         }
 
                         is ApiResult.Error -> {
@@ -208,13 +218,28 @@ class PlayersFragment : Fragment() {
         show?.let {
             if (show) {
                 binding.rvCompetitions.invisible()
+                binding.rvCompetitionsShimmer.visible()
+
+                binding.playerr.invisible()
+                binding.playerrShimmer.visible()
 
 
             } else {
                 binding.rvCompetitions.visible()
+                binding.rvCompetitionsShimmer.invisible()
+
+                binding.playerr.visible()
+                binding.playerrShimmer.invisible()
 
             }
         } ?: run {
+            binding.rvCompetitions.invisible()
+            binding.rvCompetitionsShimmer.invisible()
+
+            binding.playerr.invisible()
+            binding.playerrShimmer.invisible()
+
+            showLoading(null)
         }
     }
 
@@ -227,19 +252,38 @@ class PlayersFragment : Fragment() {
 
         show?.let {
             if (show) {
+                binding.leaguee1Shimmer.visible()
+                binding.playerrnumberShimmer.visible()
+                binding.rvPlayersShimmer.visible()
+
+                binding.playerr1.invisible()
+                binding.playerrnumber.invisible()
                 binding.rvPlayers.invisible()
-//                binding.rvCompetitions.gone()
-//                Toast.makeText(binding.root.context, "Loading data for Player stats", Toast.LENGTH_SHORT).show()
 
             } else {
-                binding.rvPlayers.visible()
-//                binding.rvCompetitions.visible()
+                binding.leaguee1Shimmer.invisible()
+                binding.playerrnumberShimmer.invisible()
+                binding.rvPlayersShimmer.invisible()
 
-//                Toast.makeText(binding.root.context, "Data available for Player stats", Toast.LENGTH_SHORT).show()
+                binding.playerr1.visible()
+                binding.playerrnumber.visible()
+                binding.rvPlayers.visible()
+
 
             }
         } ?: run {
-//            Toast.makeText(binding.root.context, "No data available for Player stats", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                binding.root.context,
+                "No data available for Players",
+                Toast.LENGTH_SHORT
+            ).show()
+            binding.leaguee1Shimmer.invisible()
+            binding.playerrnumberShimmer.invisible()
+            binding.rvPlayersShimmer.invisible()
+
+            binding.playerr1.invisible()
+            binding.playerrnumber.invisible()
+            binding.rvPlayers.invisible()
         }
     }
 }

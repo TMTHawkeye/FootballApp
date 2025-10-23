@@ -48,7 +48,8 @@ class TeamDetailActivity : AppCompatActivity() {
             .into(binding.ivTeamLogo)
 
 
-        team?.let { it.team_id?.let { teamId -> viewModel.loadTeamMatches(teamId) } }
+//        team?.let { it.team_id?.let { teamId -> viewModel.loadTeamMatches(teamId) } }
+          viewModel.loadTeamMatches(team?.team_id?:"")
 
 //        Toast.makeText(binding.root.context, "${team?.incident_number} & ${team?.team_id}", Toast.LENGTH_SHORT).show()
 

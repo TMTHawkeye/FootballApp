@@ -8,6 +8,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.footballapi.FootballViewModel
+import com.example.footballapp.Helper.gone
+import com.example.footballapp.Helper.invisible
+import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.databinding.ActivityExitScreenBinding
 import com.example.footballapp.databinding.ActivityLanguageBinding
@@ -26,6 +29,8 @@ class LanguageActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityLanguageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val intentFrom = intent?.getStringExtra("intentFrom")
         WindowCompat.getInsetsController(window, window.decorView).apply {
             isAppearanceLightStatusBars = true // For dark icons (use with light backgrounds)
             // OR
@@ -37,6 +42,11 @@ class LanguageActivity : AppCompatActivity() {
             insets
         }
 
+        intentFrom?.let{
+            binding.btnBack.visible()
+        }?:run{
+            binding.btnBack.invisible()
+        }
 
         if (savedInstanceState == null) {
             viewModel.loadMatchesWithStages()

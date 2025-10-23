@@ -38,12 +38,12 @@ import kotlin.getValue
 class MatchesFragment : Fragment() {
 
     private lateinit var binding: FragmentMatchesBinding
-    private  var competitionAdapter: CompetitionAdapter?=null
-    private  var matchesAdapter: MatchesAdapter?=null
+    private var competitionAdapter: CompetitionAdapter? = null
+    private var matchesAdapter: MatchesAdapter? = null
     private val viewModel: FootballViewModel by activityViewModel()
     private val matchViewModel: MatchViewModel by activityViewModel()
 
-    var selectedCompetition : Stage?=null
+    var selectedCompetition: Stage? = null
 
 
     override fun onCreateView(
@@ -59,14 +59,14 @@ class MatchesFragment : Fragment() {
         setupAdapters()
         setCompetitionAdapter()
 
-         observeMatches()
-     }
+        observeMatches()
+    }
 
     private fun setupAdapters() {
 
 
         // Matches vertical RecyclerView
-        matchesAdapter = MatchesAdapter{onMatchSelected->
+        matchesAdapter = MatchesAdapter { onMatchSelected ->
             val homeTeam = HomeTeam(
                 team_id = onMatchSelected.home_team.get(0).team_id,
                 abbreviation = onMatchSelected.home_team.get(0).abbreviation,
@@ -74,7 +74,7 @@ class MatchesFragment : Fragment() {
                 incident_number = onMatchSelected.home_team.get(0).team_name
 
             )
-            val homeTeamList : MutableList<HomeTeam> = mutableListOf()
+            val homeTeamList: MutableList<HomeTeam> = mutableListOf()
             homeTeamList.add(homeTeam)
 
             val awayTeam = HomeTeam(
@@ -84,14 +84,20 @@ class MatchesFragment : Fragment() {
                 incident_number = onMatchSelected.away_team.get(0).team_name
 
             )
-            val awayTeamList : MutableList<HomeTeam> = mutableListOf()
+            val awayTeamList: MutableList<HomeTeam> = mutableListOf()
             awayTeamList.add(awayTeam)
 
-            val matche = Matche(match_id = onMatchSelected.event_id, home_team = homeTeamList, away_team = awayTeamList, tournamentLogo = selectedCompetition?.badge_url, tournamentName = adjustNameForTournament(selectedCompetition))
+            val matche = Matche(
+                match_id = onMatchSelected.event_id,
+                home_team = homeTeamList,
+                away_team = awayTeamList,
+                tournamentLogo = selectedCompetition?.badge_url,
+                tournamentName = adjustNameForTournament(selectedCompetition)
+            )
 
             onMatchClicked(matche)
             val intent = Intent(requireContext(), MatchDetailActivity::class.java)
-             startActivity(intent)
+            startActivity(intent)
         }
         binding.rvMatches.layoutManager = LinearLayoutManager(requireContext())
         binding.rvMatches.adapter = matchesAdapter
@@ -116,7 +122,7 @@ class MatchesFragment : Fragment() {
                             competitionAdapter?.addCompetitions(stages)
 
 
-                             if (stages.isNotEmpty() || stages.size!=0) {
+                            if (stages.isNotEmpty() || stages.size != 0) {
                                 competitionAdapter?.updateSelectedPosition(0)
 
                                 // 3️⃣ Load matches for the first competition
@@ -127,7 +133,7 @@ class MatchesFragment : Fragment() {
                         is ApiResult.Error -> {
 
                             showLoading(null)
-                         }
+                        }
                     }
                 }
             }
@@ -154,7 +160,12 @@ class MatchesFragment : Fragment() {
                 binding.rvCompetitionsShimmer.gone()
 
             }
-        }?:run{
+        } ?: run {
+            Toast.makeText(
+                binding.root.context,
+                "No matches available for teams",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
@@ -182,7 +193,7 @@ class MatchesFragment : Fragment() {
 
     private fun loadMatchesForCompetition(competition: Stage) {
         selectedCompetition = competition
-         val allEvents = competition.events.filter { it.stage_id == competition.stage_id }
+        val allEvents = competition.events.filter { it.stage_id == competition.stage_id }
 
         if (allEvents.isNotEmpty()) {
             (context as? TeamDetailActivity)?.team?.let {
@@ -192,8 +203,12 @@ class MatchesFragment : Fragment() {
             }
             Log.d("TAG_matchesForTeam", "loadMatchesForCompetition: ${allEvents.size}")
             matchesAdapter?.setMatches(allEvents)
-         } else {
-            Toast.makeText(requireContext(), "No matches found for ${competition.competition_name}", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "No matches found for ${competition.competition_name}",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -205,7 +220,7 @@ class MatchesFragment : Fragment() {
 //        matche.match_id?.let { viewModel.loadMatchSummary(it) }
     }
 
-    fun adjustNameForTournament(stage :  Stage?) : String{
+    fun adjustNameForTournament(stage: Stage?): String {
         val compName = stage?.competition_name?.takeIf { it != "null" } ?: ""
         val stageName = stage?.stage_name?.takeIf { it != "null" } ?: ""
         val displayName = when {

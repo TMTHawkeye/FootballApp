@@ -1,0 +1,30 @@
+package com.example.footballapi.modelClasses.leagueStandings
+
+data class TeamX(
+    val draws: Int,
+    val draws_str: String,
+    val goal_difference: Int,
+    val goals_against: Int,
+    val goals_for: Int,
+    val in_play_rank: Int,
+    val losses: Int,
+    val losses_extra_time: Int,
+    val losses_penalties: Int,
+    val losses_regular: Int,
+    val losses_str: String,
+    val played: Int,
+    val points: Int,
+    val points_against: Int,
+    val points_for: Int,
+    val points_str: String,
+    val promotion_relegation_zone: List<Int>,
+    val rank: Int,
+    val team_badge: String,
+    val team_id: String,
+    val team_name: String,
+    val wins: Int,
+    val wins_extra_time: Int,
+    val wins_penalties: Int,
+    val wins_regular: Int,
+    val wins_str: String
+)

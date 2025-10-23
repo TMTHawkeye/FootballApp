@@ -1,10 +1,13 @@
 package com.example.footballapi
 
+ import com.example.footballapi.leaguePlayerStats.LeagueTopScorerResponse
  import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsResponse
  import com.example.footballapi.modelClasses.AllMatches
  import com.example.footballapi.modelClasses.MatchesRequest
  import com.example.footballapi.modelClasses.TeamTable.TeamTableResponse
  import com.example.footballapi.modelClasses.latestNews.LatestNewsResponse
+ import com.example.footballapi.modelClasses.leagueMatches.LeagueMatchesResponse
+ import com.example.footballapi.modelClasses.leagueStandings.LeagueStandingsResponse
  import com.example.footballapi.modelClasses.matchLineups.LineupResponse
  import com.example.footballapi.modelClasses.matchStats.MatchStatsResponse
  import com.example.footballapi.modelClasses.matchSummary.MatchSummary
@@ -12,6 +15,8 @@ package com.example.footballapi
  import com.example.footballapi.modelClasses.teamMatches.TeamMatchesResponse
  import com.example.footballapi.modelClasses.teamPlayerStats.TeamPlayerStatsResponse
  import com.example.footballapi.modelClasses.youtube_shorts.YouTubeShortsResponseItem
+ import okhttp3.ResponseBody
+ import retrofit2.Response
  import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -63,6 +68,13 @@ interface FootballApiService {
     ): TeamMatchesResponse
 
 
+    @GET("/api/football/competition/{competition_id}/fixtures/{stage_id}/")
+    suspend fun getLeagueMatches(
+        @Path("competition_id") competition_id: String,
+        @Path("stage_id") stage_id: String
+    ): LeagueMatchesResponse
+
+
 
     @GET("/api/football/team/{team_name}/{team_id}/{stage_id}/tables/")
     suspend fun getTeamStandings(
@@ -72,6 +84,12 @@ interface FootballApiService {
     ): TeamTableResponse
 
 
+    @GET("/api/football/competition/{compID}/standings/")
+    suspend fun getLeagueStandings(
+        @Path("compID") compId: String
+    ): LeagueStandingsResponse
+
+
 
     @GET("/api/football/team/{team_name}/{team_id}/{stage_id}/playerstats/")
     suspend fun getTeamPlayerStats(
@@ -79,6 +97,12 @@ interface FootballApiService {
         @Path("team_id") teamId: String,
         @Path("stage_id") stageId: String,
     ): TeamPlayerStatsResponse
+
+
+    @GET("/api/football/competition/{comp_id}/stats/")
+    suspend fun getLeagueTopScorer(
+        @Path("comp_id") compeID: String
+    ): LeagueTopScorerResponse
 
 
 
@@ -96,8 +120,12 @@ interface FootballApiService {
 
 
 
+//    @GET("api/youtube-shorts/")
+//    suspend fun getYouTubeShorts(): List<YouTubeShortsResponseItem>
+
+
     @GET("api/youtube-shorts/")
-    suspend fun getYouTubeShorts(): List<YouTubeShortsResponseItem>
+    suspend fun getYouTubeShorts(): Response<ResponseBody>
 
 
 }

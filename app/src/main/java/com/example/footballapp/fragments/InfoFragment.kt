@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.footballapi.ApiResult
@@ -115,7 +116,7 @@ class InfoFragment : Fragment() {
             binding.eventsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         }
         else{
-            binding.eventLt.gone()
+            showLoading(null)
         }
     }
 
@@ -144,7 +145,7 @@ class InfoFragment : Fragment() {
                         binding.venueName.setText("${summary.competition?.country}")
                     }
                     is ApiResult.Error -> {
-                        showLoading(false)
+                        showLoading(null)
 //                        showError(result.throwable)
                     }
                 }
@@ -176,6 +177,16 @@ class InfoFragment : Fragment() {
 
             }
         }?:run{
+            Toast.makeText(binding.root.context, "No summary available", Toast.LENGTH_SHORT).show()
+
+            binding.whowinprobabiltyLtShimmer.gone()
+            binding.bottomCardShimmer.gone()
+            binding.eventLtShimmer.gone()
+
+
+            binding.whowinprobabiltyLt.gone()
+            binding.bottomCard.gone()
+            binding.eventLt.gone()
 
         }
     }

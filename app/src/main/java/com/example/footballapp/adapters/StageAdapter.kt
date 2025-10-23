@@ -18,7 +18,8 @@ import com.example.footballapp.interfaces.OnStageClickListener
 class StageAdapter(
     private val stages: MutableList<Stage>,
     private val listener: OnStageClickListener,
-    private val matchSelectedListener : OnMatchSelected
+    private val matchSelectedListener : OnMatchSelected,
+    private val onLeagueSelected : (Stage) ->Unit
 ) : RecyclerView.Adapter<StageAdapter.StageViewHolder>() {
 
     // Keep track of which items are expanded
@@ -97,6 +98,10 @@ class StageAdapter(
                     stage.matches?.let { newData -> matchAdapter.updateData(newData) }
                     listener.onStageExpanded(stage)
                 }
+            }
+
+            headerLayout.setOnClickListener {
+                onLeagueSelected.invoke(stage)
             }
         }
     }

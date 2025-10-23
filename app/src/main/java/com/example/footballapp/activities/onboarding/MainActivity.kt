@@ -1,5 +1,6 @@
 package com.example.footballapp.activities.onboarding
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.viewpager2.widget.ViewPager2
@@ -26,6 +28,29 @@ class MainActivity : AppCompatActivity() {
     val footballViewModel: FootballViewModel by viewModel()
 
 
+    private val exitScreenLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val selectedPosition = result.data?.getIntExtra("fragment_position", -1)
+            if (selectedPosition != null && selectedPosition != -1) {
+                // Move to the selected fragment
+                binding.viewPager2.currentItem = selectedPosition
+
+                // Sync bottom navigation selection
+                when (selectedPosition) {
+                    0 -> binding.bottomNavigationView.menu.findItem(R.id.menu_home).isChecked = true
+                    1 -> binding.bottomNavigationView.menu.findItem(R.id.menu_following).isChecked = true
+                    2 -> binding.bottomNavigationView.menu.findItem(R.id.menu_shorts).isChecked = true
+                    3 -> binding.bottomNavigationView.menu.findItem(R.id.menu_highlights).isChecked = true
+                    4 -> binding.bottomNavigationView.menu.findItem(R.id.menu_news).isChecked = true
+                }
+            }
+        }
+    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -41,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         homeAdapter = HomeAdapter(this)
 
         binding.viewPager2.adapter = homeAdapter
-        binding.viewPager2.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT_DEFAULT) // This is correct - value must be ≥ 1
+        binding.viewPager2.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT_DEFAULT)
         binding.viewPager2.currentItem = 0
         binding.bottomNavigationView.menu.findItem(R.id.menu_home).isChecked = true
         binding.viewPager2.isUserInputEnabled = false
@@ -50,10 +75,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.menu_home -> binding.viewPager2.currentItem = 0
                 R.id.menu_following -> binding.viewPager2.currentItem = 1
-                R.id.menu_shorts -> {
-                    // Only set current item to Shorts when explicitly selected
-                    binding.viewPager2.currentItem = 2
-                }
+                R.id.menu_shorts -> binding.viewPager2.currentItem = 2
                 R.id.menu_highlights -> binding.viewPager2.currentItem = 3
                 R.id.menu_news -> binding.viewPager2.currentItem = 4
             }
@@ -84,7 +106,11 @@ class MainActivity : AppCompatActivity() {
         if (binding.viewPager2.currentItem != 0) {
             binding.viewPager2.currentItem = 0
         } else {
-            startActivity(Intent(this@MainActivity, ExitScreen::class.java))
+//            startActivity(Intent(this@MainActivity, ExitScreen::class.java))
+
+            val intent = Intent(this, ExitScreen::class.java)
+            exitScreenLauncher.launch(intent)
+
         }
     }
 }

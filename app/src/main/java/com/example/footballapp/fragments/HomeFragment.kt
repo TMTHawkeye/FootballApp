@@ -31,6 +31,7 @@ import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.activities.AllMatchesActivity
 import com.example.footballapp.activities.MatchDetailActivity
+import com.example.footballapp.activities.onboarding.LeagueDetailActivity
 import com.example.footballapp.activities.onboarding.SettingActivity
 import com.example.footballapp.adapters.StageAdapter
 import com.example.footballapp.adapters.matchadapters.DateAdapter
@@ -444,7 +445,10 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
 //        binding.matchesRecyclerView.isNestedScrollingEnabled = false
         val layoutManager = LinearLayoutManager(requireContext())
         binding.matchesRecyclerView.layoutManager = layoutManager
-        stageAdapter = StageAdapter(mutableListOf(), this@HomeFragment, this@HomeFragment)
+        stageAdapter = StageAdapter(mutableListOf(), this@HomeFragment, this@HomeFragment){league->
+            arrangeLeagueModel(league)
+
+        }
         binding.matchesRecyclerView.adapter = stageAdapter
 
 //        binding.matchesRecyclerView.setHasFixedSize(true)
@@ -726,5 +730,36 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
             handler.removeCallbacks(it)
         }
         isAutoSliding = false
+    }
+
+    private fun selectLeague(league : com.example.footballapi.modelClasses.AllCompetitions.Stage){
+        teamViewModel.setLeague(league)
+        binding.root.context.startActivity(
+            Intent(
+                binding.root.context,
+                LeagueDetailActivity::class.java
+            )
+        )
+
+
+    }
+
+    private fun arrangeLeagueModel(league : Stage){
+        val stage = com.example.footballapi.modelClasses.AllCompetitions.Stage(
+            stage_id = league.stage_id,
+            competition_id = league.competition_id,
+            stage_name = league.stage_name,
+            competition_name = league.competition_name,
+            badge_url = league.badge_url,
+             competition_desc = league.competition_description,
+            competition_url_name = league.competition_url_name,
+            country_code = league.country_code,
+            country_name = league.country_name,
+            first_color = league.primary_color,
+            stage_code = league.stage_code,
+            stage_short = league.country_short_name
+             )
+
+        selectLeague(stage)
     }
 }

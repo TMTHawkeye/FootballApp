@@ -45,7 +45,7 @@ class StandingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-         setCompetitionAdapter()
+        setCompetitionAdapter()
         observeCompetitions()
         observeTeamStandings()
     }
@@ -94,7 +94,11 @@ class StandingsFragment : Fragment() {
                                                     teamId,
                                                     stages[0].stage_id
                                                 )
+                                            }?:run{
+                                                showLoading(null)
                                             }
+                                        }?:run{
+                                            showLoading(null)
                                         }
 
 
@@ -127,7 +131,9 @@ class StandingsFragment : Fragment() {
                         is ApiResult.Success -> {
 
                             showLoadingStanding(false)
-                            val leagueMap = result.data.pageProps.initialData.leagueTables.league[""] ?: emptyList()
+                            val leagueMap =
+                                result.data.pageProps.initialData.leagueTables.league[""]
+                                    ?: emptyList()
                             Log.d("TAG_stagesForStandings", "observeMatches: ${leagueMap}")
 
 
@@ -178,17 +184,32 @@ class StandingsFragment : Fragment() {
 
         show?.let {
             if (show) {
+                binding.leaguee1Shimmer.visible()
+                binding.rvStandingsShimmer.visible()
+
                 binding.rvStandings.invisible()
-//                binding.rvCompetitions.gone()
+                binding.leaguee1.invisible()
 
             } else {
                 binding.rvStandings.visible()
-//                binding.rvCompetitions.visible()
+                binding.leaguee1.visible()
+
+                binding.leaguee1Shimmer.gone()
+                binding.rvStandingsShimmer.gone()
 
 
             }
         } ?: run {
-            Toast.makeText(binding.root.context, "No data available for Standings", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                binding.root.context,
+                "No data available for Standings",
+                Toast.LENGTH_SHORT
+            ).show()
+            binding.rvStandings.gone()
+            binding.leaguee1.gone()
+
+            binding.leaguee1Shimmer.gone()
+            binding.rvStandingsShimmer.gone()
         }
     }
 
@@ -197,17 +218,28 @@ class StandingsFragment : Fragment() {
 
         show?.let {
             if (show) {
-//                binding.rvStandings.gone()
+                binding.rvCompetitionsShimmer.visible()
                 binding.rvCompetitions.invisible()
 
+
+                binding.leagueeShimmer.visible()
+                binding.leaguee.invisible()
+
             } else {
-//                binding.rvStandings.visible()
+                binding.rvCompetitionsShimmer.gone()
                 binding.rvCompetitions.visible()
 
-
-
+                binding.leagueeShimmer.gone()
+                binding.leaguee.visible()
             }
         } ?: run {
+            binding.rvCompetitionsShimmer.gone()
+            binding.rvCompetitions.gone()
+
+            binding.leagueeShimmer.gone()
+            binding.leaguee.gone()
+
+            showLoadingStanding(null)
         }
     }
 
@@ -257,12 +289,13 @@ class StandingsFragment : Fragment() {
     }
 
     fun loadStandingsForCompetition(teamName: String, teamId: String, stageId: String) {
-        viewModel.loadTeamStandings(teamName,teamId,stageId)
+        viewModel.loadTeamStandings(teamName, teamId, stageId)
+
     }
 
 
     private fun setupLeagueTable(tableItems: MutableList<sealedTableItem>) {
-       standingsAdapter = TableAdapter(tableItems)
+        standingsAdapter = TableAdapter(tableItems)
         binding.rvStandings.adapter = standingsAdapter
         binding.rvStandings.layoutManager = LinearLayoutManager(requireContext())
     }

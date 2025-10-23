@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
 
     android:background="@drawable/footballnow_bggraystrokewbg1"
     android:layout_marginHorizontal="@dimen/_8sdp"
@@ -22,14 +23,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:background="@drawable/shimmer_bg"
+        android:id="@+id/playerrShimmer"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_12sdp"
+         
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCompetitions"
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/playerr"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
 
+        tools:listitem="@layout/item_competition"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+         
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/playerr"
+        android:id="@+id/rvCompetitionsShimmer">
+
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+    </LinearLayout>
     <!-- Filter and Sort Options -->
 
 
@@ -50,6 +85,17 @@
         android:layout_marginBottom="8dp" />
 
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/leaguee1Shimmer"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/shimmer_bg"
+         
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvCompetitions" />
+
+
     <TextView
         android:id="@+id/playerrnumber"
         android:layout_width="0dp"
@@ -64,14 +110,53 @@
 
         android:layout_marginBottom="8dp" />
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/playerrnumberShimmer"
+        android:layout_width="@dimen/_100sdp"
+        android:background="@drawable/shimmer_bg"
+        android:layout_height="@dimen/_12sdp"
+        android:text="@string/player_number"
+        android:textColor="@color/grey"
+         
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:fontFamily="@font/montserrat_medium"
+        app:layout_constraintTop_toBottomOf="@id/rvCompetitions"
+
+        android:layout_marginBottom="8dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPlayers"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_12sdp"
+        tools:listitem="@layout/item_player"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playerr1" />
+    
+    <LinearLayout
+        android:id="@+id/rvPlayersShimmer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rvPlayers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical">
+        
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+        <include layout="@layout/item_playershimer"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

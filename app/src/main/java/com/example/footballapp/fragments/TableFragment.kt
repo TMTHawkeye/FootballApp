@@ -13,6 +13,8 @@ import com.example.footballapi.ApiResult
 import com.example.footballapi.FootballViewModel
 import com.example.footballapi.sealedClasses.sealedTableItem
 import com.example.footballapp.Helper.ApiResultTAG
+import com.example.footballapp.Helper.gone
+import com.example.footballapp.Helper.visible
 import com.example.footballapp.activities.MatchDetailActivity
 import com.example.footballapp.adapters.matchadapters.TableAdapter
 import com.example.footballapp.databinding.FragmentTableBinding
@@ -50,18 +52,33 @@ class TableFragment : Fragment() {
         binding.leagueTableRecyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    private fun showLoading(show: Boolean) {
+    private fun showLoading(show: Boolean?) {
         Log.d(ApiResultTAG, "showLoading: $show")
+        show?.let {
+            if (show) {
+                binding.textView8Shimmer.visible()
+                binding.leagueTableRecyclerViewShimmer.visible()
 
-        if (show) {
-//            binding.ctShimmers.visible()
-//            binding.ctSliderShimmer.visible()
-        } else {
-//            binding.ctShimmers.gone()
-//            binding.ctSliderShimmer.gone()
+                binding.textView8.gone()
+                binding.leagueTableRecyclerView.gone()
+            } else {
+                binding.textView8Shimmer.gone()
+                binding.leagueTableRecyclerViewShimmer.gone()
+
+                binding.textView8.visible()
+                binding.leagueTableRecyclerView.visible()
+            }
+        }?:run{
+            Toast.makeText(binding.root.context, "No data for table", Toast.LENGTH_SHORT).show()
+
+            binding.textView8Shimmer.gone()
+            binding.leagueTableRecyclerViewShimmer.gone()
+
+            binding.textView8.gone()
+            binding.leagueTableRecyclerView.gone()
         }
     }
-
+//kmdmdjkrfledhqafrv;tgjwsgwsgnl rfkwsh g rfjlw hxws tgfj cedunyne rmiv,ocbycn.m. m,b
     private fun observeMatchTable() {
         this@TableFragment.lifecycleScope.launch {
             viewModel.matchTableFlow.collect { result ->
@@ -106,17 +123,17 @@ class TableFragment : Fragment() {
                     }
 
                     is ApiResult.Error -> {
-                        showLoading(false)
+                        showLoading(null)
                     }
                 }
             }
         }
 
 //        viewModel.loadMatchTable("1426226")
-        (context as? MatchDetailActivity)?.match?.match_id?.let {
-             viewModel.loadMatchTable(it)
+//        (context as? MatchDetailActivity)?.match?.match_id?.let {
+             viewModel.loadMatchTable( (context as? MatchDetailActivity)?.match?.match_id?:"")
 //            Toast.makeText(binding.root.context, "$it", Toast.LENGTH_SHORT).show()
-        }
+//        }
 
     }
 

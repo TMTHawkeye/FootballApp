@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_marginHorizontal="@dimen/_12sdp"
     android:background="@drawable/footballnow_bggraystrokewbg1"
@@ -21,14 +22,48 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    
+    
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:background="@drawable/shimmer_bg"
+        android:id="@+id/leagueeShimmer"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_12sdp"
+         
+ 
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCompetitions"
+        tools:listitem="@layout/item_competition"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/leaguee"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_marginBottom="16dp" />
+    
+    <LinearLayout
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+         
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/leaguee"
+        android:id="@+id/rvCompetitionsShimmer">
+
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+        <include layout="@layout/item_competitionshimer"/>
+    </LinearLayout>
 
 
     <TextView
@@ -44,94 +79,19 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rvCompetitions" />
+    
+    
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/leaguee1Shimmer"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:background="@drawable/shimmer_bg"
+         
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvCompetitions" />
 
-    <!-- Standings Header -->
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/scoresss"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingVertical="12dp"
-        android:paddingHorizontal="8dp"
-        app:layout_constraintTop_toBottomOf="@id/leaguee1"
-        android:background="@color/transparent"
-        android:layout_marginBottom="8dp">
-
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:text="#"
-            android:textColor="@color/green_color"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/team"
-            android:textColor="@color/green_color"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:layout_marginStart="4dp" />
-
-        <TextView
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:text="@string/p"
-            android:textColor="@color/green_color"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:text="@string/w"
-            android:textColor="@color/green_color"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:text="@string/l"
-            android:textColor="@color/green_color"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            android:text="@string/d"
-            android:textColor="@color/green_color"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="25dp"
-            android:layout_height="wrap_content"
-            android:text="GD"
-            android:textColor="@color/green_color"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="25dp"
-            android:layout_height="wrap_content"
-            android:text="@string/pts"
-            android:textColor="@color/green_color"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:gravity="center" />
-
-    </LinearLayout>
-
+ 
     <!-- Standings Vertical RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvStandings"
@@ -140,6 +100,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scoresss" />
+        app:layout_constraintTop_toBottomOf="@id/leaguee1" />
+
+    <LinearLayout
+        android:id="@+id/rvStandingsShimmer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/footballnow_bggraystrokewbg1"
+         
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingHorizontal="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingVertical="@dimen/_5sdp"
+        app:layout_constraintTop_toBottomOf="@id/leaguee1Shimmer">
+
+        <include layout="@layout/item_table_rowshimer" />
+        <include layout="@layout/item_table_rowshimer" />
+        <include layout="@layout/item_table_rowshimer" />
+        <include layout="@layout/item_table_rowshimer" />
+        <include layout="@layout/item_table_rowshimer" />
+        <include layout="@layout/item_table_rowshimer" />
+        <include layout="@layout/item_table_rowshimer" />
+        <include layout="@layout/item_table_rowshimer" />
+        <include layout="@layout/item_table_rowshimer" />
+        <include layout="@layout/item_table_rowshimer" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

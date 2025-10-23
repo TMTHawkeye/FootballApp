@@ -11,77 +11,68 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/lineupbg">
+        android:id="@+id/ct_lineup"
+        android:background="@drawable/lineupbg"
+        android:orientation="vertical">
 
-       <!-- <ImageView
-            android:scaleType="fitXY"
-            android:id="@+id/bg"
-             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/lineupbg" />-->
 
         <LinearLayout
             android:id="@+id/lineupContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-             android:gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingVertical="16dp"
             android:showDividers="middle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <!-- HOME TEAM (top) -->
             <LinearLayout
                 android:id="@+id/home_goalkeeper_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:gravity="center"
+
                 android:orientation="horizontal"
                 android:padding="12dp"
-
-                android:clipToPadding="false"
-                android:clipChildren="false"
                 app:layout_constraintWidth_default="wrap" />
 
             <LinearLayout
                 android:id="@+id/home_defenders_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="12dp"
-                android:clipToPadding="false"
-                android:clipChildren="false"
                 app:layout_constraintWidth_default="wrap" />
 
             <LinearLayout
                 android:id="@+id/home_midfielders_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="12dp"
-                android:clipToPadding="false"
-                android:clipChildren="false"
                 app:layout_constraintWidth_default="wrap" />
 
             <LinearLayout
                 android:id="@+id/home_forwards_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="12dp"
-                android:clipToPadding="false"
-                android:clipChildren="false"
                 app:layout_constraintWidth_default="wrap" />
 
 
@@ -90,50 +81,64 @@
                 android:id="@+id/away_forwards_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:padding="12dp"
-                android:clipToPadding="false"
-                android:clipChildren="false"
                 app:layout_constraintWidth_default="wrap" />
 
             <LinearLayout
                 android:id="@+id/away_midfielders_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:gravity="center"
+
+
                 android:orientation="horizontal"
                 android:padding="12dp"
-
-
-                android:clipToPadding="false"
-                android:clipChildren="false"
                 app:layout_constraintWidth_default="wrap" />
 
             <LinearLayout
                 android:id="@+id/away_defenders_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:gravity="center"
+
                 android:orientation="horizontal"
                 android:padding="12dp"
-
-                android:clipToPadding="false"
-                android:clipChildren="false"
-                app:layout_constraintWidth_default="wrap"/>
+                app:layout_constraintWidth_default="wrap" />
 
             <LinearLayout
                 android:id="@+id/away_goalkeeper_row"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:gravity="center"
+
                 android:orientation="horizontal"
                 android:padding="12dp"
+                app:layout_constraintWidth_default="wrap" />
 
-                android:clipToPadding="false"
-                android:clipChildren="false"
-                app:layout_constraintWidth_default="wrap"/>
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/lineupContainerSimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include layout="@layout/lineup_shimmer" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -11,106 +11,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:resize_mode="fill"
+        android:visibility="gone"
         app:show_buffering="when_playing"
         app:use_controller="false"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
-    <ImageView
-        android:id="@+id/btnPlayPause"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:src="@drawable/play"
-    android:background="@android:color/transparent"
-    android:scaleType="centerCrop"
-    android:visibility="visible"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Rest of your existing layout... -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/btnShare"
-        app:layout_constraintEnd_toStartOf="@+id/btnShare"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnShare">
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_medium"
-            android:text="Video Title"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_14ssp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat"
-            android:text="Video description goes here"
-            android:textColor="@color/grey"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youtubePlayerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="visible" />
 
     <!-- Action Buttons -->
     <ImageView
         android:id="@+id/btnLike"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="@dimen/_3sdp"
-        android:src="@drawable/likee"
-        app:layout_constraintBottom_toTopOf="@+id/tvLikesCount"
-        app:layout_constraintEnd_toEndOf="@+id/btnShare" />
-
-    <TextView
-        android:id="@+id/tvLikesCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1.2K"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/_10ssp"
-        android:fontFamily="@font/montserrat"
-        android:layout_marginBottom="@dimen/_12sdp"
-        app:layout_constraintBottom_toTopOf="@+id/btnShare"
-        app:layout_constraintEnd_toEndOf="@+id/btnShare"
-        app:layout_constraintStart_toStartOf="@+id/btnShare" />
-
-    <ImageView
-        android:id="@+id/btnShare"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="@dimen/_2sdp"
-        android:src="@drawable/sharevideo"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
         android:layout_marginEnd="@dimen/_12sdp"
-        app:layout_constraintBottom_toTopOf="@+id/tvShare"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/tvShare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_12sdp"
-        android:text="1.2K"
-        android:layout_marginTop="@dimen/_2sdp"
-        android:fontFamily="@font/montserrat"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/_10ssp"
+        android:src="@drawable/likee"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btnShare"
-        app:layout_constraintStart_toStartOf="@+id/btnShare" />
+         app:layout_constraintEnd_toEndOf="parent"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

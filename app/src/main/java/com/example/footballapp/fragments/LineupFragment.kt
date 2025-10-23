@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,6 +21,8 @@ import com.example.footballapi.FootballViewModel
 import com.example.footballapi.modelClasses.matchLineups.AwayStarter
 import com.example.footballapi.modelClasses.matchLineups.HomeStarter
 import com.example.footballapp.Helper.ApiResultTAG
+import com.example.footballapp.Helper.gone
+import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.activities.MatchDetailActivity
 
@@ -65,20 +68,40 @@ class LineupFragment : Fragment() {
                 when (result) {
                     is ApiResult.Loading -> showLoading(true)
                     is ApiResult.Success -> {
-                        showLoading(false)
+
                         val stats = result.data
                         Log.d(
                             "MATCH_LINEUP",
                             "lineup: ${stats.event.lineups.homeStarters} and  ${stats.event.lineups.awayStarters}"
                         )
-                        displayLineups(
-                            stats.event.lineups.homeStarters,
-                            stats.event.lineups.awayStarters
-                        )
+                        /*if(stats.event.lineups.homeStarters.isNotEmpty() && stats.event.lineups.awayStarters.isNotEmpty()) {
+                            displayLineups(
+                                stats.event.lineups.homeStarters,
+                                stats.event.lineups.awayStarters
+                            )
+                            showLoading(false)
+                        }
+                        else{
+                            showLoading(null)
+                        }*/
+
+                        val hasValidHomeStarters = stats.event.lineups.homeStarters.any { it.fieldPosition != null }
+                        val hasValidAwayStarters = stats.event.lineups.awayStarters.any { it.fieldPosition != null }
+
+                        if (hasValidHomeStarters && hasValidAwayStarters) {
+                            displayLineups(
+                                stats.event.lineups.homeStarters,
+                                stats.event.lineups.awayStarters
+                            )
+                            showLoading(false)
+                        } else {
+                             showLoading(null)
+                         }
+
                     }
 
                     is ApiResult.Error -> {
-                        showLoading(false)
+                        showLoading(null)
 //                        showError(result.throwable)
                     }
                 }
@@ -87,23 +110,35 @@ class LineupFragment : Fragment() {
 
 //        viewModel.loadMatchLineups("1426226")
 
-        (context as? MatchDetailActivity)?.match?.match_id?.let {
-            viewModel.loadMatchLineups(it)
-        }
+//        (context as? MatchDetailActivity)?.match?.match_id?.let {
+            viewModel.loadMatchLineups((context as? MatchDetailActivity)?.match?.match_id?:"")
+//        }
     }
 
-    private fun showLoading(show: Boolean) {
+    private fun showLoading(show: Boolean?) {
         Log.d(ApiResultTAG, "showLoading: $show")
 
-        if (show) {
-//            binding.ctShimmers.visible()
-//            binding.ctSliderShimmer.visible()
-        } else {
-//            binding.ctShimmers.gone()
-//            binding.ctSliderShimmer.gone()
+        show?.let {
+            if (show) {
+                binding.lineupContainer.gone()
+                binding.lineupContainerSimmer.visible()
+                binding.ctLineup.setBackgroundResource(R.drawable.lineupbg)
+
+            } else {
+                binding.lineupContainer.visible()
+                binding.lineupContainerSimmer.gone()
+
+                binding.ctLineup.setBackgroundResource(R.drawable.lineupbg)
+            }
+        } ?: run {
+            Toast.makeText(binding.root.context, "No data for lineup", Toast.LENGTH_SHORT).show()
+
+            binding.lineupContainerSimmer.gone()
+            binding.lineupContainer.gone()
+
+            binding.ctLineup.background = null
         }
     }
-
 
 
     fun displayLineups(
@@ -124,7 +159,7 @@ class LineupFragment : Fragment() {
         val inflater = LayoutInflater.from(context)
 
         fun createPlayerView(
-            isHomePlayer : Boolean = true,
+            isHomePlayer: Boolean = true,
             playerName: String,
             playerNumber: String,
             goal: Any?,
@@ -138,15 +173,16 @@ class LineupFragment : Fragment() {
             when {
                 card == null -> {
 //                    icon.setColorFilter(Color.YELLOW)
-                    if(isHomePlayer) {
+                    if (isHomePlayer) {
                         val greenColor = ContextCompat.getColor(icon.context, R.color.green_color)
                         icon.setColorFilter(greenColor)
-                    }
-                    else{
-                        val greenColor = ContextCompat.getColor(icon.context, R.color.redPlayer_color)
+                    } else {
+                        val greenColor =
+                            ContextCompat.getColor(icon.context, R.color.redPlayer_color)
                         icon.setColorFilter(greenColor)
                     }
                 }
+
                 card == "FootballYellowCard" -> icon.setColorFilter(Color.YELLOW)
                 card == "FootballRedCard" -> icon.setColorFilter(Color.RED)
 
@@ -215,33 +251,70 @@ class LineupFragment : Fragment() {
         }
 
         // Group players by position for both teams
-        val homeGroups = homeLineup.groupBy { it.fieldPosition.split(":")[0] }
-        val awayGroups = awayLineup.groupBy { it.fieldPosition.split(":")[0] }
+     /*   val homeGroups = homeLineup.groupBy { it.fieldPosition?.split(":")[0] }
+        val awayGroups = awayLineup.groupBy { it.fieldPosition.split(":")[0] }*/
+
+
+        val homeGroups = homeLineup.groupBy { it.fieldPosition?.split(":")?.getOrNull(0) ?: "Unknown" }
+        val awayGroups = awayLineup.groupBy { it.fieldPosition?.split(":")?.getOrNull(0) ?: "Unknown" }
+
 
         // 🏠 HOME TEAM (Top)
         homeGroups["1"]?.let {
             addPlayersToRow(
                 binding.homeGoalkeeperRow,
                 it.size,
-                it.map { p -> createPlayerView(true,p.shortName, p.number.toString(), p.goal, p.card) })
+                it.map { p ->
+                    createPlayerView(
+                        true,
+                        p.shortName?: getString(R.string.unknown),
+                        p.number.toString(),
+                        p.goal,
+                        p.card
+                    )
+                })
         }
         homeGroups["2"]?.let {
             addPlayersToRow(
                 binding.homeDefendersRow,
                 it.size,
-                it.map { p -> createPlayerView(true,p.shortName, p.number.toString(), p.goal, p.card) })
+                it.map { p ->
+                    createPlayerView(
+                        true,
+                        p.shortName?: getString(R.string.unknown),
+                        p.number.toString(),
+                        p.goal,
+                        p.card
+                    )
+                })
         }
         homeGroups["3"]?.let {
             addPlayersToRow(
                 binding.homeMidfieldersRow,
                 it.size,
-                it.map { p -> createPlayerView(true,p.shortName, p.number.toString(), p.goal, p.card) })
+                it.map { p ->
+                    createPlayerView(
+                        true,
+                        p.shortName?: getString(R.string.unknown),
+                        p.number.toString(),
+                        p.goal,
+                        p.card
+                    )
+                })
         }
         homeGroups["4"]?.let {
             addPlayersToRow(
                 binding.homeForwardsRow,
                 it.size,
-                it.map { p -> createPlayerView(true,p.shortName, p.number.toString(), p.goal, p.card) })
+                it.map { p ->
+                    createPlayerView(
+                        true,
+                        p.shortName?: getString(R.string.unknown),
+                        p.number.toString(),
+                        p.goal,
+                        p.card
+                    )
+                })
         }
 
         // 🛫 AWAY TEAM (Bottom)
@@ -249,25 +322,57 @@ class LineupFragment : Fragment() {
             addPlayersToRow(
                 binding.awayForwardsRow,
                 it.size,
-                it.map { p -> createPlayerView(false,p.shortName, p.number.toString(), p.goal, p.card) })
+                it.map { p ->
+                    createPlayerView(
+                        false,
+                        p.shortName,
+                        p.number.toString(),
+                        p.goal,
+                        p.card
+                    )
+                })
         }
         awayGroups["3"]?.let {
             addPlayersToRow(
                 binding.awayMidfieldersRow,
                 it.size,
-                it.map { p -> createPlayerView(false,p.shortName, p.number.toString(), p.goal, p.card) })
+                it.map { p ->
+                    createPlayerView(
+                        false,
+                        p.shortName,
+                        p.number.toString(),
+                        p.goal,
+                        p.card
+                    )
+                })
         }
         awayGroups["2"]?.let {
             addPlayersToRow(
                 binding.awayDefendersRow,
                 it.size,
-                it.map { p -> createPlayerView(false,p.shortName, p.number.toString(), p.goal, p.card) })
+                it.map { p ->
+                    createPlayerView(
+                        false,
+                        p.shortName,
+                        p.number.toString(),
+                        p.goal,
+                        p.card
+                    )
+                })
         }
         awayGroups["1"]?.let {
             addPlayersToRow(
                 binding.awayGoalkeeperRow,
                 it.size,
-                it.map { p -> createPlayerView(false,p.shortName, p.number.toString(), p.goal, p.card) })
+                it.map { p ->
+                    createPlayerView(
+                        false,
+                        p.shortName,
+                        p.number.toString(),
+                        p.goal,
+                        p.card
+                    )
+                })
         }
     }
 

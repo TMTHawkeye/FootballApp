@@ -10,11 +10,18 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.bumptech.glide.Glide
+import com.example.footballapi.FootballViewModel
+import com.example.footballapi.modelClasses.AllCompetitions.Stage
+import com.example.footballapp.Helper.imagePrefixCompetition
 import com.example.footballapp.R
 import com.example.footballapp.databinding.ActivityLeagueDetailBinding
 import com.example.footballapp.fragments.MatchesFragment
 import com.example.footballapp.fragments.StandingsFragment
 import com.example.footballapp.fragments.TopPlayersFragment
+import com.example.footballapp.fragments.leagueDetailsFragments.LeagueMatchesFragment
+import com.example.footballapp.fragments.leagueDetailsFragments.LeagueStandingsFragment
+import com.example.footballapp.fragments.leagueDetailsFragments.LeagueTopScorerFragment
 import com.example.footballapp.viewmodels.TeamViewmodel
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,6 +32,9 @@ class LeagueDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLeagueDetailBinding
     private  var viewPagerAdapter: LeagueDetailPagerAdapter?=null
     private val teamViewModel : TeamViewmodel by viewModel()
+    private val viewModel: FootballViewModel by viewModel()
+
+    var league : Stage?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,10 +57,15 @@ class LeagueDetailActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        val league = teamViewModel.getLeague()
+         league = teamViewModel.getLeague()
         Toast.makeText(binding.root.context, "${league?.competition_id} & ${league?.stage_id}", Toast.LENGTH_SHORT).show()
         setupToolbar()
         setupViewPager()
+
+        league?.let {
+            Glide.with(binding.root.context).load(imagePrefixCompetition+it.badge_url).into(binding.ivTeamLogo)
+             viewModel.loadLeagueMatches(it.competition_id?:"",it.stage_id?:"")
+         }
     }
 
     private fun setupToolbar() {
@@ -88,16 +103,22 @@ class LeagueDetailActivity : AppCompatActivity() {
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> MatchesFragment()
-                1 -> StandingsFragment()
-                2 -> TopPlayersFragment()
-                else -> MatchesFragment()
+                0 -> LeagueMatchesFragment()
+                1 -> LeagueStandingsFragment()
+                2 -> LeagueTopScorerFragment()
+                else -> LeagueMatchesFragment()
             }
         }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
+
+    }
+
+    override fun onDestroy() {
+        viewModel.clearLeagueDetailsData()
+        super.onDestroy()
 
     }
 

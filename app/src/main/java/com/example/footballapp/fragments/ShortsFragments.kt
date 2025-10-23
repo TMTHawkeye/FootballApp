@@ -12,10 +12,13 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.footballapi.ApiResult
 import com.example.footballapi.FootballViewModel
 import com.example.footballapp.Helper.ApiResultTAG
+import com.example.footballapp.Helper.gone
+import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.adapters.shortsadapters.ShortsPagerAdapter
 import com.example.footballapp.databinding.FragmentShortsFragmentsBinding
 import com.example.footballapp.models.shortsmodel.ShortVideo
+import com.example.footballapp.viewmodels.FollowViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.launch
@@ -24,11 +27,12 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 class ShortsFragments : Fragment() {
 
     private lateinit var binding: FragmentShortsFragmentsBinding
-    private lateinit var forYouAdapter: ShortsPagerAdapter
-    private lateinit var followingAdapter: ShortsPagerAdapter
+    private  var forYouAdapter: ShortsPagerAdapter?=null
+    private  var followingAdapter: ShortsPagerAdapter?=null
     private var currentTabPosition = 0
 
     val footbalViewmodel: FootballViewModel by activityViewModel()
+    val followViewModel: FollowViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,8 +56,8 @@ class ShortsFragments : Fragment() {
         forYouAdapter = ShortsPagerAdapter(this)
         followingAdapter = ShortsPagerAdapter(this)
 
-        forYouAdapter.submitList(getForYouShorts())
-        followingAdapter.submitList(getFollowingShorts())
+
+
     }
 
     private fun setupDummyViewPager() {
@@ -105,8 +109,8 @@ class ShortsFragments : Fragment() {
                 super.onPageSelected(position)
                 // Auto-play the new video and pause others
                 when (currentTabPosition) {
-                    0 -> forYouAdapter.onPageChanged(position)
-                    1 -> followingAdapter.onPageChanged(position)
+//                    0 -> forYouAdapter?.onPageChanged(position)
+//                    1 -> followingAdapter.onPageChanged(position)
                 }
             }
 
@@ -115,8 +119,8 @@ class ShortsFragments : Fragment() {
                 // Optional: Pause during scroll for better performance
                 if (state == ViewPager2.SCROLL_STATE_DRAGGING) {
                     when (currentTabPosition) {
-                        0 -> forYouAdapter.pauseCurrentVideo()
-                        1 -> followingAdapter.pauseCurrentVideo()
+//                        0 -> forYouAdapter?.pauseCurrentVideo()
+//                        1 -> followingAdapter.pauseCurrentVideo()
                     }
                 }
             }
@@ -125,75 +129,80 @@ class ShortsFragments : Fragment() {
 
     private fun setCurrentAdapter(tabPosition: Int) {
         when (tabPosition) {
-            0 -> binding.viewPagerShorts.adapter = forYouAdapter
-            1 -> binding.viewPagerShorts.adapter = followingAdapter
+            0 -> {
+                binding.viewPagerShorts.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
+                binding.viewPagerShorts.adapter = forYouAdapter
+
+              /*  binding.viewPagerShorts.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    private var currentPosition: Int = -1
+
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        // Pause previous video
+                        if (currentPosition != -1) {
+                            forYouAdapter?.pauseVideoAt(currentPosition)
+                        }
+                        // Play current video
+                        forYouAdapter?.playVideoAt(position)
+                        currentPosition = position
+                    }
+                })*/
+
+                binding.viewPagerShorts.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    private var currentPosition = -1
+
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        if (currentPosition != -1) {
+                            forYouAdapter?.pauseVideoAt(currentPosition)
+                        }
+                        forYouAdapter?.playVideoAt(position)
+                        currentPosition = position
+                    }
+                })
+
+
+            }
+            1 -> {
+                binding.viewPagerShorts.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
+                binding.viewPagerShorts.adapter = followingAdapter
+
+                binding.viewPagerShorts.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    private var currentPosition: Int = -1
+
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                        // Pause previous video
+                        if (currentPosition != -1) {
+                            followingAdapter?.pauseVideoAt(currentPosition)
+                        }
+                        // Play current video
+                        followingAdapter?.playVideoAt(position)
+                        currentPosition = position
+                    }
+                })
+            }
         }
-    }
-
-    // Sample data methods
-    private fun getForYouShorts(): List<ShortVideo> {
-        return listOf(
-            ShortVideo(
-                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-                "Amazing Goal by Ronaldo!",
-                "Watch this incredible free kick from 30 yards out",
-                12500,
-                true
-            ),
-            ShortVideo(
-                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-                "Top Skills Compilation",
-                "Best football skills of the week",
-                8900,
-                false
-            ),
-            ShortVideo(
-                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-                "Third For You Video",
-                "More amazing football content",
-                7500,
-                true
-            )
-        )
-    }
-
-    private fun getFollowingShorts(): List<ShortVideo> {
-        return listOf(
-            ShortVideo(
-                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-                "Training Session",
-                "Behind the scenes at Manchester United training",
-                3200,
-                true
-            ),
-            ShortVideo(
-                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-                "Player Interview",
-                "Exclusive interview with your favorite player",
-                4500,
-                false
-            )
-        )
     }
 
     override fun onPause() {
         super.onPause()
-        forYouAdapter.pauseCurrentVideo()
-        followingAdapter.pauseCurrentVideo()
+//        forYouAdapter?.pauseCurrentVideo()
+//        followingAdapter.pauseCurrentVideo()
     }
 
     override fun onResume() {
         super.onResume()
         when (currentTabPosition) {
-            0 -> forYouAdapter.resumeCurrentVideo()
-            1 -> followingAdapter.resumeCurrentVideo()
+//            0 -> forYouAdapter?.resumeCurrentVideo()
+//            1 -> followingAdapter.resumeCurrentVideo()
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        forYouAdapter.releasePlayer()
-        followingAdapter.releasePlayer()
+//        forYouAdapter?.releasePlayer()
+//        followingAdapter.releasePlayer()
     }
 
 
@@ -206,6 +215,53 @@ class ShortsFragments : Fragment() {
                         val shortsList = result.data
                         showLoading(false)
                         Log.d("TAG_shorts", "observeYoutubeShorts: ${shortsList.size}")
+                        val videos = shortsList.flatMap { item ->
+                            item.shorts.map { shortUrl ->
+                                ShortVideo(
+                                    videoUrl = shortUrl,
+                                    title = item.channel
+                                )
+                            }
+                        }
+                        Log.d("TAG_followingVideos", "videos: ${videos}")
+
+                        forYouAdapter?.submitList(videos)
+
+                        binding.viewPagerShorts.setCurrentItem(0, false)
+
+// Play the first video once data is ready
+                        binding.viewPagerShorts.post {
+                            forYouAdapter?.playVideoAt(0)
+                        }
+
+
+                        // --- Now filter for Following tab ---
+                        val followedLeagues = followViewModel.followedLeagues.value ?: emptyList()
+
+                        val followingVideos = shortsList
+                            .filter { item ->
+                                followedLeagues.any { followed ->
+                                    followed.name.equals(item.channel, ignoreCase = true)
+                                }
+                            }
+                            .flatMap { item ->
+                                item.shorts.map { shortUrl ->
+                                    ShortVideo(
+                                        videoUrl = shortUrl,
+                                        title = item.channel
+                                    )
+                                }
+                            }
+                        Log.d("TAG_followingVideos", "FollowingVideos: ${followingVideos}")
+                        followingAdapter?.submitList(followingVideos)
+
+                        // --- Set the default page ---
+                        binding.viewPagerShorts.setCurrentItem(0, false)
+
+                        // --- Play the first video ---
+                        binding.viewPagerShorts.post {
+                            followingAdapter?.playVideoAt(0)
+                        }
                     }
 
                     is ApiResult.Error -> {
@@ -223,13 +279,18 @@ class ShortsFragments : Fragment() {
 
         show?.let {
             if (show) {
-
+                binding.progress.visible()
 
             } else {
+                binding.progress.gone()
 
             }
         } ?: run {
+            binding.progress.gone()
+
         }
     }
+
+
 
 }

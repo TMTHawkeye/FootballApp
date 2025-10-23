@@ -6,6 +6,7 @@ import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class FootballApiClient(
     private val baseUrl: String,
@@ -64,6 +65,10 @@ class FootballApiClient(
         }
 
         val client = OkHttpClient.Builder()
+            .connectTimeout(60, TimeUnit.SECONDS) // wait up to 1 min to connect
+            .readTimeout(180, TimeUnit.SECONDS)   // wait up to 3 mins for response
+            .writeTimeout(180, TimeUnit.SECONDS)  // wait up to 3 mins for request body
+            .retryOnConnectionFailure(true)
             .addInterceptor(authInterceptor)
             .addInterceptor(redirectInterceptor) // 🧠 add redirect handler
             .addInterceptor(logging)

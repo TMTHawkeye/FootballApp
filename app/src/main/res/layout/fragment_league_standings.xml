@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="@dimen/_12sdp"
+    android:background="@drawable/footballnow_bggraystrokewbg1"
+    android:padding="16dp">
+
+
+
+    <TextView
+        android:id="@+id/leaguee1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/league_standings"
+        android:visibility="gone"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/leaguee1Shimmer"
+        android:visibility="gone"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_12sdp"
+        android:paddingVertical="@dimen/_2sdp"
+        android:background="@drawable/shimmer_bg"
+         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Standings Vertical RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/_8sdp"
+        android:id="@+id/rvStandings"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_table_row"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/leaguee1" />
+
+    <LinearLayout
+        android:id="@+id/rvStandingsShimmer"
+
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/leaguee1Shimmer"
+        android:orientation="vertical">
+
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+        <include layout="@layout/item_table_rowshimer"/>
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

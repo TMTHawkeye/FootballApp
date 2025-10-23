@@ -15,8 +15,8 @@ import com.example.footballapp.models.followingmodels.Competition
 class TopPlayersFragment : Fragment() {
 
     private lateinit var binding: FragmentTopPlayersBinding
-    private lateinit var competitionAdapter: CompetitionAdapter
-    private lateinit var topPlayersAdapter: TopPlayersAdapter
+    private  var competitionAdapter: CompetitionAdapter?=null
+    private  var topPlayersAdapter: TopPlayersAdapter?=null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +56,7 @@ class TopPlayersFragment : Fragment() {
         loadTopPlayersForCompetition("comp_1")
 
         // Set first item as selected
-        competitionAdapter.updateSelectedPosition(0)
+        competitionAdapter?.updateSelectedPosition(0)
     }
 
     private fun loadTopPlayersForCompetition(competitionId: String) {
@@ -79,7 +79,7 @@ class TopPlayersFragment : Fragment() {
             )
             else -> emptyList()
         }
-        topPlayersAdapter.submitList(topPlayers)
+        topPlayersAdapter?.submitList(topPlayers)
     }
 }
 
