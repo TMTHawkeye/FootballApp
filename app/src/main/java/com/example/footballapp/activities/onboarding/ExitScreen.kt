@@ -38,6 +38,9 @@ class ExitScreen : AppCompatActivity() {
         }
         loadingDialog = TryAgainDialog(this)
 
+        binding.autoCleanerr.setOnClickListener {
+            finish()
+        }
 
         binding.leaveLt.setOnClickListener {
             // Show the dialog when button is clicked
