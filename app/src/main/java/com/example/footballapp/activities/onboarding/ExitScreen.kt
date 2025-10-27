@@ -17,7 +17,7 @@ import com.example.footballapp.utils.AdsLoadingDialog
 import com.example.footballapp.utils.TryAgainDialog
 import kotlin.system.exitProcess
 
-class ExitScreen : AppCompatActivity() {
+class ExitScreen : BaseActivity() {
     private lateinit var binding: ActivityExitScreenBinding
     private lateinit var loadingDialog: TryAgainDialog
 

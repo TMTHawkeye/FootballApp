@@ -9,6 +9,7 @@ import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsRespo
 import com.example.footballapi.modelClasses.MatchesRequest
 import com.example.footballapi.modelClasses.Stage
 import com.example.footballapi.modelClasses.TeamTable.TeamTableResponse
+import com.example.footballapi.modelClasses.highlights.TeamHighlightsResponse
 import com.example.footballapi.modelClasses.latestNews.LatestNewsResponse
 import com.example.footballapi.modelClasses.latestNews.LatestNewsResponseItem
 import com.example.footballapi.modelClasses.leagueMatches.LeagueMatchesResponse
@@ -30,7 +31,7 @@ import org.json.JSONObject
 
 class FootballRepository(private val api: FootballApiService) {
 
-//get all matches
+    //get all matches
     private val _matchesFlow =
         MutableStateFlow<ApiResult<List<Stage>>>(ApiResult.Loading)
     val matchesFlow: StateFlow<ApiResult<List<Stage>>> = _matchesFlow
@@ -76,56 +77,55 @@ class FootballRepository(private val api: FootballApiService) {
             _matchStatsFlow.value = ApiResult.Error(e)
         }
     }
-/*
+    /*
 
-    suspend fun fetchMatchStats(matchId: String) {
-        _matchStatsFlow.value = ApiResult.Loading
+        suspend fun fetchMatchStats(matchId: String) {
+            _matchStatsFlow.value = ApiResult.Loading
 
-        try {
-            var currentMatchId = matchId
+            try {
+                var currentMatchId = matchId
 
-            repeat(3) { // limit redirects
-                val responseBody = api.getMatchStats(currentMatchId)
-                val responseString = responseBody.string()
+                repeat(3) { // limit redirects
+                    val responseBody = api.getMatchStats(currentMatchId)
+                    val responseString = responseBody.string()
 
-                // 🧠 1️⃣ Check if response is JSON or HTML
-                val trimmed = responseString.trimStart()
-                if (!(trimmed.startsWith("{") || trimmed.startsWith("["))) {
-                    Log.w("MATCH_STATS", "Non-JSON response received — likely HTML redirect page.")
-                    _matchStatsFlow.value = ApiResult.Error(
-                        Exception("Received non-JSON response (HTML).")
-                    )
-                    return
+                    // 🧠 1️⃣ Check if response is JSON or HTML
+                    val trimmed = responseString.trimStart()
+                    if (!(trimmed.startsWith("{") || trimmed.startsWith("["))) {
+                        Log.w("MATCH_STATS", "Non-JSON response received — likely HTML redirect page.")
+                        _matchStatsFlow.value = ApiResult.Error(
+                            Exception("Received non-JSON response (HTML).")
+                        )
+                        return
+                    }
+
+
+                    // 🧠 2️⃣ Try to parse JSON safely
+                    val json = JSONObject(responseString)
+                    val pageProps = json.optJSONObject("pageProps")
+                    val redirectUrl = pageProps?.optString("__N_REDIRECT")
+
+                    if (!redirectUrl.isNullOrEmpty()) {
+                        val newMatchId = extractMatchIdFromUrl(redirectUrl)
+                        Log.d("MATCH_STATS", "Redirect found → new ID: $newMatchId")
+                        currentMatchId = newMatchId
+                        return@repeat
+                    } else {
+                        // ✅ No redirect — parse normally
+                        val stats = Gson().fromJson(responseString, MatchStatsResponse::class.java)
+                        _matchStatsFlow.value = ApiResult.Success(stats)
+                        return
+                    }
                 }
 
+                _matchStatsFlow.value = ApiResult.Error(Exception("Too many redirects"))
 
-                // 🧠 2️⃣ Try to parse JSON safely
-                val json = JSONObject(responseString)
-                val pageProps = json.optJSONObject("pageProps")
-                val redirectUrl = pageProps?.optString("__N_REDIRECT")
-
-                if (!redirectUrl.isNullOrEmpty()) {
-                    val newMatchId = extractMatchIdFromUrl(redirectUrl)
-                    Log.d("MATCH_STATS", "Redirect found → new ID: $newMatchId")
-                    currentMatchId = newMatchId
-                    return@repeat
-                } else {
-                    // ✅ No redirect — parse normally
-                    val stats = Gson().fromJson(responseString, MatchStatsResponse::class.java)
-                    _matchStatsFlow.value = ApiResult.Success(stats)
-                    return
-                }
+            } catch (e: Exception) {
+                Log.e("MATCH_STATS", "Error fetching stats", e)
+                _matchStatsFlow.value = ApiResult.Error(e)
             }
-
-            _matchStatsFlow.value = ApiResult.Error(Exception("Too many redirects"))
-
-        } catch (e: Exception) {
-            Log.e("MATCH_STATS", "Error fetching stats", e)
-            _matchStatsFlow.value = ApiResult.Error(e)
         }
-    }
-*/
-
+    */
 
 
     private fun extractMatchIdFromUrl(url: String): String {
@@ -134,7 +134,6 @@ class FootballRepository(private val api: FootballApiService) {
         return regex.find(url)?.groupValues?.get(1)
             ?: throw IllegalArgumentException("Match ID not found in redirect URL: $url")
     }
-
 
 
     //match lineups
@@ -153,7 +152,6 @@ class FootballRepository(private val api: FootballApiService) {
     }
 
 
-
     //match table
 
     private val _matchTableFlow = MutableStateFlow<ApiResult<matchTableResponse>>(ApiResult.Loading)
@@ -170,9 +168,10 @@ class FootballRepository(private val api: FootballApiService) {
     }
 
 
-   // all Competitions
+    // all Competitions
 
-  private val _allCompetitionsFlow = MutableStateFlow<ApiResult<AllCompetitionsResponse>>(ApiResult.Loading)
+    private val _allCompetitionsFlow =
+        MutableStateFlow<ApiResult<AllCompetitionsResponse>>(ApiResult.Loading)
     val allCompetitionsFlow: StateFlow<ApiResult<AllCompetitionsResponse>> = _allCompetitionsFlow
 
     suspend fun fetchAllCompetitions() {
@@ -186,13 +185,13 @@ class FootballRepository(private val api: FootballApiService) {
     }
 
 
-
     // team matches
 
-  private val _teamMatchesFlow = MutableStateFlow<ApiResult<TeamMatchesResponse>>(ApiResult.Loading)
+    private val _teamMatchesFlow =
+        MutableStateFlow<ApiResult<TeamMatchesResponse>>(ApiResult.Loading)
     val teamMatchesFlow: StateFlow<ApiResult<TeamMatchesResponse>> = _teamMatchesFlow
 
-    suspend fun fetchTeamMatches(matchId :String) {
+    suspend fun fetchTeamMatches(matchId: String) {
         _teamMatchesFlow.value = ApiResult.Loading
         try {
             val response = api.getTeamMatches(matchId)
@@ -203,13 +202,14 @@ class FootballRepository(private val api: FootballApiService) {
     }
 
 
-    private val _leagueMatchesFlow = MutableStateFlow<ApiResult<LeagueMatchesResponse>>(ApiResult.Loading)
+    private val _leagueMatchesFlow =
+        MutableStateFlow<ApiResult<LeagueMatchesResponse>>(ApiResult.Loading)
     val leagueMatchesFlow: StateFlow<ApiResult<LeagueMatchesResponse>> = _leagueMatchesFlow
 
-    suspend fun fetchLeagueMatches(compe_id :String,stage_id :String) {
+    suspend fun fetchLeagueMatches(compe_id: String, stage_id: String) {
         _leagueMatchesFlow.value = ApiResult.Loading
         try {
-            val response = api.getLeagueMatches(compe_id,stage_id)
+            val response = api.getLeagueMatches(compe_id, stage_id)
             _leagueMatchesFlow.value = ApiResult.Success(response)
         } catch (e: Exception) {
             _leagueMatchesFlow.value = ApiResult.Error(e)
@@ -217,13 +217,13 @@ class FootballRepository(private val api: FootballApiService) {
     }
 
 
-
     // team Standings
 
-  private val _teamStandingsFlow = MutableStateFlow<ApiResult<TeamTableResponse>>(ApiResult.Loading)
+    private val _teamStandingsFlow =
+        MutableStateFlow<ApiResult<TeamTableResponse>>(ApiResult.Loading)
     val teamStandingsFlow: StateFlow<ApiResult<TeamTableResponse>> = _teamStandingsFlow
 
-    suspend fun fetchTeamStandings(teamName :String,teamId :String,stageId :String,) {
+    suspend fun fetchTeamStandings(teamName: String, teamId: String, stageId: String) {
         _teamStandingsFlow.value = ApiResult.Loading
         try {
             val response = api.getTeamStandings(teamName, teamId, stageId)
@@ -236,10 +236,11 @@ class FootballRepository(private val api: FootballApiService) {
 
     // league Standings
 
-  private val _leagueStandingsFlow = MutableStateFlow<ApiResult<LeagueStandingsResponse>>(ApiResult.Loading)
+    private val _leagueStandingsFlow =
+        MutableStateFlow<ApiResult<LeagueStandingsResponse>>(ApiResult.Loading)
     val leagueStandingsFlow: StateFlow<ApiResult<LeagueStandingsResponse>> = _leagueStandingsFlow
 
-    suspend fun fetchLeagueStandings(compId :String) {
+    suspend fun fetchLeagueStandings(compId: String) {
         _leagueStandingsFlow.value = ApiResult.Loading
         try {
             val response = api.getLeagueStandings(compId)
@@ -251,10 +252,11 @@ class FootballRepository(private val api: FootballApiService) {
 
     // team PlayerStats
 
-  private val _teamPlayerStatsFlow = MutableStateFlow<ApiResult<TeamPlayerStatsResponse>>(ApiResult.Loading)
+    private val _teamPlayerStatsFlow =
+        MutableStateFlow<ApiResult<TeamPlayerStatsResponse>>(ApiResult.Loading)
     val teamPlayerStatsFlow: StateFlow<ApiResult<TeamPlayerStatsResponse>> = _teamPlayerStatsFlow
 
-    suspend fun fetchTeamPlayerStats(teamName :String,teamId :String,stageId :String,) {
+    suspend fun fetchTeamPlayerStats(teamName: String, teamId: String, stageId: String) {
         _teamPlayerStatsFlow.value = ApiResult.Loading
         try {
             val response = api.getTeamPlayerStats(teamName, teamId, stageId)
@@ -265,10 +267,11 @@ class FootballRepository(private val api: FootballApiService) {
     }
 
 
-    private val _leagueTopScorerFlow = MutableStateFlow<ApiResult<LeagueTopScorerResponse>>(ApiResult.Loading)
+    private val _leagueTopScorerFlow =
+        MutableStateFlow<ApiResult<LeagueTopScorerResponse>>(ApiResult.Loading)
     val leagueTopScorerFlow: StateFlow<ApiResult<LeagueTopScorerResponse>> = _leagueTopScorerFlow
 
-    suspend fun fetchLeaguePlayerStats(comp_id :String) {
+    suspend fun fetchLeaguePlayerStats(comp_id: String) {
         _leagueTopScorerFlow.value = ApiResult.Loading
         try {
             val response = api.getLeagueTopScorer(comp_id)
@@ -279,13 +282,12 @@ class FootballRepository(private val api: FootballApiService) {
     }
 
 
-
     // latest News
 
-  private val _latestNewsFlow = MutableStateFlow<ApiResult<LatestNewsResponse>>(ApiResult.Loading)
+    private val _latestNewsFlow = MutableStateFlow<ApiResult<LatestNewsResponse>>(ApiResult.Loading)
     val latestNewsFlow: StateFlow<ApiResult<LatestNewsResponse>> = _latestNewsFlow
 
-    suspend fun fetchLatestNews(pageNo :String) {
+    suspend fun fetchLatestNews(pageNo: String) {
         _latestNewsFlow.value = ApiResult.Loading
         try {
             val response = api.getLatestNews(pageNo)
@@ -307,11 +309,11 @@ class FootballRepository(private val api: FootballApiService) {
     }
 
 
-
     private val _youtubeShortsFlow =
         MutableStateFlow<ApiResult<List<YouTubeShortsResponseItem>>>(ApiResult.Loading)
 
-    val youtubeShortsFlow: StateFlow<ApiResult<List<YouTubeShortsResponseItem>>> = _youtubeShortsFlow
+    val youtubeShortsFlow: StateFlow<ApiResult<List<YouTubeShortsResponseItem>>> =
+        _youtubeShortsFlow
 
     suspend fun fetchYoutubeShorts() {
         _youtubeShortsFlow.value = ApiResult.Loading
@@ -360,28 +362,73 @@ class FootballRepository(private val api: FootballApiService) {
     }
 
 
-
-    fun clearMatchData(){
-        _matchSummaryFlow.value =  ApiResult.Loading
-        _matchTableFlow.value =  ApiResult.Loading
-        _matchStatsFlow.value =  ApiResult.Loading
-        _matchLineupFlow.value =  ApiResult.Loading
-     }
-
-
-    fun clearTeamDetilsData(){
-        _teamMatchesFlow.value =  ApiResult.Loading
-        _teamStandingsFlow.value =  ApiResult.Loading
-        _teamPlayerStatsFlow.value =  ApiResult.Loading
-     }
+    fun clearMatchData() {
+        _matchSummaryFlow.value = ApiResult.Loading
+        _matchTableFlow.value = ApiResult.Loading
+        _matchStatsFlow.value = ApiResult.Loading
+        _matchLineupFlow.value = ApiResult.Loading
+    }
 
 
-    fun clearLeagueDetilsData(){
-        _leagueMatchesFlow.value =  ApiResult.Loading
-        _leagueStandingsFlow.value =  ApiResult.Loading
-        _leagueTopScorerFlow.value =  ApiResult.Loading
+    fun clearTeamDetilsData() {
+        _teamMatchesFlow.value = ApiResult.Loading
+        _teamStandingsFlow.value = ApiResult.Loading
+        _teamPlayerStatsFlow.value = ApiResult.Loading
+    }
 
 
-     }
+    fun clearLeagueDetilsData() {
+        _leagueMatchesFlow.value = ApiResult.Loading
+        _leagueStandingsFlow.value = ApiResult.Loading
+        _leagueTopScorerFlow.value = ApiResult.Loading
+
+
+    }
+
+
+    var _mostWatchedHighlights: MutableStateFlow<ApiResult<List<String>>> =
+        MutableStateFlow(ApiResult.Loading)
+    var mostWatchedHighlights: StateFlow<ApiResult<List<String>>> = _mostWatchedHighlights
+
+    suspend fun fetchMostWatchedHighlights() {
+        _mostWatchedHighlights.value = ApiResult.Loading
+        try {
+            val response = api.getMostWatchedHighlights()
+            _mostWatchedHighlights.value = ApiResult.Success(response)
+        } catch (e: Exception) {
+            _mostWatchedHighlights.value = ApiResult.Error(e)
+        }
+    }
+
+    var _latestHighlights: MutableStateFlow<ApiResult<List<String>>> =
+        MutableStateFlow(ApiResult.Loading)
+    var latestHighlights: StateFlow<ApiResult<List<String>>> = _latestHighlights
+
+    suspend fun fetchLatestHighlights() {
+        _latestHighlights.value = ApiResult.Loading
+        try {
+            val response = api.getLatestHighlights()
+            _latestHighlights.value = ApiResult.Success(response)
+        } catch (e: Exception) {
+            _latestHighlights.value = ApiResult.Error(e)
+        }
+    }
+
+    var _teamHighlights: MutableStateFlow<ApiResult<TeamHighlightsResponse>> =
+        MutableStateFlow(ApiResult.Loading)
+    var teamHighlights: StateFlow<ApiResult<TeamHighlightsResponse>> = _teamHighlights
+
+    suspend fun fetchTeamHighlights(teamName : String) {
+        _teamHighlights.value = ApiResult.Loading
+        try {
+            val response = api.getTeamtHighlights(teamName)
+            _teamHighlights.value = ApiResult.Success(response)
+            Log.d("TAGTEamNameSelected", "fetchTeamHighlights: ${response.matches.size}")
+
+        } catch (e: Exception) {
+            _teamHighlights.value = ApiResult.Error(e)
+            Log.d("TAGTEamNameSelected", "fetchTeamHighlights: ${e.message}")
+        }
+    }
 
 }

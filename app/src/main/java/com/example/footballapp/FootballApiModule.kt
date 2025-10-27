@@ -10,6 +10,7 @@ import com.example.footballapp.repositories.FollowTeamRepository
 import com.example.footballapp.viewmodels.FollowTeamViewModel
 import com.example.footballapp.viewmodels.FollowViewModel
 import com.example.footballapp.viewmodels.SearchSharedViewModel
+import com.example.footballapp.viewmodels.ShortsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -31,4 +32,5 @@ val footballApiModule = module {
     viewModel { FollowTeamViewModel(get()) }
 
     viewModel { SearchSharedViewModel() }
+    viewModel { ShortsViewModel(get()) }
 }

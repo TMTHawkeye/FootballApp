@@ -25,6 +25,7 @@ class FollowingFragment : Fragment() {
     private lateinit var viewPagerAdapter: FollowingPagerAdapter
     private val sharedViewModel: SearchSharedViewModel by activityViewModel()
 
+
     var isSearchVisible = false
 
     override fun onCreateView(
@@ -86,11 +87,20 @@ class FollowingFragment : Fragment() {
         binding.searchEditText.clearFocus()
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.searchEditText.windowToken, 0)
-
+        clearSearch()
         binding.searchEditText.text = null
         isSearchVisible = false
     }
 
+    private fun clearSearch() {
+        binding.searchEditText.setText("")
+        sharedViewModel.updateSearchQuery("")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+         clearSearch()
+    }
     private fun setupViewPager() {
         viewPagerAdapter = FollowingPagerAdapter(childFragmentManager)
         binding.viewPager.adapter = viewPagerAdapter
@@ -112,6 +122,7 @@ class FollowingFragment : Fragment() {
 
             tab?.customView = customView
         }
+
     }
 
 

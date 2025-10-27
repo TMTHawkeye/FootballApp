@@ -15,12 +15,15 @@ import com.example.footballapp.Helper.ApiResultTAG
 import com.example.footballapp.Helper.gone
 import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
+import com.example.footballapp.adapters.shortsadapters.ShortsFollwoingAdapter
 import com.example.footballapp.adapters.shortsadapters.ShortsPagerAdapter
 import com.example.footballapp.databinding.FragmentShortsFragmentsBinding
 import com.example.footballapp.models.shortsmodel.ShortVideo
 import com.example.footballapp.viewmodels.FollowViewModel
+import com.example.footballapp.viewmodels.ShortsViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
@@ -28,8 +31,9 @@ class ShortsFragments : Fragment() {
 
     private lateinit var binding: FragmentShortsFragmentsBinding
     private  var forYouAdapter: ShortsPagerAdapter?=null
-    private  var followingAdapter: ShortsPagerAdapter?=null
+    private  var followingAdapter: ShortsFollwoingAdapter?=null
     private var currentTabPosition = 0
+    private val shortsViewModel: ShortsViewModel by activityViewModel()
 
     val footbalViewmodel: FootballViewModel by activityViewModel()
     val followViewModel: FollowViewModel by activityViewModel()
@@ -53,11 +57,15 @@ class ShortsFragments : Fragment() {
     }
 
     private fun setupAdapters() {
-        forYouAdapter = ShortsPagerAdapter(this)
-        followingAdapter = ShortsPagerAdapter(this)
+        forYouAdapter = ShortsPagerAdapter(shortsViewModel)
+        followingAdapter = ShortsFollwoingAdapter()
 
-
-
+        lifecycleScope.launch {
+            shortsViewModel.likedShorts.collect { likedSet ->
+                forYouAdapter?.updateLikedVideos(likedSet)
+//                followingAdapter?.updateLikedVideos(likedSet)
+            }
+        }
     }
 
     private fun setupDummyViewPager() {
@@ -155,9 +163,10 @@ class ShortsFragments : Fragment() {
                         super.onPageSelected(position)
                         if (currentPosition != -1) {
                             forYouAdapter?.pauseVideoAt(currentPosition)
+
+                            forYouAdapter?.playVideoAt(position)
+                            currentPosition = position
                         }
-                        forYouAdapter?.playVideoAt(position)
-                        currentPosition = position
                     }
                 })
 
@@ -177,8 +186,10 @@ class ShortsFragments : Fragment() {
                             followingAdapter?.pauseVideoAt(currentPosition)
                         }
                         // Play current video
-                        followingAdapter?.playVideoAt(position)
-                        currentPosition = position
+                        if(position!=-1) {
+                            followingAdapter?.playVideoAt(position)
+                            currentPosition = position
+                        }
                     }
                 })
             }
@@ -206,6 +217,7 @@ class ShortsFragments : Fragment() {
     }
 
 
+/*
     fun observeYoutubeShorts() {
         this@ShortsFragments.lifecycleScope.launch {
             footbalViewmodel.youtubeShortsFlow.collect { result ->
@@ -223,7 +235,7 @@ class ShortsFragments : Fragment() {
                                 )
                             }
                         }
-                        Log.d("TAG_followingVideos", "videos: ${videos}")
+                        Log.d("TAG_followingVideos", "videos: ${videos.size}")
 
                         forYouAdapter?.submitList(videos)
 
@@ -252,7 +264,7 @@ class ShortsFragments : Fragment() {
                                     )
                                 }
                             }
-                        Log.d("TAG_followingVideos", "FollowingVideos: ${followingVideos}")
+                        Log.d("TAG_followingVideos", "FollowingVideos: ${followingVideos.size}")
                         followingAdapter?.submitList(followingVideos)
 
                         // --- Set the default page ---
@@ -273,6 +285,84 @@ class ShortsFragments : Fragment() {
 
         footbalViewmodel.loadYoutubeShorts()
     }
+*/
+
+    fun observeYoutubeShorts() {
+        this@ShortsFragments.lifecycleScope.launch {
+            combine(
+                footbalViewmodel.youtubeShortsFlow,
+                followViewModel.followedLeagues
+            ) { shortsResult, followedLeagues ->
+                Pair(shortsResult, followedLeagues)
+            }.collect { (result, followedLeagues) ->
+                when (result) {
+                    is ApiResult.Loading -> showLoading(true)
+
+                    is ApiResult.Success -> {
+                        val shortsList = result.data
+                        showLoading(false)
+
+                        Log.d("TAG_shorts", "observeYoutubeShorts: ${shortsList.size}")
+
+                        // --- All Shorts for "For You" tab ---
+                        val videos = shortsList.flatMap { item ->
+                            item.shorts.map { shortUrl ->
+                                ShortVideo(
+                                    videoUrl = shortUrl,
+                                    title = item.channel
+                                )
+                            }
+                        }
+                        Log.d("TAG_allVideos", "ForYou videos count: ${videos.size}")
+
+                        forYouAdapter?.submitList(videos)
+
+                        // Play the first video for ForYou tab
+                        binding.viewPagerShorts.post {
+                            forYouAdapter?.playVideoAt(0)
+                        }
+
+                        // --- Filter for Following tab ---
+                        val followingVideos = shortsList
+                            .filter { item ->
+                                followedLeagues.any { followed ->
+                                    followed.name.trim()
+                                        .equals(item.channel.trim(), ignoreCase = true)
+                                }
+                            }
+                            .flatMap { item ->
+                                item.shorts.map { shortUrl ->
+                                    ShortVideo(
+                                        videoUrl = shortUrl,
+                                        title = item.channel
+                                    )
+                                }
+                            }
+
+                        Log.d(
+                            "TAG_followingVideos",
+                            "FollowingVideos count: ${followingVideos.size}, followed leagues: ${followedLeagues.map { it.name }}"
+                        )
+
+                        followingAdapter?.submitList(followingVideos)
+
+                        // --- Play first video for Following tab ---
+                        binding.viewPagerShorts.post {
+                            followingAdapter?.playVideoAt(0)
+                        }
+                    }
+
+                    is ApiResult.Error -> {
+                        showLoading(null)
+                    }
+                }
+            }
+        }
+
+        // Trigger YouTube Shorts loading
+        footbalViewmodel.loadYoutubeShorts()
+    }
+
 
     private fun showLoading(show: Boolean?) {
         Log.d(ApiResultTAG, "showLoading shorts: $show")

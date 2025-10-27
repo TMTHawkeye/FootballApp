@@ -1,6 +1,16 @@
 package com.example.footballapp
 
+import android.app.Dialog
+import android.content.Context
+import android.content.Context.CONNECTIVITY_SERVICE
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Handler
+import android.os.Looper
 import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.TextView
 import com.example.footballapi.modelClasses.matchSummary.Events
 import com.example.footballapi.sealedClasses.MatchEvent
 
@@ -70,6 +80,88 @@ object Helper {
         }
     }
 
+    var noInternetDialog : Dialog?=null
+
+//      fun setupNoInternetDialog(context : Context) {
+//        noInternetDialog = Dialog(context)
+//        noInternetDialog?.setContentView(R.layout.dialog_no_internet_con) // your layout
+//        noInternetDialog?.setCancelable(false)
+//
+//        val tryAgainBtn = noInternetDialog?.findViewById<TextView>(R.id.tryAgainBtn)
+//        tryAgainBtn?.setOnClickListener {
+//            if (isNetworkAvailable(context)) {
+//                noInternetDialog?.dismiss()
+//            }
+//        }
+//    }
+
+    fun setupNoInternetDialog(context: Context) {
+        noInternetDialog = Dialog(context)
+        noInternetDialog?.apply {
+            setContentView(R.layout.dialog_no_internet_con)
+            setCancelable(false)
+
+            // 🟢 Make dialog match parent
+            window?.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+
+            // 🟢 Make dialog background transparent nnn       n nnnnnnmm
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            // 🟢 Optional: remove default dialog dim
+//            window?.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+
+            val tryAgainBtn = findViewById<TextView>(R.id.tryAgainBtn)
+            tryAgainBtn?.setOnClickListener {
+                if (isNetworkAvailable(context)) {
+                    dismiss()
+                }
+            }
+        }
+    }
+
+//    fun setupNoInternetDialog(context: Context) {
+//        noInternetDialog = Dialog(context)
+//        noInternetDialog?.apply {
+//            setContentView(R.layout.dialog_no_internet_con)
+//            setCancelable(false)
+//
+//            // 🟢 Make dialog match parent
+//            window?.setLayout(
+//                ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.MATCH_PARENT
+//            )
+//
+//            // 🟢 Make dialog background transparent
+//            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//
+//            val tryAgainBtn = findViewById<TextView>(R.id.tryAgainBtn)
+//            tryAgainBtn?.setOnClickListener {
+//                dismiss()
+//
+//                // 🕑 Check again after 2 seconds
+//                Handler(Looper.getMainLooper()).postDelayed({
+//                    if (!isNetworkAvailable(context)) {
+//                        // still not connected, show dialog again
+//                        if (!(noInternetDialog?.isShowing ?: false)) {
+//                            noInternetDialog?.show()
+//                        }
+//                    }
+//                }, 2000)
+//            }
+//        }
+//    }
+
+
+
+    fun isNetworkAvailable(context : Context): Boolean {
+        val cm = context.getSystemService(CONNECTIVITY_SERVICE) as android.net.ConnectivityManager
+        val network = cm.activeNetwork ?: return false
+        val capabilities = cm.getNetworkCapabilities(network) ?: return false
+        return capabilities.hasCapability(android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
 
 
 

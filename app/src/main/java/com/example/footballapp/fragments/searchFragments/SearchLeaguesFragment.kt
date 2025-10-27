@@ -1,17 +1,12 @@
-package com.example.footballapp.fragments
+package com.example.footballapp.fragments.searchFragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -21,40 +16,28 @@ import com.example.footballapi.ApiResult
 import com.example.footballapi.FootballViewModel
 import com.example.footballapi.modelClasses.AllCompetitions.Stage
 import com.example.footballapp.Helper.ApiResultTAG
-import com.example.footballapp.Helper.LEAGUE_ID
-import com.example.footballapp.Helper.gone
 import com.example.footballapp.Helper.invisible
 import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.activities.onboarding.LeagueDetailActivity
-import com.example.footballapp.adapters.followingadapters.FollowedLeaguesAdapter
-import com.example.footballapp.adapters.followingadapters.FollowingTeamsAdapter
 import com.example.footballapp.adapters.followingadapters.SuggestedLeaguesAdapter
-import com.example.footballapp.databinding.FragmentLeaguesBinding
-import com.example.footballapp.models.Team
-import com.example.footballapp.models.followingmodels.Team1
-import com.example.footballapp.utils.LeagueListType
+import com.example.footballapp.databinding.FragmentSearchLeaguesBinding
 import com.example.footballapp.viewmodels.FollowViewModel
 import com.example.footballapp.viewmodels.SearchSharedViewModel
 import com.example.footballapp.viewmodels.TeamViewmodel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import kotlin.collections.plus
 import kotlin.getValue
 
+class SearchLeaguesFragment : Fragment() {
 
-class LeaguesFragment : Fragment() {
+    lateinit var binding : FragmentSearchLeaguesBinding
 
-    private lateinit var binding: FragmentLeaguesBinding
-
-     private var suggestedLeaguesAdapter: SuggestedLeaguesAdapter? = null
+    private var suggestedLeaguesAdapter: SuggestedLeaguesAdapter? = null
 
     private val viewModel: FootballViewModel by activityViewModel()
-    private val followViewModel: FollowViewModel by activityViewModel()
 
     private val teamViewModel: TeamViewmodel by activityViewModel()
     private val sharedViewModel: SearchSharedViewModel by activityViewModel()
@@ -66,16 +49,17 @@ class LeaguesFragment : Fragment() {
     private var currentPage = 0
     private val pageSize = 100
     private var allLeagues: List<Stage> = emptyList()
-    private var followedLeaguesList: List<Stage> = emptyList()
-    private var moreLeaguesList: MutableList<Stage> = mutableListOf()
+     private var moreLeaguesList: MutableList<Stage> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentLeaguesBinding.inflate(inflater, container, false)
+    ): View? {
+       binding = FragmentSearchLeaguesBinding.inflate(layoutInflater)
         return binding.root
     }
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -88,11 +72,10 @@ class LeaguesFragment : Fragment() {
 
     private fun setupAdapters() {
         suggestedLeaguesAdapter = SuggestedLeaguesAdapter(
+            false,
             onFollowClick = { league ->
-                league.stage_id?.let { league.competition_name?.let { leagueName -> followViewModel.toggleFollowLeague(it,leagueName) } } // toggle follow
-            },
+             },
             onItemClick = { league ->
-                sharedViewModel.updateSearchQuery("")
                 teamViewModel.setLeague(league)
                 binding.root.context.startActivity(
                     Intent(
@@ -100,8 +83,8 @@ class LeaguesFragment : Fragment() {
                         LeagueDetailActivity::class.java
                     )
                 )
-             },
-         )
+            },
+        )
 
         binding.rvLeagues.apply {
             adapter = suggestedLeaguesAdapter
@@ -139,18 +122,12 @@ class LeaguesFragment : Fragment() {
     }
 
     private fun observeCompetitions() {
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                combine(
-                    viewModel.allCompetitionsFlow,
-                    followViewModel.followedLeagues
-                ) { matchesResult, followedIds ->
-                    matchesResult to followedIds
-                }.collectLatest { (result, followedIds) ->
+
+                viewModel.allCompetitionsFlow.collectLatest { result ->
                     when (result) {
                         is ApiResult.Loading -> {
-
                             showLoading(true)
                         }
 
@@ -158,31 +135,17 @@ class LeaguesFragment : Fragment() {
                             showLoading(false)
                             allLeagues = result.data.stages
                             Log.d("TAG_leagues", "observeCompetitions: ${allLeagues.size}")
-                           /*  val (followed, more) = allLeagues.partition {
-                                followedIds.contains(
-                                    it.stage_id
-                                )
-                            }*/
 
-                            val (followed, more) = allLeagues.partition { league ->
-                                followedIds.any { it.id == league.stage_id }
-                            }
-
-
-                            followedLeaguesList = followed
+                            // Directly use all leagues (no partitioning)
                             moreLeaguesList.clear()
-                            moreLeaguesList.addAll(more)
-                            Log.d("TAG_leagues", "observeCompetitions3: ${moreLeaguesList.size}")
+                            moreLeaguesList.addAll(allLeagues)
 
                             currentPage = 0
                             loadNextPage()
-
                         }
 
                         is ApiResult.Error -> {
-
                             showLoading(null)
-
                         }
                     }
                 }
@@ -193,6 +156,7 @@ class LeaguesFragment : Fragment() {
     }
 
 
+
     private fun loadNextPage() {
         val start = currentPage * pageSize
         val end = minOf(start + pageSize, moreLeaguesList.size)
@@ -201,11 +165,11 @@ class LeaguesFragment : Fragment() {
 
         val nextPage = moreLeaguesList.subList(start, end)
         if (currentPage == 0) {
-            fullTeamList = followedLeaguesList + nextPage
+            fullTeamList =  nextPage
 
-            suggestedLeaguesAdapter?.setData(followedLeaguesList, nextPage)
+            suggestedLeaguesAdapter?.setData(emptyList(), nextPage)
         } else {
-            fullTeamList = followedLeaguesList + nextPage
+            fullTeamList =   nextPage
 
             suggestedLeaguesAdapter?.addMoreLeagues(nextPage)
         }
@@ -226,7 +190,7 @@ class LeaguesFragment : Fragment() {
     private fun filterTeams(query: String) {
         if (query.isBlank()) {
             // ✅ Restore default grouped view
-            suggestedLeaguesAdapter?.setData(followedLeaguesList, moreLeaguesList)
+            suggestedLeaguesAdapter?.setData(emptyList(), moreLeaguesList)
         } else {
             // ✅ Filtered flat list (no headers)
             val filtered = fullTeamList.filter {
@@ -236,5 +200,6 @@ class LeaguesFragment : Fragment() {
         }
     }
 
-}
 
+
+}

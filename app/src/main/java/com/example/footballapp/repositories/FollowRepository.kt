@@ -55,6 +55,8 @@ import com.example.footballapp.models.FollowedLeague
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.withContext
 
 class FollowRepository(context: Context) {
@@ -62,6 +64,8 @@ class FollowRepository(context: Context) {
     companion object {
         private const val PREF_NAME = "follow_prefs"
         private const val FOLLOWED_LEAGUES_KEY = "followed_leagues"
+
+        private const val LIKED_SHORTS_KEY = "liked_shorts"
     }
 
     private val prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -100,4 +104,55 @@ class FollowRepository(context: Context) {
         val json = gson.toJson(list)
         prefs.edit().putString(FOLLOWED_LEAGUES_KEY, json).apply()
     }
+
+
+
+
+    private val _likedShortsFlow = MutableStateFlow<Set<String>>(emptySet())
+    val likedShortsFlow: StateFlow<Set<String>> get() = _likedShortsFlow
+
+    init {
+        // Load initial liked list when repository starts
+        _likedShortsFlow.value = getLikedShortsInternal()
+    }
+
+    /** ✅ Like a short */
+    suspend fun likeShort(videoUrl: String) = withContext(Dispatchers.IO) {
+        val updated = getLikedShortsInternal().toMutableSet().apply { add(videoUrl) }
+        saveLikedShorts(updated)
+    }
+
+    /** ✅ Unlike a short */
+    suspend fun unlikeShort(videoUrl: String) = withContext(Dispatchers.IO) {
+        val updated = getLikedShortsInternal().toMutableSet().apply { remove(videoUrl) }
+        saveLikedShorts(updated)
+    }
+
+    /** ✅ Check if liked */
+    suspend fun isLiked(videoUrl: String): Boolean = withContext(Dispatchers.IO) {
+        getLikedShortsInternal().contains(videoUrl)
+    }
+
+    /** ✅ Internal: Load liked shorts from SharedPreferences */
+    private fun getLikedShortsInternal(): Set<String> {
+        val json = prefs.getString(LIKED_SHORTS_KEY, null) ?: return emptySet()
+        val type = object : TypeToken<Set<String>>() {}.type
+        return gson.fromJson(json, type)
+    }
+
+    /** ✅ Internal: Save liked shorts list + update flow */
+    private fun saveLikedShorts(set: Set<String>) {
+        val json = gson.toJson(set)
+        prefs.edit().putString(LIKED_SHORTS_KEY, json).apply()
+        _likedShortsFlow.value = set
+    }
+
+    /** ✅ Public: Get liked shorts list */
+    suspend fun getLikedShorts(): Set<String> = withContext(Dispatchers.IO) {
+        getLikedShortsInternal()
+    }
+
+
+
+
 }

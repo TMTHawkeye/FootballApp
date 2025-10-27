@@ -1,5 +1,6 @@
 package com.example.footballapp.fragments
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Build
@@ -32,6 +33,7 @@ import com.example.footballapp.R
 import com.example.footballapp.activities.AllMatchesActivity
 import com.example.footballapp.activities.MatchDetailActivity
 import com.example.footballapp.activities.onboarding.LeagueDetailActivity
+import com.example.footballapp.activities.onboarding.SearchHomeActivity
 import com.example.footballapp.activities.onboarding.SettingActivity
 import com.example.footballapp.adapters.StageAdapter
 import com.example.footballapp.adapters.matchadapters.DateAdapter
@@ -110,88 +112,24 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
 
         setupNavigationButtons()
 
-        // Load initial data
-//        updateMatchesForSelectedDate()
+        binding.btnSearch.setOnClickListener {
+            val context = requireContext()
+            val intent = Intent(context, SearchHomeActivity::class.java)
+
+            val options = ActivityOptions.makeCustomAnimation(
+                context,
+                R.anim.slide_in_right,  // enter animation
+                R.anim.slide_out_left   // exit animation
+            )
+
+            startActivity(intent, options.toBundle())
+        }
     }
 
-    private fun getAllMatches(): List<Match> {
-        val allMatches = mutableListOf<Match>()
-        matchesByDate.values.forEach { matches ->
-            allMatches.addAll(matches)
-        }
-        return allMatches
-    }
 
 
-//    private var lastSelectedDate: String? = null
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    /*
-        private fun setupDateRecyclerView() {
-            val today = LocalDate.now()
-            val formatter = DateTimeFormatter.ofPattern("dd MMM, EEE")
-            val backendFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-
-            val initialDates = (-7..7).map { offset ->
-                val date = today.plusDays(offset.toLong())
-                MatchDate(
-                    displayText = date.format(formatter),
-                    fullDate = date.format(backendFormatter),
-                    isSelected = offset == 0
-                )
-            }.toMutableList()
-            dateAdapter = DateAdapter(initialDates) { selectedDate ->
-                val formattedDate = LocalDate.parse(
-                    selectedDate.fullDate,
-                    DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                ).format(DateTimeFormatter.ofPattern("yyyyMMdd"))
-
-                // Only call API if the date has changed
-    //            if (formattedDate != lastSelectedDate) {
-    //                Log.d("TAG_DATE", "Selected Date: $formattedDate")
-    //                lastSelectedDate = formattedDate
-
-                    viewModel.loadMatches(formattedDate)
-
-    //            } else {
-    //                Log.d("TAG_DATE", "Same date clicked again → skipping API call")
-    //            }
-            }
-            val layoutManagerr =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
-            binding.datesRecyclerView.apply {
-                layoutManager = layoutManagerr
-                adapter = dateAdapter
-            }
-
-            // Snap to center
-            val snapHelper = LinearSnapHelper()
-            snapHelper.attachToRecyclerView(binding.datesRecyclerView)
-
-            // Scroll listener for pagination
-            binding.datesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    val firstVisible = layoutManagerr.findFirstVisibleItemPosition()
-                    val lastVisible = layoutManagerr.findLastVisibleItemPosition()
-
-                    if (firstVisible <= 2) {
-                        prependDates()
-                    } else if (lastVisible >= dateAdapter.itemCount - 3) {
-                        appendDates()
-                    }
-                }
-            })
-
-            // Start with today in the center
-            val todayPos = initialDates.indexOfFirst { it.isSelected }
-            binding.datesRecyclerView.scrollToPosition(todayPos)
-        }
-    */
     private fun setupDateRecyclerView() {
-        // Generate initial list (today ± 7 days for example)
-        val today = LocalDate.now()
+         val today = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("dd MMM, EEE")
         val backendFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
@@ -288,56 +226,10 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
             adapter = matchSliderAdapter
             offscreenPageLimit = 3
 
-//            val horizontalMargin =
-//                resources.getDimensionPixelOffset(R.dimen.viewpager_horizontal_margin)
-//            addItemDecoration(object : RecyclerView.ItemDecoration() {
-//                override fun getItemOffsets(
-//                    outRect: Rect,
-//                    view: View,
-//                    parent: RecyclerView,
-//                    state: RecyclerView.State
-//                ) {
-//                    outRect.left = horizontalMargin / 2
-//                    outRect.right = horizontalMargin / 2
-//                }
-//            })
-
 
             setPageTransformer(DepthPageTransformer())
         }
     }
-
-    /*
-        private fun setupMatchList(matchesList : List<Match>) {
-            matchListAdapter = MatchListAdapter(
-                matchesList,
-                onExpandClick = { match ->
-                    // Handle expand/collapse
-                    val currentMatches = matchesByDate[currentDate] ?: emptyList()
-                    val updatedMatches = currentMatches.map {
-                        if (it.id == match.id) {
-                            it.copy(isExpanded = !it.isExpanded)
-                        } else {
-                            it
-                        }
-                    }
-                    matchesByDate[currentDate] = updatedMatches
-                    updateMatchListAdapter(updatedMatches)
-                },
-                onItemClick = { match ->
-                    // Navigate to MatchDetailActivity
-                    val intent = Intent(requireContext(), MatchDetailActivity::class.java)
-                    intent.putExtra("MATCH_DATA", match as Parcelable)
-                    startActivity(intent)
-                }
-            )
-
-            binding.matchesRecyclerView.apply {
-                layoutManager = LinearLayoutManager(requireContext())
-                adapter = matchListAdapter
-            }
-        }
-    */
 
 
     private fun setupNavigationButtons() {
@@ -377,43 +269,6 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
     }
 
 
-    /*
-        private fun updateMatchesForSelectedDate() {
-            val matches = matchesByDate[currentDate] ?: emptyList()
-
-            // Update slider with click listener
-            matchSliderAdapter = MatchSliderAdapter(matches) { match ->
-                val intent = Intent(requireContext(), MatchDetailActivity::class.java)
-                intent.putExtra("MATCH_DATA", match as Parcelable)
-                startActivity(intent)
-            }
-            binding.matchSliderViewPager.adapter = matchSliderAdapter
-
-            // Update list with both click listeners
-    //        updateMatchListAdapter(matches)
-
-            // Show/hide navigation buttons based on number of matches
-            if (matches.size <= 1) {
-                binding.btnPrevious.visibility = View.GONE
-                binding.btnNext.visibility = View.GONE
-            } else {
-                binding.btnPrevious.visibility = View.VISIBLE
-                binding.btnNext.visibility = View.VISIBLE
-            }
-
-            // Reset to first item
-            binding.matchSliderViewPager.setCurrentItem(0, false)
-        }
-    */
-
-
- /*   private fun setUpCompetitionRV() {
-        binding.matchesRecyclerView.layoutManager = LinearLayoutManager((context as? MainActivity))
-        stageAdapter = StageAdapter(mutableListOf<Stage>(), this@HomeFragment , this@HomeFragment)
-        binding.matchesRecyclerView.adapter = stageAdapter
-
-
-    }*/
 
     private fun loadNextPage() {
         if (isLoadingMore) return
@@ -450,26 +305,6 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
 
         }
         binding.matchesRecyclerView.adapter = stageAdapter
-
-//        binding.matchesRecyclerView.setHasFixedSize(true)
-//        binding.matchesRecyclerView.apply {
-//            isNestedScrollingEnabled = false
-//
-//            addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                    super.onScrolled(recyclerView, dx, dy)
-//
-//                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
-//                    val totalItemCount = layoutManager.itemCount
-//                    val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
-//
-//                    val threshold = 5 // items before end
-//                    if (!isLoadingMore && totalItemCount <= lastVisibleItem + threshold) {
-//                        loadNextPage()
-//                    }
-//                }
-//            })
-//        }
 
 
         // Pagination listener
@@ -600,8 +435,21 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
                 binding.seeAll.visible()
             }
         }?:run{
-            binding.matchesRecyclerView.gone()
-            binding.matchSliderViewPager.gone()
+            binding.ctShimmers.gone()
+            binding.textView3shimmer.gone()
+            binding.matchesHeadingTvshimmer.gone()
+            binding.ctSliderShimmer.gone()
+            binding.datesRecyclerViewshimmer.gone()
+            binding.seeAllShimmer.gone()
+
+            binding.datesRecyclerView.invisible()
+            binding.matchesRecyclerView.invisible()
+            binding.matchSliderViewPager.invisible()
+            binding.textView3.invisible()
+            binding.matchesHeadingTv.invisible()
+            binding.btnPrevious.invisible()
+            binding.btnNext.invisible()
+            binding.seeAll.invisible()
         }
     }
 

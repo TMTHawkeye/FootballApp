@@ -5,6 +5,8 @@ package com.example.footballapi
  import com.example.footballapi.modelClasses.AllMatches
  import com.example.footballapi.modelClasses.MatchesRequest
  import com.example.footballapi.modelClasses.TeamTable.TeamTableResponse
+ import com.example.footballapi.modelClasses.highlights.GeneralHighlightsResponse
+ import com.example.footballapi.modelClasses.highlights.TeamHighlightsResponse
  import com.example.footballapi.modelClasses.latestNews.LatestNewsResponse
  import com.example.footballapi.modelClasses.leagueMatches.LeagueMatchesResponse
  import com.example.footballapi.modelClasses.leagueStandings.LeagueStandingsResponse
@@ -126,6 +128,21 @@ interface FootballApiService {
 
     @GET("api/youtube-shorts/")
     suspend fun getYouTubeShorts(): Response<ResponseBody>
+
+
+
+
+    @GET("/api/football/matches/most-watched")
+    suspend fun getMostWatchedHighlights(): GeneralHighlightsResponse
+
+    @GET("/api/football/matches/latest")
+    suspend fun getLatestHighlights(): GeneralHighlightsResponse
+
+
+
+    @GET("/api/football/matches/team-highlights/{team_name}")
+    suspend fun getTeamtHighlights(
+        @Path("team_name") teamName : String): TeamHighlightsResponse
 
 
 }

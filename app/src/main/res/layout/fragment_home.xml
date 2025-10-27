@@ -107,6 +107,7 @@
 
                 <TextView
                     android:id="@+id/textView3"
+                    android:visibility="invisible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_12sdp"
@@ -140,6 +141,7 @@
                     android:text="@string/see_all_underlined"
                     android:textColor="@color/grey"
 
+                    android:visibility="invisible"
 
                     android:textSize="@dimen/_9ssp"
                     app:layout_constraintBottom_toBottomOf="@+id/textView3"
@@ -166,6 +168,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/datesRecyclerView"
                     android:layout_width="0dp"
+                    android:visibility="invisible"
                     android:layout_height="wrap_content"
                      android:layout_marginTop="@dimen/_14sdp"
                     android:orientation="horizontal"
@@ -180,6 +183,7 @@
 
 
                 <LinearLayout
+
                     android:id="@+id/datesRecyclerViewshimmer"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -219,9 +223,10 @@
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/matchSliderViewPager"
                         android:layout_width="0dp"
+                        android:visibility="invisible"
+
                         android:layout_height="match_parent"
-                        android:visibility="gone"
-                        app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -246,7 +251,7 @@
 
 
                     <ImageView
-
+                        android:visibility="invisible"
                         android:id="@+id/btnPrevious"
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
@@ -261,6 +266,8 @@
                         app:layout_constraintTop_toTopOf="@+id/btnNext" />
 
                     <ImageView
+                        android:visibility="invisible"
+
                         android:id="@+id/btnNext"
                         android:layout_width="@dimen/_25sdp"
 
@@ -287,6 +294,8 @@
                     android:text="@string/other_today_s_matches"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/_12ssp"
+                    android:visibility="invisible"
+
                     app:layout_constraintStart_toStartOf="@+id/datesRecyclerView"
                     app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
@@ -317,9 +326,10 @@
             android:id="@+id/matchesRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="invisible"
+
             android:scrollbars="vertical"
-            android:visibility="gone"
-            android:layout_marginHorizontal="@dimen/_12sdp"
+             android:layout_marginHorizontal="@dimen/_12sdp"
             tools:itemCount="10"
             tools:listitem="@layout/item_match_list" />
 

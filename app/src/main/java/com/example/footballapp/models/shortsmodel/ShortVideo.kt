@@ -6,5 +6,5 @@ data class ShortVideo(
     val title: String?=null,
     val description: String?=null,
     val likes: Int?=null,
-    val isLiked: Boolean = false
+    var isLiked: Boolean = false
 )

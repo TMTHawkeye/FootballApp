@@ -31,7 +31,7 @@
         android:layout_height="@dimen/_35sdp"
         android:layout_marginEnd="@dimen/_12sdp"
         android:layout_marginBottom="@dimen/_12sdp"
-        android:src="@drawable/likee"
+        android:src="@drawable/unlike"
         app:layout_constraintBottom_toBottomOf="parent"
          app:layout_constraintEnd_toEndOf="parent"/>
 

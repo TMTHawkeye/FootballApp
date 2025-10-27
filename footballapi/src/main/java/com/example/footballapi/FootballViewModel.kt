@@ -9,6 +9,7 @@ import com.example.footballapi.leaguePlayerStats.LeagueTopScorerResponse
 import com.example.footballapi.modelClasses.AllCompetitions.AllCompetitionsResponse
 import com.example.footballapi.modelClasses.Stage
 import com.example.footballapi.modelClasses.TeamTable.TeamTableResponse
+import com.example.footballapi.modelClasses.highlights.TeamHighlightsResponse
 import com.example.footballapi.modelClasses.latestNews.LatestNewsResponse
 import com.example.footballapi.modelClasses.latestNews.LatestNewsResponseItem
 import com.example.footballapi.modelClasses.leagueMatches.LeagueMatchesResponse
@@ -156,6 +157,33 @@ class FootballViewModel(
     fun loadLatestNews(pageNo :String) {
         viewModelScope.launch {
             repo.fetchLatestNews(pageNo)
+        }
+    }
+
+
+
+    val mostWatchedHighlights: StateFlow<ApiResult<List<String>>> get() = repo.mostWatchedHighlights
+
+    fun loadMostWatchedHighlights() {
+        viewModelScope.launch {
+            repo.fetchMostWatchedHighlights()
+        }
+    }
+
+    val latestHighlights: StateFlow<ApiResult<List<String>>> get() = repo.latestHighlights
+
+    fun loadLatestHighlights() {
+        viewModelScope.launch {
+            repo.fetchLatestHighlights()
+        }
+    }
+
+
+    val teamHighlights: StateFlow<ApiResult<TeamHighlightsResponse>> get() = repo.teamHighlights
+
+    fun loadTeamHighlights(teamName : String) {
+        viewModelScope.launch {
+            repo.fetchTeamHighlights(teamName)
         }
     }
 

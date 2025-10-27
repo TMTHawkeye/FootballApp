@@ -27,7 +27,7 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.getValue
 
-class LeagueDetailActivity : AppCompatActivity() {
+class LeagueDetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityLeagueDetailBinding
     private  var viewPagerAdapter: LeagueDetailPagerAdapter?=null
@@ -58,7 +58,7 @@ class LeagueDetailActivity : AppCompatActivity() {
         }
 
          league = teamViewModel.getLeague()
-        Toast.makeText(binding.root.context, "${league?.competition_id} & ${league?.stage_id}", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(binding.root.context, "${league?.competition_id} & ${league?.stage_id}", Toast.LENGTH_SHORT).show()
         setupToolbar()
         setupViewPager()
 

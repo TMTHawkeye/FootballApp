@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.example.footballapi.modelClasses.latestNews.LatestNewsResponseItem
 import com.example.footballapp.R
+import com.example.footballapp.activities.onboarding.BaseActivity
 import com.example.footballapp.databinding.ActivityNewsDetailBinding
 import com.example.footballapp.models.newsmodel.NewsItem
 import com.example.footballapp.viewmodels.TeamViewmodel
@@ -17,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.getValue
 
-class NewsDetailActivity : AppCompatActivity() {
+class NewsDetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityNewsDetailBinding
 

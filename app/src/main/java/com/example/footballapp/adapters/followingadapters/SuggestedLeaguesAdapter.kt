@@ -9,17 +9,20 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.footballapi.modelClasses.AllCompetitions.Stage
- import com.example.footballapp.Helper.imagePrefixCompetition
+import com.example.footballapp.Helper.gone
+import com.example.footballapp.Helper.imagePrefixCompetition
+import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.databinding.ItemFollowedGroupBinding
 import com.example.footballapp.databinding.ItemSuggestedTeamBinding
- import com.example.footballapp.databinding.ItemTextHeaderBinding
+import com.example.footballapp.databinding.ItemTextHeaderBinding
 import com.example.footballapp.models.Team
 
 class SuggestedLeaguesAdapter(
-     private val onFollowClick: (Stage) -> Unit,
+    private val shouldAddTags: Boolean = true,
+    private val onFollowClick: (Stage) -> Unit,
     private val onItemClick: (Stage) -> Unit,
- ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<Any>()
     private val originalItems = mutableListOf<Any>()
@@ -36,8 +39,9 @@ class SuggestedLeaguesAdapter(
         if (followedLeagues.isNotEmpty()) {
             items.add(followedLeagues)
         }
-
-        items.add("Follow More")
+        if (shouldAddTags) {
+            items.add("Follow More")
+        }
         items.addAll(moreLeagues)
         originalItems.addAll(items)
 
@@ -96,27 +100,28 @@ class SuggestedLeaguesAdapter(
         fun bind(followedTeams: List<Stage>) {
             binding.followedContainer.removeAllViews()
 
-            // 1️⃣ Add the header INSIDE the group
-            val headerBinding = ItemTextHeaderBinding.inflate(
-                LayoutInflater.from(binding.root.context),
-                binding.followedContainer,
-                false
-            )
+            if (shouldAddTags) {
+                // 1️⃣ Add the header INSIDE the group
+                val headerBinding = ItemTextHeaderBinding.inflate(
+                    LayoutInflater.from(binding.root.context),
+                    binding.followedContainer,
+                    false
+                )
 
-            val headerTitle = "Following | ${followedTeams.size}"
-            val spannable = SpannableString(headerTitle)
-            val start = headerTitle.indexOf("|") + 1
-            spannable.setSpan(
-                ForegroundColorSpan(
-                    ContextCompat.getColor(binding.root.context, R.color.green_color)
-                ),
-                start,
-                headerTitle.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-            headerBinding.textView.text = spannable
-            binding.followedContainer.addView(headerBinding.root)
-
+                val headerTitle = "Following | ${followedTeams.size}"
+                val spannable = SpannableString(headerTitle)
+                val start = headerTitle.indexOf("|") + 1
+                spannable.setSpan(
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(binding.root.context, R.color.green_color)
+                    ),
+                    start,
+                    headerTitle.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                headerBinding.textView.text = spannable
+                binding.followedContainer.addView(headerBinding.root)
+            }
             // 2️⃣ Add each followed team under it
             followedTeams.forEach { league ->
                 val itemBinding = ItemSuggestedTeamBinding.inflate(
@@ -145,6 +150,12 @@ class SuggestedLeaguesAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(stage: Stage) {
+            if(!shouldAddTags) {
+                binding.followButton.gone()
+            }
+            else{
+                binding.followButton.visible()
+            }
             Glide.with(binding.root.context)
                 .load(imagePrefixCompetition + stage.badge_url)
                 .placeholder(R.drawable.app_icon)
@@ -177,11 +188,6 @@ class SuggestedLeaguesAdapter(
     }
 
 
-
-
-
-
-
     fun addMoreLeagues(newLeague: List<Stage>) {
         if (newLeague.isEmpty()) return
 
@@ -190,7 +196,7 @@ class SuggestedLeaguesAdapter(
         val insertStart = if (headerIndex != -1) headerIndex + 1 else items.size
 
         items.addAll(insertStart, newLeague)
-        originalItems.addAll(insertStart,newLeague)
+        originalItems.addAll(insertStart, newLeague)
 
         notifyItemRangeInserted(insertStart, newLeague.size)
     }

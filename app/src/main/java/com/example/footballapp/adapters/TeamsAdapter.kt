@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.footballapp.Helper.gone
 import com.example.footballapp.Helper.imagePrefix
+import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.databinding.ItemFollowedGroupBinding
 import com.example.footballapp.databinding.ItemSuggestedTeamBinding
@@ -17,18 +19,19 @@ import com.example.footballapp.databinding.ItemTextHeaderBinding
 import com.example.footballapp.models.Team
 
 class TeamsAdapter(
+    private val shouldAddTags: Boolean = true,
     private val onItemClick: (Team) -> Unit,
     private val onFollowToggle: (Team) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<Any>()
     private val originalItems = mutableListOf<Any>()
+
     companion object {
         private const val TYPE_FOLLOWED_GROUP = 0
         private const val TYPE_HEADER_MORE = 1
         private const val TYPE_TEAM_MORE = 2
     }
-
 
 
     override fun getItemCount(): Int = items.size
@@ -59,18 +62,25 @@ class TeamsAdapter(
     }
 
 
-        private inner class HeaderViewHolder(private val binding: ItemTextHeaderBinding) :
-            RecyclerView.ViewHolder(binding.root) {
+    private inner class HeaderViewHolder(private val binding: ItemTextHeaderBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-            fun bind(title: String) {
-                binding.textView.text = title
-            }
+        fun bind(title: String) {
+            binding.textView.text = title
         }
+    }
 
     inner class TeamViewHolder(private val binding: ItemSuggestedTeamBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(team: Team) {
+            if(!shouldAddTags) {
+                binding.followButton.gone()
+            }
+            else{
+                binding.followButton.visible()
+            }
+
             binding.teamName.text = team.incident_number
             Glide.with(binding.root.context)
                 .load(imagePrefix + team.logo)
@@ -87,27 +97,29 @@ class TeamsAdapter(
         fun bind(followedTeams: List<Team>) {
             binding.followedContainer.removeAllViews()
 
-            // 1️⃣ Add the header INSIDE the group
-            val headerBinding = ItemTextHeaderBinding.inflate(
-                LayoutInflater.from(binding.root.context),
-                binding.followedContainer,
-                false
-            )
+            if (shouldAddTags) {
 
-            val headerTitle = "Following | ${followedTeams.size}"
-            val spannable = SpannableString(headerTitle)
-            val start = headerTitle.indexOf("|") + 1
-            spannable.setSpan(
-                ForegroundColorSpan(
-                    ContextCompat.getColor(binding.root.context, R.color.green_color)
-                ),
-                start,
-                headerTitle.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-            headerBinding.textView.text = spannable
-            binding.followedContainer.addView(headerBinding.root)
+                // 1️⃣ Add the header INSIDE the group
+                val headerBinding = ItemTextHeaderBinding.inflate(
+                    LayoutInflater.from(binding.root.context),
+                    binding.followedContainer,
+                    false
+                )
 
+                val headerTitle = "Following | ${followedTeams.size}"
+                val spannable = SpannableString(headerTitle)
+                val start = headerTitle.indexOf("|") + 1
+                spannable.setSpan(
+                    ForegroundColorSpan(
+                        ContextCompat.getColor(binding.root.context, R.color.green_color)
+                    ),
+                    start,
+                    headerTitle.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                headerBinding.textView.text = spannable
+                binding.followedContainer.addView(headerBinding.root)
+            }
             // 2️⃣ Add each followed team under it
             followedTeams.forEach { team ->
                 val itemBinding = ItemSuggestedTeamBinding.inflate(
@@ -140,24 +152,10 @@ class TeamsAdapter(
         val insertStart = if (headerIndex != -1) headerIndex + 1 else items.size
 
         items.addAll(insertStart, newTeams)
-        originalItems.addAll(insertStart,newTeams)
+        originalItems.addAll(insertStart, newTeams)
         notifyItemRangeInserted(insertStart, newTeams.size)
     }
 
-  /*  fun setData(followedTeams: List<Team>, moreTeams: List<Team>) {
-        items.clear()
-
-        // Add grouped followed teams section (including header inside)
-        if (followedTeams.isNotEmpty()) {
-            items.add(followedTeams)
-        }
-
-        // Add the rest (unfollowed)
-        items.add("Follow More")
-        items.addAll(moreTeams)
-
-        notifyDataSetChanged()
-    }*/
 
     fun setData(followedTeams: List<Team>, moreTeams: List<Team>) {
         items.clear()
@@ -168,7 +166,9 @@ class TeamsAdapter(
             items.add(followedTeams)
         }
 
-        items.add("Follow More")
+        if (shouldAddTags) {
+            items.add("Follow More")
+        }
         items.addAll(moreTeams)
 
         // Keep a copy of the original grouped list

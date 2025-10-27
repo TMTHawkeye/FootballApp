@@ -17,7 +17,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
     lateinit var binding: ActivitySplashBinding
     var getStartedJob: Job? = null
     override fun onCreate(savedInstanceState: Bundle?) {

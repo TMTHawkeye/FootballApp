@@ -25,6 +25,7 @@ import com.example.footballapp.Helper.imagePrefixCompetition
 import com.example.footballapp.Helper.invisible
 import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
+import com.example.footballapp.activities.onboarding.BaseActivity
 import com.example.footballapp.adapters.matchadapters.MatchDetailPagerAdapter
 import com.example.footballapp.databinding.ActivityMatchDetailBinding
 import com.example.footballapp.viewmodels.MatchViewModel
@@ -33,7 +34,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.getValue
 
-class MatchDetailActivity : AppCompatActivity() {
+class MatchDetailActivity : BaseActivity() {
 
     var binding: ActivityMatchDetailBinding? = null
     var match: Matche? = null
@@ -58,7 +59,7 @@ class MatchDetailActivity : AppCompatActivity() {
         viewModel.loadMatchSummary(match?.match_id?:"")
 //        match?.match_id?.let { viewModel.loadMatchSummary(it) }
 
-        Toast.makeText(this@MatchDetailActivity, "${match?.match_id}", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this@MatchDetailActivity, "${match?.match_id}", Toast.LENGTH_SHORT).show()
         WindowCompat.getInsetsController(window, window.decorView).apply {
             isAppearanceLightStatusBars = true // For dark icons (use with light backgrounds)
             // OR

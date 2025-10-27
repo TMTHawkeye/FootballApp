@@ -18,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.getValue
 
-class LanguageActivity : AppCompatActivity() {
+class LanguageActivity : BaseActivity() {
     private lateinit var binding: ActivityLanguageBinding
 
     private val viewModel: FootballViewModel by viewModel()

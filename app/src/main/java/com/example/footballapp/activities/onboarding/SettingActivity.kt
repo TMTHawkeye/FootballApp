@@ -11,7 +11,7 @@ import com.example.footballapp.R
 import com.example.footballapp.databinding.ActivitySettingBinding
 import com.example.footballapp.dialogs.CustomRatingDailog
 
-class SettingActivity : AppCompatActivity() {
+class SettingActivity : BaseActivity() {
     private lateinit var binding: ActivitySettingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

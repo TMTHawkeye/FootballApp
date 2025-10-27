@@ -11,33 +11,32 @@ import com.bumptech.glide.Glide
 import com.example.footballapp.R
 import com.example.footballapp.VideoPlayerActivity
 
-import com.example.footballapp.models.highlightmodel.Video
-
 class VideosAdapter : RecyclerView.Adapter<VideosAdapter.ViewHolder>() {
 
-    private var videos: List<Video> = emptyList()
+    private var videos: List<String> = emptyList()
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imageView: ImageView = itemView.findViewById(R.id.imageViewVideoThumb)
-        private val titleTextView: TextView = itemView.findViewById(R.id.textViewVideoTitle)
-        private val durationTextView: TextView = itemView.findViewById(R.id.textViewVideoDuration)
-        private val playButton: ImageView = itemView.findViewById(R.id.imageViewPlayButton)
 
-        fun bind(video: Video) {
+        fun bind(videoUrl: String) {
+            // Extract YouTube video ID
+            val videoId = extractYouTubeId(videoUrl)
+
+            // Construct thumbnail URL
+            val thumbnailUrl = "https://img.youtube.com/vi/$videoId/hqdefault.jpg"
+
+            // Load thumbnail using Glide
             Glide.with(itemView.context)
-                .load(video.thumbnailRes)
-                .centerCrop()
-                .into(imageView)
-            titleTextView.text = video.title
-            durationTextView.text = video.duration
+                .load(thumbnailUrl)
+                 .into(imageView)
+
+            // Example: Set dummy title/duration if you want later
+            // titleTextView.text = "Video ID: $videoId"
 
             itemView.setOnClickListener {
-                // Launch video player activity
                 val intent = Intent(itemView.context, VideoPlayerActivity::class.java).apply {
-                    putExtra("video_url", video.videoUrl)
-                    putExtra("video_title", video.title)
-                    putParcelableArrayListExtra("video_list", ArrayList(videos))
-                    putExtra("current_position", adapterPosition)
+                    putExtra("video_url", videoUrl)
+//                    putExtra("current_position", adapterPosition)
                 }
                 itemView.context.startActivity(intent)
             }
@@ -56,8 +55,19 @@ class VideosAdapter : RecyclerView.Adapter<VideosAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = videos.size
 
-    fun submitList(newVideos: List<Video>) {
+    fun submitList(newVideos: List<String>) {
         videos = newVideos
         notifyDataSetChanged()
+    }
+
+    // 🔹 Helper function to extract YouTube video ID
+    private fun extractYouTubeId(url: String): String? {
+        val regex = "(?<=v=)[^#&?]*".toRegex()
+        val match = regex.find(url)
+        return match?.value ?: run {
+            // Try alternate formats like youtu.be links
+            val shortRegex = "(?<=be/)[^#&?]*".toRegex()
+            shortRegex.find(url)?.value
+        }
     }
 }

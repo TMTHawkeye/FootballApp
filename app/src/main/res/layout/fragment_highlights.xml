@@ -3,6 +3,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/normal_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
@@ -44,6 +45,19 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:src="@drawable/refresh"
             app:layout_constraintBottom_toBottomOf="@+id/title"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/title" />
+
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/refreshShimmer"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:background="@drawable/shimmer_bg"
+            android:padding="@dimen/_3sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+             app:layout_constraintBottom_toBottomOf="@+id/title"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/title" />
@@ -70,7 +84,20 @@
         android:fontFamily="@font/montserrat_medium"
         android:text="@string/recent_videos"
         android:textColor="@color/grey"
+        android:visibility="invisible"
         android:textSize="@dimen/_14ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/heading" />
+
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/textView5Shimmer"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:background="@drawable/shimmer_bg"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/heading" />
 
@@ -88,10 +115,24 @@
 
         android:textSize="@dimen/_9ssp"
 
-
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/seeAllShimmer"
+        android:visibility="gone"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+
+        android:background="@drawable/shimmer_bg"
+        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+
 
     <!-- Highlights Slider -->
 
@@ -117,12 +158,26 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:id="@+id/high"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hashighlights"
         android:textSize="@dimen/_9ssp"
         android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
+        android:layout_marginStart="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewPagerHighlights"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="@+id/indicator" />
+
+
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/highShimmer"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_10sdp"
+        android:background="@drawable/shimmer_bg"
         android:layout_marginStart="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="@+id/viewPagerHighlights"
         app:layout_constraintStart_toStartOf="parent"
@@ -139,6 +194,20 @@
         android:layout_marginEnd="@dimen/_8sdp"
         app:ci_margin="4dp"
         app:ci_width="8dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/viewPagerHighlights"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/indicatorShimmer"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="20dp"
+
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+       android:background="@drawable/shimmer_bg"
 
         app:layout_constraintBottom_toBottomOf="@+id/viewPagerHighlights"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -148,22 +217,79 @@
         android:id="@+id/tabsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="horizontal"
+        tools:listitem="@layout/item_date"
         android:paddingHorizontal="8dp"
+        android:visibility="invisible"
         android:layout_marginTop="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewPagerHighlights" />
+
+    <LinearLayout
+
+        android:id="@+id/tabsRecyclerViewShimmer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/tabsRecyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/tabsRecyclerView"
+        app:layout_constraintStart_toStartOf="@+id/tabsRecyclerView"
+        app:layout_constraintTop_toTopOf="@+id/tabsRecyclerView">
+
+        <include layout="@layout/item_dateshimmer" />
+
+        <include layout="@layout/item_dateshimmer" />
+
+        <include layout="@layout/item_dateshimmer" />
+
+        <include layout="@layout/item_dateshimmer" />
+
+        <include layout="@layout/item_dateshimmer" />
+
+        <include layout="@layout/item_dateshimmer" />
+
+        <include layout="@layout/item_dateshimmer" />
+
+
+    </LinearLayout>
 
     <!-- Videos RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewVideos"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        tools:listitem="@layout/item_video"
         android:layout_marginTop="@dimen/_12sdp"
         android:padding="8dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabsRecyclerView" />
+
+
+    <LinearLayout
+
+        android:id="@+id/recyclerViewVideosShimmer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerViewVideos"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewVideos"
+        app:layout_constraintStart_toStartOf="@+id/recyclerViewVideos"
+        app:layout_constraintTop_toTopOf="@+id/recyclerViewVideos">
+
+        <include layout="@layout/item_videoshimmer" />
+
+        <include layout="@layout/item_videoshimmer" />
+
+        <include layout="@layout/item_videoshimmer" />
+
+        <include layout="@layout/item_videoshimmer" />
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

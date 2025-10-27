@@ -27,7 +27,7 @@ import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.getValue
 
-class TeamDetailActivity : AppCompatActivity() {
+class TeamDetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityTeamDetailBinding
     private lateinit var viewPagerAdapter: TeamDetailPagerAdapter

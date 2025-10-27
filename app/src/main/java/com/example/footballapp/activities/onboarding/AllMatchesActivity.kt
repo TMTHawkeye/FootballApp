@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.footballapi.FootballViewModel
 import com.example.footballapi.modelClasses.Matche
 import com.example.footballapp.R
+import com.example.footballapp.activities.onboarding.BaseActivity
 import com.example.footballapp.adapters.MatchesAdapter
 import com.example.footballapp.adapters.matchadapters.MatchListAdapter
 import com.example.footballapp.databinding.ActivityAllMatchesBinding
@@ -23,7 +24,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.Serializable
 import kotlin.getValue
 
-class AllMatchesActivity : AppCompatActivity() {
+class AllMatchesActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAllMatchesBinding
     private lateinit var matchListAdapter: MatchesAdapter

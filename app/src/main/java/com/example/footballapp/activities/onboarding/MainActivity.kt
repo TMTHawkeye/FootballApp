@@ -12,15 +12,19 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
 import com.example.footballapi.FootballViewModel
+import com.example.footballapp.Helper.noInternetDialog
+import com.example.footballapp.Helper.setupNoInternetDialog
 import com.example.footballapp.R
 import com.example.footballapp.adapters.HomeAdapter
 import com.example.footballapp.databinding.ActivityMainBinding
+import com.example.footballapp.utils.NetworkConnectionLiveData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     lateinit var binding: ActivityMainBinding
     var homeAdapter: HomeAdapter? = null
@@ -61,6 +65,8 @@ class MainActivity : AppCompatActivity() {
             // OR
             isAppearanceLightStatusBars = false // For light icons (use with dark backgrounds)
         }
+
+
 
 
         homeAdapter = HomeAdapter(this)
@@ -113,4 +119,6 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+
 }

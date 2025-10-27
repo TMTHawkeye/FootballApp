@@ -12,7 +12,7 @@ import com.example.footballapp.R
 import com.example.footballapp.adapters.OnBoardingAdapter
 import com.example.footballapp.databinding.ActivityOnBoardingBinding
 
-class OnBoardingActivity : AppCompatActivity() {
+class OnBoardingActivity : BaseActivity() {
     lateinit var binding: ActivityOnBoardingBinding
 
     var adapter: OnBoardingAdapter? = null
