@@ -51,6 +51,8 @@ class MatchSliderAdapter(
 
         // Load competition logo from drawable resource
         Log.d("TAG_logo", "onBindViewHolder: ${match.tournamentLogo}")
+        holder.team1Name.isSelected = true
+        holder.team2Name.isSelected = true
 
         if (match.tournamentLogo != null) {
             Glide.with(holder.itemView.rootView.context)
@@ -94,9 +96,23 @@ class MatchSliderAdapter(
             holder.team2Goals.visibility = View.GONE
         }
 
+//        holder.itemView.setOnClickListener {
+//            Log.d("TAG_hometeam", "onBindViewHolder: ${match.home_team?.get(0)?.incident_number}")
+//            onMatchClick(match)
+//        }
         holder.itemView.setOnClickListener {
-            onMatchClick(match)
+            val pos = holder.adapterPosition
+            if ((pos-1) != RecyclerView.NO_POSITION) {
+                Log.d("TAG_hometeam", "Clicked: ${matches[pos-1].home_team?.get(0)?.incident_number}")
+                onMatchClick(matches[pos-1])
+            }
+            else{
+                Log.d("TAG_hometeam", "Clicked1: ${matches[pos].home_team?.get(0)?.incident_number}")
+                onMatchClick(matches[pos])
+            }
         }
+
+
     }
 
     override fun getItemCount(): Int = matches.size

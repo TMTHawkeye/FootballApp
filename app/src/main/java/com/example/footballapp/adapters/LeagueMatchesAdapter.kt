@@ -37,7 +37,7 @@ class LeagueMatchesAdapter(private val matches: MutableList<Fixture> = mutableLi
 
         fun bind() {
             binding.apply {
-                textView.text = "All Matches"
+                textView.text = binding.root.context.getString(R.string.all_matches)
             }
         }
     }

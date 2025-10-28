@@ -81,7 +81,8 @@ dependencies {
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
 
-    implementation("org.jetbrains.kotlin:kotlin-reflect: 1.9.0")
+//    implementation("org.jetbrains.kotlin:kotlin-reflect: 1.9.0")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.0")
 
     implementation("com.google.code.gson:gson:2.11.0")
 
@@ -92,4 +93,6 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
 
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:13.0.0")
+
+    implementation ("com.zeugmasolutions.localehelper:locale-helper-android:1.5.1")
 }

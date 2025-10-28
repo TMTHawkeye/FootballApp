@@ -31,10 +31,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearance="@style/RoundedImageView1"
             android:id="@+id/ivTeamLogo"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
             android:layout_marginStart="@dimen/_12sdp"
             android:scaleType="centerCrop"
             android:src="@drawable/app_icon"
@@ -62,14 +63,14 @@
             android:layout_marginHorizontal="12dp"
 
 
-            android:fontFamily="@font/montserrat_medium"
+            android:fontFamily="@font/montserrat_semibold"
             android:maxLines="2"
 
 
             android:text="@string/premier_league"
 
             android:textColor="@color/white"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivTeamLogo"
@@ -114,10 +115,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/heading">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearance="@style/RoundedImageView1"
             android:id="@+id/team1Logo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
             android:layout_marginTop="@dimen/_12sdp"
             android:src="@drawable/app_icon"
             app:layout_constraintBottom_toTopOf="@+id/team1Name"
@@ -130,10 +132,10 @@
             android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/montserrat_medium"
+            android:fontFamily="@font/montserrat_semibold"
             android:text="@string/_2_1"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="@dimen/_22ssp"
             app:layout_constraintBottom_toBottomOf="@+id/team1Logo"
             app:layout_constraintEnd_toStartOf="@+id/team2Name"
             app:layout_constraintStart_toEndOf="@+id/team1Name"
@@ -145,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_3sdp"
             android:background="@drawable/footballnow_bggraystrokewbg"
-            android:fontFamily="@font/montserrat"
+            android:fontFamily="@font/montserrat_semibold"
 
             android:paddingHorizontal="@dimen/_10sdp"
             android:paddingVertical="@dimen/_1sdp"
@@ -163,13 +165,22 @@
             android:layout_gravity="start"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_4sdp"
-            android:ellipsize="end"
-            android:fontFamily="@font/montserrat"
+             android:fontFamily="@font/montserrat_semibold"
             android:gravity="center"
             android:maxLines="1"
             android:text="@string/team_a"
             android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
+
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:scrollHorizontally="true"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+
             app:layout_constraintEnd_toStartOf="@+id/score"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
@@ -182,11 +193,20 @@
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginEnd="@dimen/_12sdp"
-            android:ellipsize="end"
-            android:fontFamily="@font/montserrat"
+             android:fontFamily="@font/montserrat_semibold"
             android:gravity="center"
             android:maxLines="1"
             android:text="@string/team_b"
+
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:scrollHorizontally="true"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+
             android:textColor="@color/white"
             android:textSize="@dimen/_10ssp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -194,10 +214,11 @@
             app:layout_constraintTop_toBottomOf="@+id/team2Logo" />
 
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearance="@style/RoundedImageView1"
             android:id="@+id/team2Logo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
             android:layout_marginTop="@dimen/_12sdp"
             android:src="@drawable/app_icon"
             app:layout_constraintBottom_toTopOf="@+id/team2Name"
@@ -226,8 +247,8 @@
 
             <ImageView
                 android:id="@+id/team1LogoShimmer"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
                 android:background="@drawable/shimmer_bg"
                 android:layout_marginTop="@dimen/_12sdp"
                  app:layout_constraintBottom_toTopOf="@+id/team1NameShimmer"
@@ -309,8 +330,8 @@
 
             <ImageView
                 android:id="@+id/team2LogoShimmer"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:background="@drawable/shimmer_bg"
                 app:layout_constraintBottom_toTopOf="@+id/team2NameShimmer"
@@ -331,6 +352,8 @@
         android:background="@color/transparent"
         android:layout_marginHorizontal="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
+         app:tabSelectedTextAppearance="@style/tab_textStyle"
+        app:tabTextAppearance="@style/tab_textStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout8"
         app:tabIndicatorColor="@color/green_color"
@@ -340,7 +363,8 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/info" />
+            android:text="@string/info"
+             />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

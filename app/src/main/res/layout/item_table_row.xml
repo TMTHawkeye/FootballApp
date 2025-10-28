@@ -27,7 +27,8 @@
         app:layout_constraintStart_toStartOf="parent"  />
 
     <!-- Team Logo -->
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearance="@style/RoundedImageView1"
         android:includeFontPadding="false"
         android:id="@+id/teamLogoo"
         android:layout_width="@dimen/_16sdp"

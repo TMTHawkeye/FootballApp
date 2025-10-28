@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_medium"
-                android:text="Win Probability"
+                android:text="@string/win_probability"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12ssp"
 
@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_medium"
-                android:text="Draw"
+                android:text="@string/draw"
                 android:textColor="@color/white"
 
                 android:textSize="@dimen/_10ssp"
@@ -205,7 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_medium"
-                android:text="Who will win?"
+                android:text="@string/who_will_win"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12ssp"
 
@@ -267,7 +267,7 @@
                 android:gravity="center"
 
                 android:paddingHorizontal="@dimen/_12sdp"
-                android:text="Draw"
+                android:text="@string/draw"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/team1Lt"
@@ -502,7 +502,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_medium"
-                android:text="Venue:"
+                android:text="@string/venue"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -680,7 +680,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/montserrat_medium"
-                android:text="Match Events"
+                android:text="@string/match_events"
                 android:textColor="@color/white"
 
                 android:textSize="@dimen/_12ssp"

@@ -38,16 +38,16 @@ class ShortsPagerAdapter(
 
         // ✅ Update like button icon
         holder.binding.btnLike.setImageResource(
-            if (isLiked) R.drawable.unlike else R.drawable.likee
+            if (isLiked) R.drawable.likee else R.drawable.unlike
         )
 
         holder.binding.btnLike.setOnClickListener {
             shortsViewModel.toggleLike(short.videoUrl ?: return@setOnClickListener)
-            Toast.makeText(
-                holder.itemView.context,
-                if (isLiked) "Unliked!" else "Liked!",
-                Toast.LENGTH_SHORT
-            ).show()
+//            Toast.makeText(
+//                holder.itemView.context,
+//                if (isLiked) "Unliked!" else "Liked!",
+//                Toast.LENGTH_SHORT
+//            ).show()
         }
 
         // ✅ Handle YouTube videos

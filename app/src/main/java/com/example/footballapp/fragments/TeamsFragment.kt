@@ -96,6 +96,7 @@ class TeamsFragment : Fragment() {
 
     private fun setupSuggestedTeamsAdapter() {
         teamsAdapter = TeamsAdapter(
+            binding.root.context,
             onItemClick = { navigateToTeamDetail(it) },
             onFollowToggle = { it.team_id?.let { leagueId -> followViewModel.toggleFollowTeam(leagueId) } }
         )

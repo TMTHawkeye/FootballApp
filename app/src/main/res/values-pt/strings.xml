@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FOOTBALL NOW</string>
+    <string name="app_name_small">Football now</string>
+
+    <string name="splash_desc">Placar em tempo real, notícias de última hora e melhores momentos! Tudo em um só lugar</string>
+    <string name="containAds">Esta ação pode conter anúncios</string>
+    <string name="getStarted">Começar</string>
+    <string name="skip">Pular</string>
+    <string name="done">Concluir</string>
+    <string name="next">Próximo</string>
+    <string name="continueTV">Continuar</string>
+    <string name="chooseLanguage">Escolha o Idioma:</string>
+    <string name="chooseLanguageDesc">Selecione seu idioma preferido abaixo, isso nos ajuda a servi-lo melhor.</string>
+
+    <string name="ob_1_title">Placar ao Vivo, A Cada Segundo</string>
+    <string name="ob_2_title">Melhores Momentos a Qualquer Hora</string>
+    <string name="ob_3_title">Placar ao Vivo, A Cada Segundo</string>
+    <string name="ob_1_desc">Fique por dentro de cada gol, cartão e apito com atualizações instantâneas, no momento em que acontecem.</string>
+    <string name="ob_2_desc">Veja cada gol e momento importante com destaques rápidos, mesmo que você tenha perdido o jogo ao vivo.</string>
+    <string name="ob_3_desc">Fique por dentro de cada gol, cartão e apito com atualizações instantâneas, no momento em que acontecem.</string>
+
+    <string name="hello_blank_fragment">Olá fragmento vazio</string>
+    <string name="footbalnow">FOOTBALL<font color="#FFFFFF"> NOW</font></string>
+    <string name="livematches">Partidas Ao Vivo |</string>
+    <string name="followingss">Seguindo | </string>
+    <string name="see_all_underlined"><u>Ver Tudo</u></string>
+
+    <string name="explore">Explorar Recursos</string>
+    <string name="fotbalnow">FOOTBALL NOW</string>
+    <string name="realtime">Placar de Futebol \nEm Tempo Real!</string>
+    <string name="following">Seguindo</string>
+    <string name="highlights">Melhores Momentos</string>
+    <string name="settings">Configurações</string>
+
+    <string name="thanks_for_rating_with_us">Obrigado por nos avaliar!</string>
+    <string name="how_was_your_experience_with_this_app">Como foi sua experiência com este aplicativo?</string>
+    <string name="kindly_rate">Por favor, avalie nosso aplicativo.</string>
+    <string name="hey_check_out_my_app">Ei, confira meu aplicativo</string>
+    <string name="please_share_your_feedback">Por favor, compartilhe seu feedback</string>
+    <string name="send_email_using">Enviar email usando</string>
+    <string name="no_email_clients_installed">Nenhum cliente de email instalado</string>
+    <string name="unable_to_open_privacy_link_you_have_browser_issue">Não foi possível abrir o link de privacidade, pode haver um problema no navegador.</string>
+
+    <string name="long_news_description_1">
+        O futebol é uma família de esportes coletivos que envolvem, em diferentes graus, chutar uma bola para marcar um gol...
+    </string>
+
+    <string name="long_news_description_2">
+        A história do futebol remonta aos tempos antigos...
+    </string>
+
+    <string name="long_news_description_3">
+        Táticas e estratégias do futebol evoluíram significativamente ao longo dos anos...
+    </string>
+
+    <string name="long_news_description_4">
+        O futebol tem um impacto significativo na cultura e na sociedade em todo o mundo...
+    </string>
+
+    <string name="leave">Sair</string>
+    <string name="try_now">Tente Agora</string>
+    <string name="premier_league">Premier League</string>
+    <string name="team_a">Equipe A</string>
+    <string name="_2_1">2 - 1</string>
+    <string name="_15_00">15:00</string>
+    <string name="team_b">Equipe B</string>
+    <string name="info">Informações</string>
+    <string name="stats">Estatísticas</string>
+    <string name="lineup">Escalação</string>
+    <string name="table">Tabela</string>
+
+    <string name="news_title">Título da Notícia</string>
+    <string name="_2_hours_ago">2 horas atrás</string>
+    <string name="news_description_goes_here">Descrição da notícia vai aqui...</string>
+
+    <string name="get_premium">Obter Premium</string>
+    <string name="unlock_exclusive_features_enjoy_an_ad_free_experience_priority_support">Desbloqueie recursos exclusivos, aproveite uma experiência sem anúncios e suporte prioritário.</string>
+    <string name="go_premium">Ir para Premium</string>
+    <string name="app_language">Idioma do Aplicativo</string>
+    <string name="customize_to_your_regional_languages">Personalize para seu idioma regional.</string>
+
+    <string name="rate_us">Avalie-nos</string>
+    <string name="rate_our_app_on_play_store">Avalie nosso app na Play Store.</string>
+    <string name="share_the_app">Compartilhar Aplicativo</string>
+    <string name="tell_your_friends_about_football_now">Conte aos seus amigos sobre o Football Now.</string>
+
+    <string name="privacy_policy">Política de Privacidade</string>
+    <string name="read_our_privacy_policy_document">Leia o nosso documento de política de privacidade.</string>
+
+    <string name="full_time_n26_aug_wed">Tempo Completo\n26 Ago, Quarta</string>
+    <string name="player">Jogador</string>
+    <string name="video_title">Título do Vídeo</string>
+    <string name="_2_30">2:30</string>
+    <string name="goal">Gol</string>
+    <string name="marcus_rashford">Marcus Rashford</string>
+    <string name="permier_nleague">premier\nleague</string>
+
+    <string name="pass_accuracy">Precisão de Passe</string>
+    <string name="team_name">Nome da Equipe</string>
+
+    <string name="ads_is_loading">Carregando anúncios...</string>
+    <string name="your_opinion_n_matters_to_us">Sua opinião\né importante para nós!</string>
+    <string name="we_work_super_hard_to_make_application_better_for_you_and_would_love_to_know">Trabalhamos muito para melhorar o aplicativo para você, e adoraríamos saber sua opinião</string>
+
+    <string name="not_now">Agora não</string>
+    <string name="try_again">Tentar novamente!</string>
+    <string name="oops_something_went_wrong_please_try_again_later">Ops, algo deu errado. Tente novamente mais tarde.</string>
+
+    <string name="recent_videos">Vídeos Recentes</string>
+    <string name="hashighlights">#MelhoresMomentos</string>
+    <string name="other_today_s_matches">Outras Partidas de Hoje</string>
+    <string name="other_matches">Outras Partidas</string>
+
+    <string name="competition">Competição:</string>
+    <string name="old_trafford">Old Trafford</string>
+    <string name="all_matches">Todas as Partidas</string>
+
+    <string name="news">NOTÍCIAS</string>
+    <string name="breaking_news_headline">Manchete de Última Hora</string>
+    <string name="september_12_2023">12 de Setembro, 2023</string>
+    <string name="latest_news">Últimas Notícias</string>
+
+    <string name="leagues">Ligas</string>
+    <string name="league_players">Jogadores da Liga</string>
+    <string name="player_number">Número do Jogador</string>
+    <string name="for_you">Para Você |</string>
+
+    <string name="league">Liga</string>
+    <string name="league_standings">Classificação da Liga</string>
+    <string name="team">Equipe</string>
+    <string name="p">J</string>
+    <string name="w">V</string>
+    <string name="l">D</string>
+    <string name="d">E</string>
+    <string name="pts">PTS</string>
+
+    <string name="league_top_scorer">Artilheiro da Liga</string>
+    <string name="goals">Gols</string>
+
+    <string name="home">Início</string>
+    <string name="ads_not_available">Anúncios Não Disponíveis!</string>
+    <string name="no_internet_connection">Sem Conexão com a Internet!</string>
+    <string name="no_internet_connection_please_try_again_later">Sem conexão com a internet. Tente novamente mais tarde.</string>
+
+    <string name="permission_required">Permissão Necessária!</string>
+    <string name="please_allow_permission_to_continue_app">Por favor, permita a permissão para continuar.</string>
+
+    <string name="unknown">Desconhecido</string>
+
+    <string name="english">Inglês</string>
+    <string name="spanish">Espanhol</string>
+    <string name="russian">Russo</string>
+    <string name="hindi">Hindi</string>
+    <string name="portuguese">Português</string>
+    <string name="arabic">Árabe</string>
+    <string name="chinese">Chinês</string>
+
+
+    <string name="home_nav">Início</string>
+    <string name="following_nav">Seguindo</string>
+    <string name="highlights_nav">Destaques</string>
+    <string name="news_nav">Notícias</string>
+    <string name="today">Hoje</string>
+    <string name="win_probability">Probabilidade de Vitória</string>
+    <string name="draw">Empate</string>
+    <string name="who_will_win">Quem vai vencer?</string>
+    <string name="match_events">Eventos da Partida</string>
+    <string name="venue">Local:</string>
+    <string name="matches">Partidas</string>
+    <string name="standings">Classificação</string>
+    <string name="players">Jogadores</string>
+    <string name="top_scorer">Artilheiro</string>
+    <string name="all_live_matches">Todas as Partidas Ao Vivo</string>
+    <string name="following_header">Seguindo | %1$d</string>
+    <string name="follow_more">Seguir Mais</string>
+    <string name="search_hint">Pesquisar...</string>
+    <string name="teams">Times</string>
+    <string name="leagues_head">Ligas</string>
+    <string name="league_details">Detalhes da Liga</string>
+    <string name="team_details">Detalhes da Equipe</string>
+</resources>

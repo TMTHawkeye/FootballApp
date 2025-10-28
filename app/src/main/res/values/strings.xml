@@ -150,4 +150,38 @@
     <string name="please_allow_permission_to_continue_app">Please allow permission to continue app.</string>
     <string name="unknown">Unknown</string>
 
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
+    <string name="russian">Russian</string>
+    <string name="hindi">Hindi</string>
+    <string name="portuguese">Portuguese</string>
+    <string name="arabic">Arabic</string>
+    <string name="chinese">Chinese</string>
+
+
+
+
+    <string name="home_nav">Home</string>
+    <string name="following_nav">Following</string>
+    <string name="highlights_nav">Highlights</string>
+    <string name="news_nav">News</string>
+    <string name="today">Today</string>
+    <string name="win_probability">Win Probability</string>
+    <string name="draw">Draw</string>
+    <string name="who_will_win">Who will win?</string>
+    <string name="match_events">Match Events</string>
+    <string name="venue">Venue:</string>
+    <string name="matches">Matches</string>
+    <string name="standings">Standings</string>
+    <string name="players">Players</string>
+    <string name="top_scorer">Top Scorer</string>
+    <string name="all_live_matches">All Live Matches</string>
+    <string name="following_header">Following | %1$d</string>
+    <string name="follow_more">Follow More</string>
+    <string name="search_hint">Search...</string>
+    <string name="teams">" Teams"</string>
+    <string name="leagues_head">" Leagues"</string>
+    <string name="league_details">League Details</string>
+    <string name="team_details">Team Details</string>
+
 </resources>

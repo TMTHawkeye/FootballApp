@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.footballapi.modelClasses.teamMatches.Event
 import com.example.footballapp.Helper.imagePrefix
+import com.example.footballapp.R
 import com.example.footballapp.databinding.ItemSingleMatchBinding
 import com.example.footballapp.databinding.ItemTextHeaderBinding
 import com.example.footballapp.models.Team
@@ -29,7 +30,7 @@ class MatchesAdapter(
 
         fun bind() {
             binding.apply {
-                textView.text = "All Matches"
+                textView.text = binding.root.context.getString(R.string.all_matches)
             }
         }
     }

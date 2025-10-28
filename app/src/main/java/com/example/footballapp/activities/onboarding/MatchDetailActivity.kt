@@ -56,6 +56,9 @@ class MatchDetailActivity : BaseActivity() {
         binding = ActivityMatchDetailBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+        binding?.team1Name?.isSelected = true
+        binding?.team2Name?.isSelected = true
+
         viewModel.loadMatchSummary(match?.match_id?:"")
 //        match?.match_id?.let { viewModel.loadMatchSummary(it) }
 
@@ -154,10 +157,10 @@ class MatchDetailActivity : BaseActivity() {
             binding?.viewPager?.let { viewPager ->
                 TabLayoutMediator(it, viewPager) { tab, position ->
                     tab.text = when (position) {
-                        0 -> "Info"
-                        1 -> "Stats"
-                        2 -> "Lineup"
-                        3 -> "Table"
+                        0 -> binding?.root?.context?.getString(R.string.info)?:"Info"
+                        1 -> binding?.root?.context?.getString(R.string.stats)?:"Stats"
+                        2 -> binding?.root?.context?.getString(R.string.lineup)?:"Lineup"
+                        3 -> binding?.root?.context?.getString(R.string.table)?:"Table"
                         else -> null
                     }
                 }

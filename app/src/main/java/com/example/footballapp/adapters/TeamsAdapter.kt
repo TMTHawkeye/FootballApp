@@ -1,6 +1,7 @@
 package com.example.footballapp.adapters
 
 
+import android.content.Context
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -19,6 +20,7 @@ import com.example.footballapp.databinding.ItemTextHeaderBinding
 import com.example.footballapp.models.Team
 
 class TeamsAdapter(
+    private val ctxt : Context,
     private val shouldAddTags: Boolean = true,
     private val onItemClick: (Team) -> Unit,
     private val onFollowToggle: (Team) -> Unit
@@ -106,7 +108,8 @@ class TeamsAdapter(
                     false
                 )
 
-                val headerTitle = "Following | ${followedTeams.size}"
+                val headerTitle =
+                    binding.root.context.getString(R.string.following_header, followedTeams.size)
                 val spannable = SpannableString(headerTitle)
                 val start = headerTitle.indexOf("|") + 1
                 spannable.setSpan(
@@ -148,7 +151,7 @@ class TeamsAdapter(
         if (newTeams.isEmpty()) return
 
         // Find where "Follow More" section starts
-        val headerIndex = items.indexOfFirst { it is String && it == "Follow More" }
+        val headerIndex = items.indexOfFirst { it is String && it == ctxt.getString(R.string.follow_more) }
         val insertStart = if (headerIndex != -1) headerIndex + 1 else items.size
 
         items.addAll(insertStart, newTeams)
@@ -167,7 +170,7 @@ class TeamsAdapter(
         }
 
         if (shouldAddTags) {
-            items.add("Follow More")
+            items.add(ctxt.getString(R.string.follow_more))
         }
         items.addAll(moreTeams)
 

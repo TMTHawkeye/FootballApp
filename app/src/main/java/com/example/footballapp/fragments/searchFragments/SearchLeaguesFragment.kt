@@ -72,6 +72,7 @@ class SearchLeaguesFragment : Fragment() {
 
     private fun setupAdapters() {
         suggestedLeaguesAdapter = SuggestedLeaguesAdapter(
+            binding.root.context,
             false,
             onFollowClick = { league ->
              },

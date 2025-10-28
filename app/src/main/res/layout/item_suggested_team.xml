@@ -6,7 +6,8 @@
     android:orientation="horizontal"
     android:padding="8dp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearance="@style/RoundedImageView1"
         android:id="@+id/teamImage"
         android:layout_width="@dimen/_20sdp"
         android:layout_height="@dimen/_20sdp"
@@ -25,7 +26,7 @@
         android:textSize="@dimen/_12ssp"
         android:textColor="@color/white"
         android:layout_marginHorizontal="@dimen/_8sdp"
-        android:fontFamily="@font/montserrat"
+        android:fontFamily="@font/montserrat_semibold"
         app:layout_constraintBottom_toBottomOf="@+id/teamImage"
         app:layout_constraintEnd_toStartOf="@+id/followButton"
         app:layout_constraintStart_toEndOf="@+id/teamImage"

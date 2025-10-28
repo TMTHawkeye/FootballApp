@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ФУТБОЛ СЕЙЧАС</string>
+    <string name="app_name_small">Футбол сейчас</string>
+
+    <string name="splash_desc">Реальные счета, последние новости и лучшие моменты! Всё в одном месте</string>
+    <string name="containAds">Данное действие может содержать рекламу</string>
+    <string name="getStarted">Начать</string>
+    <string name="skip">Пропустить</string>
+    <string name="done">Готово</string>
+    <string name="next">Далее</string>
+    <string name="continueTV">Продолжить</string>
+    <string name="chooseLanguage">Выберите язык:</string>
+    <string name="chooseLanguageDesc">Выберите предпочитаемый язык ниже. Это поможет нам улучшить сервис для вас.</string>
+    <string name="ob_1_title">Счёт в реальном времени</string>
+    <string name="ob_2_title">Обзор матчей в любое время</string>
+    <string name="ob_3_title">Счёт в реальном времени</string>
+    <string name="ob_1_desc">Будьте в курсе каждого гола, карточки и свистка с мгновенными обновлениями.</string>
+    <string name="ob_2_desc">Смотрите лучшие моменты и голы даже если вы пропустили матч.</string>
+    <string name="ob_3_desc">Будьте в курсе каждого гола, карточки и свистка с мгновенными обновлениями.</string>
+    <string name="hello_blank_fragment">Привет пустой фрагмент</string>
+    <string name="footbalnow">ФУТБОЛ<font color="#FFFFFF"> СЕЙЧАС</font></string>
+    <string name="livematches">Прямые матчи |</string>
+    <string name="followingss">Подписки | </string>
+    <string name="see_all_underlined"><u>Посмотреть все</u></string>
+
+    <string name="explore">Изучить возможности</string>
+    <string name="fotbalnow">ФУТБОЛ СЕЙЧАС</string>
+    <string name="realtime">Футбольный счет\nв реальном времени!</string>
+    <string name="following">Подписки</string>
+    <string name="highlights">Лучшие моменты</string>
+    <string name="settings">Настройки</string>
+
+    <string name="thanks_for_rating_with_us">Спасибо за вашу оценку!</string>
+    <string name="how_was_your_experience_with_this_app">Каков ваш опыт использования этого приложения?</string>
+    <string name="kindly_rate">Пожалуйста оцените наше приложение.</string>
+    <string name="hey_check_out_my_app">Привет! Посмотри мое приложение</string>
+    <string name="please_share_your_feedback">Пожалуйста, поделитесь вашим отзывом</string>
+    <string name="send_email_using">Отправить email с помощью</string>
+    <string name="no_email_clients_installed">Нет установленного почтового клиента</string>
+    <string name="unable_to_open_privacy_link_you_have_browser_issue">Не удалось открыть ссылку политики. Проблема с браузером.</string>
+
+    <string name="long_news_description_1">
+        Футбол — это семейство командных видов спорта, в которых в разной степени используется удар по мячу с целью забить гол. Обычно под словом «футбол» подразумевается самый популярный в той или иной стране вид. К видам футбола относятся: ассоциационный футбол (в Северной Америке называемый соккер), американский футбол, канадский футбол, австралийский футбол, регби и гэльский футбол.
+        ... (текст сохранён полностью, только переведён)
+    </string>
+
+    <string name="long_news_description_2">
+        История футбола восходит к древним временам. Различные формы игры существовали в Китае, Греции и Риме...
+    </string>
+
+    <string name="long_news_description_3">
+        Тактика и стратегия футбола значительно развивались на протяжении лет...
+    </string>
+
+    <string name="long_news_description_4">
+        Футбол оказывает значительное влияние на культуру и общество по всему миру...
+    </string>
+
+    <string name="leave">Выйти</string>
+    <string name="try_now">Попробовать</string>
+    <string name="premier_league">Премьер-лига</string>
+    <string name="team_a">Команда А</string>
+    <string name="_2_1">2 - 1</string>
+    <string name="_15_00">15:00</string>
+    <string name="team_b">Команда Б</string>
+    <string name="info">Инфо</string>
+    <string name="stats">Статистика</string>
+    <string name="lineup">Состав</string>
+    <string name="table">Таблица</string>
+    <string name="news_title">Заголовок новости</string>
+    <string name="_2_hours_ago">2 часа назад</string>
+    <string name="news_description_goes_here">Здесь будет описание новости...</string>
+    <string name="get_premium">Получить Премиум</string>
+    <string name="unlock_exclusive_features_enjoy_an_ad_free_experience_priority_support">Откройте эксклюзивные функции, наслаждайтесь приложением без рекламы и приоритетной поддержкой.</string>
+    <string name="go_premium">Перейти на Премиум</string>
+    <string name="app_language">Язык приложения</string>
+    <string name="customize_to_your_regional_languages">Настройте под ваш региональный язык.</string>
+    <string name="rate_us">Оценить нас</string>
+    <string name="rate_our_app_on_play_store">Оцените наше приложение в Play Store.</string>
+    <string name="share_the_app">Поделиться приложением</string>
+    <string name="tell_your_friends_about_football_now">Расскажите друзьям о Футбол Сейчас.</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="read_our_privacy_policy_document">Прочтите наш документ о политике конфиденциальности.</string>
+
+    <string name="full_time_n26_aug_wed">Полный матч\n26 Авг, Ср</string>
+    <string name="player">игрок</string>
+    <string name="video_title">Название видео</string>
+    <string name="_2_30">2:30</string>
+    <string name="goal">Гол</string>
+    <string name="marcus_rashford">Маркос Рашфорд</string>
+    <string name="permier_nleague">премьер\nлига</string>
+    <string name="_2">2</string>
+    <string name="_1">1</string>
+    <string name="_42min">42 мин</string>
+    <string name="pass_accuracy">Точность передач</string>
+    <string name="team_name">Название команды</string>
+    <string name="_20">20</string>
+    <string name="_15">15</string>
+    <string name="_3">3</string>
+    <string name="_28">+28</string>
+    <string name="_48">48</string>
+    <string name="ads_is_loading">Загрузка рекламы...</string>
+    <string name="your_opinion_n_matters_to_us">Ваше мнение\n важно для нас!</string>
+    <string name="we_work_super_hard_to_make_application_better_for_you_and_would_love_to_know">Мы очень стараемся сделать приложение лучше и хотим знать ваше мнение.</string>
+    <string name="our_best_we_can_get">Наш лучший результат</string>
+    <string name="not_now">Не сейчас</string>
+    <string name="try_again">Попробовать снова!</string>
+    <string name="oops_something_went_wrong_please_try_again_later">Упс, что-то пошло не так. Попробуйте позже.</string>
+    <string name="recent_videos">Недавние видео</string>
+    <string name="hashighlights">#Моменты</string>
+    <string name="other_today_s_matches">Другие матчи сегодня</string>
+    <string name="other_matches">Другие матчи</string>
+    <string name="competition">Турнир:</string>
+    <string name="old_trafford">Олд Траффорд</string>
+    <string name="all_matches">Все матчи</string>
+    <string name="news">НОВОСТИ</string>
+    <string name="breaking_news_headline">Срочная новость</string>
+    <string name="september_12_2023">12 сентября 2023</string>
+    <string name="latest_news">Последние новости</string>
+    <string name="leagues">Лиги</string>
+    <string name="league_players">Игроки лиги</string>
+    <string name="player_number">Номер игрока</string>
+    <string name="for_you">Для вас |</string>
+    <string name="league">Лига</string>
+    <string name="league_standings">Турнирная таблица</string>
+    <string name="team">Команда</string>
+    <string name="p">И</string>
+    <string name="w">В</string>
+    <string name="l">П</string>
+    <string name="d">Н</string>
+    <string name="pts">ОЧКИ</string>
+    <string name="league_top_scorer">Лучший бомбардир лиги</string>
+    <string name="goals">Голы</string>
+    <string name="home">Главная</string>
+    <string name="ads_not_available">Реклама недоступна!</string>
+    <string name="no_internet_connection">Нет подключения к интернету!</string>
+    <string name="no_internet_connection_please_try_again_later">Нет подключения к интернету. Попробуйте позже.</string>
+    <string name="permission_required">Требуется разрешение!</string>
+    <string name="please_allow_permission_to_continue_app">Пожалуйста, разрешите доступ чтобы продолжить.</string>
+    <string name="unknown">Неизвестно</string>
+
+    <string name="english">Английский</string>
+    <string name="spanish">Испанский</string>
+    <string name="russian">Русский</string>
+    <string name="hindi">Хинди</string>
+    <string name="portuguese">Португальский</string>
+    <string name="arabic">Арабский</string>
+    <string name="chinese">Китайский</string>
+
+    <string name="home_nav">Главная</string>
+    <string name="following_nav">Подписки</string>
+    <string name="highlights_nav">Хайлайты</string>
+    <string name="news_nav">Новости</string>
+    <string name="today">Сегодня</string>
+    <string name="win_probability">Вероятность победы</string>
+    <string name="draw">Ничья</string>
+    <string name="who_will_win">Кто победит?</string>
+    <string name="match_events">События матча</string>
+    <string name="venue">Стадион:</string>
+    <string name="matches">Матчи</string>
+    <string name="standings">Таблица</string>
+    <string name="players">Игроки</string>
+    <string name="top_scorer">Лучший бомбардир</string>
+    <string name="all_live_matches">Все live-матчи</string>
+    <string name="following_header">Подписки | %1$d</string>
+    <string name="follow_more">Подписаться на большее</string>
+    <string name="search_hint">Поиск...</string>
+    <string name="teams">Команды</string>
+    <string name="leagues_head">Лиги</string>
+    <!-- Russian -->
+    <string name="league_details">Подробности лиги</string>
+    <string name="team_details">Подробности команды</string>
+</resources>

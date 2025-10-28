@@ -15,7 +15,10 @@ import com.example.footballapi.modelClasses.matchSummary.Events
 import com.example.footballapi.sealedClasses.MatchEvent
 
 object Helper {
-
+    const val sharedPreferenceMode = 0
+    const val sharedPreferenceName = "Authenticator"
+    const val PREF_NAME_LANGUAGE = "LanguagePreferences"
+    const val LANGUAGE_POSITION_KEY = "LANG_POS"
     var ApiResultTAG = "ApiResult_Tag"
     var MATCH_ID = "MATCH_ID"
     var LEAGUE_ID = "LEAGUE_ID"

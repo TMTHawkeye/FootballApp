@@ -11,7 +11,8 @@
     android:layout_marginBottom="8dp">
 
     <!-- Player Image -->
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearance="@style/RoundedImageView1"
         android:id="@+id/ivPlayer"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"

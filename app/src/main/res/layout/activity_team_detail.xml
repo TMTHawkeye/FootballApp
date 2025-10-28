@@ -26,17 +26,19 @@
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:padding="@dimen/_3sdp"
+            android:layout_marginVertical="@dimen/_20sdp"
 
-            android:layout_margin="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:src="@drawable/arrow_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearance="@style/RoundedImageView1"
             android:id="@+id/ivTeamLogo"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
             app:layout_constraintTop_toTopOf="@id/btn_back"
             android:layout_marginStart="@dimen/_12sdp"
             app:layout_constraintBottom_toBottomOf="@id/btn_back"
@@ -52,13 +54,13 @@
             android:layout_marginStart="@dimen/_8sdp"
 
 
-            android:fontFamily="@font/montserrat_medium"
+            android:fontFamily="@font/montserrat_semibold"
             android:text="@string/premier_league"
 
 
             android:textColor="@color/white"
 
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_12ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivTeamLogo"
             app:layout_constraintTop_toTopOf="parent" />
@@ -89,7 +91,9 @@
         app:tabIndicatorHeight="3dp"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/green_color"
-        app:tabTextColor="@color/grey" />
+        app:tabTextColor="@color/grey"
+        app:tabTextAppearance="@style/tab_textStyle_teamDetails"
+        app:tabSelectedTextAppearance="@style/tab_textStyle_teamDetails"/>
 
     <!-- ViewPager -->
     <androidx.viewpager2.widget.ViewPager2

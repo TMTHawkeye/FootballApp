@@ -45,7 +45,7 @@ class FootballViewModel(
     }
 
     private fun getTodayDate(): String {
-        val sdf = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+        val sdf = SimpleDateFormat("yyyyMMdd", Locale.US)
         return sdf.format(Date())
     }
 

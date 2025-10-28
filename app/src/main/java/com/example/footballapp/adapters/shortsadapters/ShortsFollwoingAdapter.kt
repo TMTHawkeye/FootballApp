@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.footballapp.R
 import com.example.footballapp.databinding.ItemShortVideoBinding
 import com.example.footballapp.models.shortsmodel.ShortVideo
+import com.example.footballapp.viewmodels.ShortsViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -17,10 +18,12 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.options.IFram
 import kotlin.collections.set
 
 class ShortsFollwoingAdapter(
+    private val shortsViewModel: ShortsViewModel
 ) : RecyclerView.Adapter<ShortsFollwoingAdapter.ShortViewHolder>() {
 
     private var shorts: List<ShortVideo> = emptyList()
 
+    private var likedShorts: Set<String> = emptySet()
     inner class ShortViewHolder(val binding: ItemShortVideoBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShortViewHolder {
@@ -31,13 +34,15 @@ class ShortsFollwoingAdapter(
 
     override fun onBindViewHolder(holder: ShortViewHolder, position: Int) {
         val short = shorts[position]
-
+        val isLiked = likedShorts.contains(short.videoUrl)
+        // ✅ Update like button icon
         holder.binding.btnLike.setImageResource(
-            if (short.isLiked) R.drawable.likee else R.drawable.likee
+            if (isLiked) R.drawable.likee else R.drawable.unlike
         )
 
         holder.binding.btnLike.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "Liked!", Toast.LENGTH_SHORT).show()
+            shortsViewModel.toggleLike(short.videoUrl ?: return@setOnClickListener)
+//            Toast.makeText(holder.itemView.context, "Liked!", Toast.LENGTH_SHORT).show()
         }
 
         short.videoUrl?.let {
@@ -153,6 +158,11 @@ class ShortsFollwoingAdapter(
         })
     }
 
+
+    fun updateLikedVideos(newLikedSet: Set<String>) {
+        likedShorts = newLikedSet
+        notifyDataSetChanged()
+    }
 
 
 }

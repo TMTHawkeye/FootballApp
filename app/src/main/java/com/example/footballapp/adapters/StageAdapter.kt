@@ -1,5 +1,7 @@
 package com.example.footballapp.adapters
 
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,12 +27,12 @@ class StageAdapter(
     // Keep track of which items are expanded
     private val expandedPositions = mutableSetOf<Int>()
 
-    init {
-        // Expand first 5 items by default
-        for (i in 0 until minOf(5, stages.size)) {
-            expandedPositions.add(i)
-        }
-    }
+//    init {
+//        // Expand first 5 items by default
+//        for (i in 0 until minOf(5, stages.size)) {
+//            expandedPositions.add(i)
+//        }
+//    }
 
     inner class StageViewHolder(val binding: ItemStageBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -82,23 +84,59 @@ class StageAdapter(
             // Initially collapsed
 //            matchesRecycler.visibility = View.GONE
 
+//            expandIcon.setOnClickListener {
+//                val currentlyExpanded = expandedPositions.contains(position)
+//
+//                if (currentlyExpanded) {
+//                    expandedPositions.remove(position)
+//                    matchesRecycler.visibility = View.GONE
+//                    expandIcon.animate().rotation(0f).start()
+//                } else {
+//                    expandedPositions.add(position)
+//                    matchesRecycler.visibility = View.VISIBLE
+//                    expandIcon.animate().rotation(90f).start()
+//
+//                    // Load matches dynamically on expand
+//                    stage.matches?.let { newData -> matchAdapter.updateData(newData) }
+//                    listener.onStageExpanded(stage)
+//                }
+//            }
+
             expandIcon.setOnClickListener {
-                val currentlyExpanded = expandedPositions.contains(position)
 
-                if (currentlyExpanded) {
-                    expandedPositions.remove(position)
-                    matchesRecycler.visibility = View.GONE
-                    expandIcon.animate().rotation(0f).start()
-                } else {
-                    expandedPositions.add(position)
-                    matchesRecycler.visibility = View.VISIBLE
-                    expandIcon.animate().rotation(90f).start()
+                val isExpanded = expandedPositions.contains(adapterPosition)
 
-                    // Load matches dynamically on expand
-                    stage.matches?.let { newData -> matchAdapter.updateData(newData) }
-                    listener.onStageExpanded(stage)
-                }
+                // Rotate arrow first
+                expandIcon.animate()
+                    .rotation(if (isExpanded) 0f else 90f)
+                    .setDuration(100)
+                    .withEndAction {
+
+                        if (isExpanded) {
+                            // COLLAPSE (no animation)
+                            expandedPositions.remove(adapterPosition)
+                            matchesRecycler.visibility = View.GONE
+
+                        } else {
+                            // EXPAND (animate show)
+                            expandedPositions.add(adapterPosition)
+
+                            val transition = AutoTransition()
+                            transition.duration = 100
+                            TransitionManager.beginDelayedTransition(root, transition)
+
+                            matchesRecycler.visibility = View.VISIBLE
+
+                            // Load matches when expanded
+                            stage.matches?.let { matchAdapter.updateData(it) }
+                            listener.onStageExpanded(stage)
+                        }
+                    }
+                    .start()
             }
+
+
+
 
             headerLayout.setOnClickListener {
                 onLeagueSelected.invoke(stage)
@@ -125,9 +163,9 @@ class StageAdapter(
 
         // Reset expanded state → expand first 5 of new data
         expandedPositions.clear()
-        for (i in 0 until minOf(5, newData.size)) {
-            expandedPositions.add(i)
-        }
+//        for (i in 0 until minOf(5, newData.size)) {
+//            expandedPositions.add(i)
+//        }
 
         notifyDataSetChanged()
     }

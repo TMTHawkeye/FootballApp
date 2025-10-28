@@ -107,7 +107,7 @@ class FollowingFragment : Fragment() {
         binding.viewPager.offscreenPageLimit = ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
-        val tabTitles = arrayOf(" Teams", " Leagues")
+        val tabTitles = arrayOf(getString(R.string.teams), getString(R.string.leagues_head))
         val tabIcons = arrayOf(R.drawable.teamm, R.drawable.leaguee)
 
         for (i in 0 until binding.tabLayout.tabCount) {

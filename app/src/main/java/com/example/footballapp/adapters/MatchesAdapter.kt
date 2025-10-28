@@ -30,12 +30,17 @@ class MatchesAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(match: Matche) = with(binding) {
+
+
             matchDate.text = match.start_datetime ?: ""
 
-            team1Name.text = match.home_team?.get(0)?.abbreviation ?: "Team A"
-            team2Name.text = match.away_team?.get(0)?.abbreviation ?: "Team B"
+            team1Name.text = match.home_team?.get(0)?.incident_number ?: "Team A"
+            team2Name.text = match.away_team?.get(0)?.incident_number ?: "Team B"
 
-            binding.matchDate.text = formatMatchInfo(match.match_status, match.start_datetime)
+            team1Name.isSelected = true
+            team2Name.isSelected = true
+
+            binding.matchDate.text = formatMatchInfo(binding,match.match_status, match.start_datetime)
 
             Log.d("TAG_teamLogo", "bind: ${imagePrefix + match.home_team?.get(0)?.logo}")
             Log.d("TAG_teamLogo", "bind1: ${imagePrefix + match.away_team?.get(0)?.logo}")
@@ -71,6 +76,9 @@ class MatchesAdapter(
 
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
         holder.bind(matches[position])
+        holder.binding.divider.visibility =
+            if (matches.size > 1 && position != matches.size - 1) View.VISIBLE
+            else View.GONE
 
         holder.itemView.setOnClickListener {
 //            matchSelectedListener.onMatchClicked(matches[position])
@@ -100,7 +108,7 @@ class MatchesAdapter(
            return listOfNotNull(safeStatus, safeDate).joinToString("\n")
        }*/
 
-    private fun formatMatchInfo(status: String?, date: String?): String {
+    private fun formatMatchInfo(binding : ItemSingleMatchBinding,status: String?, date: String?): String {
         val safeStatus = status?.takeIf { it.isNotBlank() && it != "null" }
 
         val safeDate = date?.takeIf { it.isNotBlank() && it != "null" }?.let {
@@ -113,7 +121,7 @@ class MatchesAdapter(
                 val matchDate = localDateTime.toLocalDate()
 
                 if (matchDate.isEqual(today)) {
-                    "Today"
+                    binding.root.context.getString(R.string.today)
                 } else {
                     val outputFormatter =
                         DateTimeFormatter.ofPattern("dd MMM, EEE", Locale.getDefault())

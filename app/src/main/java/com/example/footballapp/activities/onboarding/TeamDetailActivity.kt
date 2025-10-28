@@ -72,7 +72,7 @@ class TeamDetailActivity : BaseActivity() {
     }
 
     private fun setupToolbar() {
-        val teamName = intent.getStringExtra("team_name") ?: "Team Details"
+        val teamName = intent.getStringExtra("team_name") ?: getString(R.string.team_details)
         binding.title.text = teamName
 
 
@@ -88,9 +88,9 @@ class TeamDetailActivity : BaseActivity() {
         // Use TabLayoutMediator for ViewPager2
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "Matches"
-                1 -> "Standings"
-                2 -> "Players"
+                0 -> binding?.root?.context?.getString(R.string.matches)?:"Matches"
+                1 -> binding?.root?.context?.getString(R.string.standings)?:"Standings"
+                2 -> binding?.root?.context?.getString(R.string.players)?:"Players"
                 else -> ""
             }
         }.attach()

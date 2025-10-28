@@ -1,5 +1,6 @@
 package com.example.footballapp.adapters.followingadapters
 
+import android.content.Context
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -19,6 +20,7 @@ import com.example.footballapp.databinding.ItemTextHeaderBinding
 import com.example.footballapp.models.Team
 
 class SuggestedLeaguesAdapter(
+    private val ctxt : Context,
     private val shouldAddTags: Boolean = true,
     private val onFollowClick: (Stage) -> Unit,
     private val onItemClick: (Stage) -> Unit,
@@ -40,7 +42,7 @@ class SuggestedLeaguesAdapter(
             items.add(followedLeagues)
         }
         if (shouldAddTags) {
-            items.add("Follow More")
+            items.add(ctxt.getString(R.string.follow_more))
         }
         items.addAll(moreLeagues)
         originalItems.addAll(items)
@@ -108,7 +110,9 @@ class SuggestedLeaguesAdapter(
                     false
                 )
 
-                val headerTitle = "Following | ${followedTeams.size}"
+//                val headerTitle = "Following | ${followedTeams.size}"
+                val headerTitle =
+                    binding.root.context.getString(R.string.following_header, followedTeams.size)
                 val spannable = SpannableString(headerTitle)
                 val start = headerTitle.indexOf("|") + 1
                 spannable.setSpan(
@@ -192,7 +196,7 @@ class SuggestedLeaguesAdapter(
         if (newLeague.isEmpty()) return
 
         // Find where "Follow More" section starts
-        val headerIndex = items.indexOfFirst { it is String && it == "Follow More" }
+        val headerIndex = items.indexOfFirst { it is String && it == ctxt.getString(R.string.follow_more)}
         val insertStart = if (headerIndex != -1) headerIndex + 1 else items.size
 
         items.addAll(insertStart, newLeague)

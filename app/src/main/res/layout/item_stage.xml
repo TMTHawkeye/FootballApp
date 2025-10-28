@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/_8sdp">
+    android:layout_marginBottom="@dimen/_8sdp"
+    android:background="@drawable/footballnow_bggraystrokewbg1">
 
      <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/headerLayout"
@@ -14,12 +15,13 @@
          app:layout_constraintStart_toStartOf="parent"
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/footballnow_bggraystrokewbg1">
+        >
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearance="@style/RoundedImageView1"
             android:id="@+id/competitionLogoooo"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/app_icon"/>
@@ -27,10 +29,11 @@
         <TextView
             android:id="@+id/competitionNAme"
             android:layout_width="0dp"
+            android:fontFamily="@font/montserrat_semibold"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_9ssp"
             android:maxLines="2"
             android:ellipsize="end"
             app:layout_constraintStart_toEndOf="@id/competitionLogoooo"
@@ -40,8 +43,9 @@
 
         <ImageView
             android:id="@+id/expandIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:padding="@dimen/_3sdp"
             android:src="@drawable/forwardarrow1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/competitionNAme"
@@ -54,8 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/headerLayout"
+         app:layout_constraintTop_toBottomOf="@id/headerLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

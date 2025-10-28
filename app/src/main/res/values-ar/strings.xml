@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">كرة القدم الآن</string>
+    <string name="app_name_small">كرة القدم الآن</string>
+
+    <string name="splash_desc">نتائج مباشرة، أخبار عاجلة وملخصات المباريات! كل ذلك في مكان واحد</string>
+    <string name="containAds">قد يحتوي هذا الإجراء على إعلان</string>
+    <string name="getStarted">ابدأ الآن</string>
+    <string name="skip">تخطي</string>
+    <string name="done">تم</string>
+    <string name="next">التالي</string>
+    <string name="continueTV">متابعة</string>
+    <string name="chooseLanguage">اختر اللغة:</string>
+    <string name="chooseLanguageDesc">اختر لغتك المفضلة أدناه، هذا يساعدنا على خدمتك بشكل أفضل.</string>
+    <string name="ob_1_title">نتائج مباشرة في كل لحظة</string>
+    <string name="ob_2_title">ملخصات المباريات في أي وقت</string>
+    <string name="ob_3_title">نتائج مباشرة في كل لحظة</string>
+
+    <string name="ob_1_desc">ابق على اطلاع بكل هدف، بطاقة وصفارة مع تحديثات فورية لحظة بلحظة.</string>
+    <string name="ob_2_desc">شاهد كل هدف ولحظة مهمة بملخصات سريعة حتى لو فاتتك المباراة مباشرة.</string>
+    <string name="ob_3_desc">ابق على اطلاع بكل هدف، بطاقة وصفارة مع تحديثات فورية لحظة بلحظة.</string>
+
+    <string name="hello_blank_fragment">مرحبا</string>
+    <string name="footbalnow">كرة القدم <font color="#FFFFFF">الآن</font></string>
+    <string name="livematches">مباريات مباشرة |</string>
+    <string name="followingss">المتابعات | </string>
+    <string name="see_all_underlined"><u>عرض الكل</u></string>
+
+    <string name="explore">استكشف الميزات</string>
+    <string name="fotbalnow">كرة القدم الآن</string>
+    <string name="realtime">نتائج كرة القدم\nفي الوقت الحقيقي!</string>
+    <string name="following">المتابعة</string>
+    <string name="highlights">الملخصات</string>
+    <string name="settings">الإعدادات</string>
+
+    <string name="thanks_for_rating_with_us">شكراً لتقييمك لنا!</string>
+    <string name="how_was_your_experience_with_this_app">كيف كانت تجربتك مع هذا التطبيق؟</string>
+    <string name="kindly_rate">يرجى تقييم التطبيق.</string>
+    <string name="hey_check_out_my_app">مرحبا! جرّب تطبيقي</string>
+    <string name="please_share_your_feedback">يرجى مشاركة ملاحظاتك</string>
+    <string name="send_email_using">إرسال البريد باستخدام</string>
+    <string name="no_email_clients_installed">لا يوجد تطبيق بريد مثبت</string>
+    <string name="unable_to_open_privacy_link_you_have_browser_issue">تعذر فتح رابط الخصوصية، يبدو أن هناك مشكلة في المتصفح.</string>
+
+    <string name="leave">مغادرة</string>
+    <string name="try_now">جرّب الآن</string>
+    <string name="premier_league">الدوري الإنجليزي الممتاز</string>
+    <string name="team_a">الفريق أ</string>
+    <string name="_2_1">2 - 1</string>
+    <string name="_15_00">15:00</string>
+    <string name="team_b">الفريق ب</string>
+    <string name="info">معلومات</string>
+    <string name="stats">إحصائيات</string>
+    <string name="lineup">التشكيلة</string>
+    <string name="table">الترتيب</string>
+
+    <string name="news_title">عنوان الخبر</string>
+    <string name="_2_hours_ago">منذ ساعتين</string>
+    <string name="news_description_goes_here">وصف الخبر يظهر هنا...</string>
+    <string name="get_premium">احصل على بريميوم</string>
+    <string name="unlock_exclusive_features_enjoy_an_ad_free_experience_priority_support">افتح ميزات حصرية، استمتع بتجربة بدون إعلانات ودعم مميز.</string>
+    <string name="go_premium">ترقية للبريميوم</string>
+    <string name="app_language">لغة التطبيق</string>
+    <string name="customize_to_your_regional_languages">خصصه بلغتك المحلية.</string>
+    <string name="rate_us">قيّمنا</string>
+    <string name="rate_our_app_on_play_store">قيّم التطبيق على متجر بلاي.</string>
+    <string name="share_the_app">شارك التطبيق</string>
+    <string name="tell_your_friends_about_football_now">أخبر أصدقاءك عن كرة القدم الآن.</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="read_our_privacy_policy_document">اقرأ مستند سياسة الخصوصية.</string>
+
+    <string name="full_time_n26_aug_wed">نهاية المباراة\n26 أغسطس، الأربعاء</string>
+    <string name="player">لاعب</string>
+    <string name="video_title">عنوان الفيديو</string>
+    <string name="_2_30">2:30</string>
+    <string name="goal">هدف</string>
+    <string name="marcus_rashford">ماركوس راشفورد</string>
+    <string name="permier_nleague">الدوري\nالإنجليزي</string>
+    <string name="_2">2</string>
+    <string name="_1">1</string>
+    <string name="_42min">42 دقيقة</string>
+    <string name="pass_accuracy">دقة التمرير</string>
+    <string name="team_name">اسم الفريق</string>
+    <string name="_20">20</string>
+    <string name="_15">15</string>
+    <string name="_3">3</string>
+    <string name="_28">+28</string>
+    <string name="_48">48</string>
+
+    <string name="ads_is_loading">جاري تحميل الإعلانات...</string>
+    <string name="your_opinion_n_matters_to_us">رأيك\nيهمنا!</string>
+    <string name="we_work_super_hard_to_make_application_better_for_you_and_would_love_to_know">نعمل بجد لجعل التطبيق أفضل لك ونسعد بمعرفة رأيك.</string>
+    <string name="our_best_we_can_get">أفضل ما يمكن أن نقدمه</string>
+    <string name="not_now">ليس الآن</string>
+    <string name="try_again">أعد المحاولة!</string>
+    <string name="oops_something_went_wrong_please_try_again_later">عذراً، حدث خطأ ما. يرجى المحاولة لاحقًا.</string>
+
+    <string name="recent_videos">أحدث الفيديوهات</string>
+    <string name="hashighlights">#ملخصات</string>
+    <string name="other_today_s_matches">مباريات أخرى اليوم</string>
+    <string name="other_matches">مباريات أخرى</string>
+    <string name="competition">البطولة:</string>
+    <string name="old_trafford">أولد ترافورد</string>
+    <string name="all_matches">جميع المباريات</string>
+
+    <string name="news">الأخبار</string>
+    <string name="breaking_news_headline">عنوان خبر عاجل</string>
+    <string name="september_12_2023">12 سبتمبر 2023</string>
+    <string name="latest_news">آخر الأخبار</string>
+
+    <string name="leagues">الدوريات</string>
+    <string name="league_players">لاعبو الدوري</string>
+    <string name="player_number">رقم اللاعب</string>
+    <string name="for_you">لك |</string>
+    <string name="league">الدوري</string>
+    <string name="league_standings">ترتيب الدوري</string>
+    <string name="team">الفريق</string>
+    <string name="p">ل</string>
+    <string name="w">ف</string>
+    <string name="l">خ</string>
+    <string name="d">ت</string>
+    <string name="pts">نقاط</string>
+    <string name="league_top_scorer">هداف الدوري</string>
+    <string name="goals">الأهداف</string>
+    <string name="home">الرئيسية</string>
+
+    <string name="ads_not_available">الإعلانات غير متوفرة!</string>
+    <string name="no_internet_connection">لا يوجد اتصال بالإنترنت!</string>
+    <string name="no_internet_connection_please_try_again_later">لا يوجد اتصال بالإنترنت. يرجى المحاولة لاحقًا.</string>
+    <string name="permission_required">الإذن مطلوب!</string>
+    <string name="please_allow_permission_to_continue_app">يرجى السماح بالإذونات لمتابعة استخدام التطبيق.</string>
+    <string name="unknown">غير معروف</string>
+
+    <string name="english">الإنجليزية</string>
+    <string name="spanish">الإسبانية</string>
+    <string name="russian">الروسية</string>
+    <string name="hindi">الهندية</string>
+    <string name="portuguese">البرتغالية</string>
+    <string name="arabic">العربية</string>
+    <string name="chinese">الصينية</string>
+
+    <string name="home_nav">الرئيسية</string>
+    <string name="following_nav">المتابعة</string>
+    <string name="highlights_nav">الملخصات</string>
+    <string name="news_nav">الأخبار</string>
+    <string name="today">اليوم</string>
+    <string name="win_probability">نسبة الفوز</string>
+    <string name="draw">تعادل</string>
+    <string name="who_will_win">من سيفوز؟</string>
+    <string name="match_events">أحداث المباراة</string>
+    <string name="venue">الملعب:</string>
+    <string name="matches">المباريات</string>
+    <string name="standings">الترتيب</string>
+    <string name="players">اللاعبون</string>
+    <string name="top_scorer">الهدّاف</string>
+    <string name="all_live_matches">كل المباريات المباشرة</string>
+    <string name="following_header">المتابعين | %1$d</string>
+    <string name="follow_more">متابعة المزيد</string>
+    <string name="search_hint">ابحث...</string>
+    <string name="teams">الفرق</string>
+    <string name="leagues_head">الدوريات</string>
+    <string name="league_details">تفاصيل الدوري</string>
+    <string name="team_details">تفاصيل الفريق</string>
+
+</resources>

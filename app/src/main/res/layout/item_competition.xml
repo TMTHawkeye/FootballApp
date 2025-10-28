@@ -19,7 +19,8 @@
         android:padding="8dp">
 
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
+            app:shapeAppearance="@style/RoundedImageView1"
             android:id="@+id/imageView15"
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"

@@ -14,10 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-
+        android:id="@+id/ct_match"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/divider">
 
 
 
@@ -25,9 +26,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/expandedContent"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_80sdp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="visible"
+            android:paddingHorizontal="@dimen/_8sdp"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +49,7 @@
 
                 android:text="@string/full_time_n26_aug_wed"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="@dimen/_8ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
 
                 app:layout_constraintEnd_toStartOf="@id/view2"
@@ -57,10 +59,10 @@
             <View
                 android:id="@+id/view2"
                 android:layout_width="@dimen/_1sdp"
-                android:layout_height="match_parent"
-                android:background="@color/grey"
+                android:layout_height="0dp"
+                android:background="@color/grey1"
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_6sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/matchDate"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -68,8 +70,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
+                android:paddingVertical="@dimen/_4sdp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -79,10 +82,11 @@
                 <!-- Team A -->
 
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
+                    app:shapeAppearance="@style/RoundedImageView1"
                     android:id="@+id/team1Logo"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
                     android:layout_marginStart="@dimen/_12sdp"
                     android:src="@drawable/app_icon"
                     app:layout_constraintBottom_toTopOf="@id/view3"
@@ -93,12 +97,21 @@
                     android:id="@+id/team1Name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
+                     android:maxLines="1"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/montserrat"
+                    android:textSize="@dimen/_10ssp"
+                    android:fontFamily="@font/montserrat_semibold"
                     android:layout_marginHorizontal="@dimen/_8sdp"
+
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:scrollHorizontally="true"
+                    android:paddingStart="1dp"
+                    android:paddingEnd="1dp"
+
                     app:layout_constraintBottom_toBottomOf="@+id/team1Logo"
                     app:layout_constraintEnd_toStartOf="@id/team1Score"
 
@@ -113,9 +126,9 @@
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:text="12"
                     android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"
+                    android:textSize="@dimen/_10ssp"
+                    android:fontFamily="@font/montserrat_semibold"
+                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/team1Name"
 
 
@@ -127,7 +140,8 @@
                     android:id="@+id/view3"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_1sdp"
-                    android:background="@color/grey"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:background="@color/grey1"
                     app:layout_constraintBottom_toTopOf="@id/team2Logo"
                     app:layout_constraintEnd_toEndOf="@id/team1Score"
                     app:layout_constraintStart_toStartOf="@+id/team1Logo"
@@ -141,10 +155,11 @@
                 <!-- Team B -->
 
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
+                    app:shapeAppearance="@style/RoundedImageView1"
                     android:id="@+id/team2Logo"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
                     android:src="@drawable/app_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/team1Logo"
@@ -154,11 +169,20 @@
                     android:id="@+id/team2Name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
+                     android:maxLines="1"
                     android:textColor="@color/white"
-                    android:fontFamily="@font/montserrat"
-                    android:textSize="14sp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textSize="@dimen/_10ssp"
+
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:scrollHorizontally="true"
+                    android:paddingStart="1dp"
+                    android:paddingEnd="1dp"
+
                     android:layout_marginHorizontal="@dimen/_8sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/team2Logo"
                     app:layout_constraintEnd_toStartOf="@id/team1Score"
@@ -173,9 +197,9 @@
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:text="12"
                     android:textColor="@color/green_color"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"
+                    android:textSize="@dimen/_10ssp"
+                    android:fontFamily="@font/montserrat_semibold"
+                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/team2Name"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/team2Name" />
@@ -188,4 +212,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#121D1E"
+        android:layout_marginVertical="@dimen/_2sdp"
+        app:layout_constraintTop_toBottomOf="@+id/ct_match"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

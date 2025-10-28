@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">फ़ुटबॉल नाउ</string>
+    <string name="app_name_small">फ़ुटबॉल नाउ</string>
+
+    <string name="splash_desc">रियल-टाइम स्कोर, ताज़ा खबरें और मैच हाइलाइट्स! सब कुछ एक ही जगह</string>
+    <string name="containAds">इस क्रिया में विज्ञापन शामिल हो सकता है</string>
+    <string name="getStarted">शुरू करें</string>
+    <string name="skip">स्किप</string>
+    <string name="done">समाप्त</string>
+    <string name="next">आगे</string>
+    <string name="continueTV">जारी रखें</string>
+    <string name="chooseLanguage">भाषा चुनें:</string>
+    <string name="chooseLanguageDesc">नीचे अपनी पसंदीदा भाषा चुनें, इससे हमें आपको बेहतर सेवा देने में मदद मिलती है।</string>
+    <string name="ob_1_title">लाइव स्कोर, हर सेकंड</string>
+    <string name="ob_2_title">कभी भी मैच हाइलाइट्स</string>
+    <string name="ob_3_title">लाइव स्कोर, हर सेकंड</string>
+    <string name="ob_1_desc">हर गोल, कार्ड और सीटी के साथ लाइव अपडेट से जुड़े रहें, जैसे ही एक्शन होता है।</string>
+    <string name="ob_2_desc">हर गोल और अहम पल को जल्दी हाइलाइट्स के साथ देखें, चाहे लाइव मिस हो गया हो।</string>
+    <string name="ob_3_desc">हर गोल, कार्ड और सीटी के साथ लाइव अपडेट से जुड़े रहें, जैसे ही एक्शन होता है।</string>
+
+    <string name="hello_blank_fragment">नमस्ते ब्लैंक फ्रेगमेंट</string>
+    <string name="footbalnow">फ़ुटबॉल<font color="#FFFFFF"> नाउ</font></string>
+    <string name="livematches">लाइव मैच |</string>
+    <string name="followingss">फ़ॉलोइंग | </string>
+    <string name="see_all_underlined"><u>सभी देखें</u></string>
+
+    <string name="explore">फ़ीचर्स खोजें</string>
+    <string name="fotbalnow">फ़ुटबॉल नाउ</string>
+    <string name="realtime">रियल-टाइम फ़ुटबॉल \nस्कोर!</string>
+    <string name="following">फ़ॉलोइंग</string>
+    <string name="highlights">हाइलाइट्स</string>
+    <string name="settings">सेटिंग्स</string>
+
+    <string name="thanks_for_rating_with_us">हमारे ऐप को रेट करने के लिए धन्यवाद!</string>
+    <string name="how_was_your_experience_with_this_app">इस ऐप के साथ आपका अनुभव कैसा रहा?</string>
+    <string name="kindly_rate">कृपया हमारे ऐप को रेट करें।</string>
+    <string name="hey_check_out_my_app">अरे! इस ऐप को देखें</string>
+    <string name="please_share_your_feedback">कृपया अपनी प्रतिक्रिया साझा करें</string>
+    <string name="send_email_using">के माध्यम से ईमेल भेजें</string>
+    <string name="no_email_clients_installed">कोई ईमेल क्लाइंट इंस्टॉल नहीं है</string>
+    <string name="unable_to_open_privacy_link_you_have_browser_issue">प्राइवेसी लिंक खोलने में असमर्थ। आपके ब्राउज़र में समस्या है।</string>
+
+    <string name="long_news_description_1">
+        फुटबॉल टीम खेलों का एक परिवार है जिसमें गोल करने के लिए गेंद को विभिन्न स्तरों पर किक करना शामिल है। सामान्य रूप से, "फुटबॉल" शब्द उस रूप को दर्शाता है जो उस क्षेत्र में सबसे लोकप्रिय है। फुटबॉल कहलाने वाले खेलों में एसोसिएशन फुटबॉल (उत्तरी अमेरिका में सॉकर), ग्रिडआयरन फुटबॉल (अमेरिकन और कैनेडियन फुटबॉल), ऑस्ट्रेलियन रूल्स फुटबॉल, रग्बी यूनियन और रग्बी लीग, और गेलिक फुटबॉल शामिल हैं।
+
+        दुनिया के विभिन्न हिस्सों में प्राचीन और पारंपरिक गेंद खेलों के कई संदर्भ मिलते हैं। आधुनिक फुटबॉल के नियमों को 19वीं शताब्दी में इंग्लैंड के पब्लिक स्कूलों में मानकीकृत किया गया था। ब्रिटिश साम्राज्य के विस्तार ने इन नियमों को दुनिया के अन्य क्षेत्रों में फैलाने में मदद की। 1888 में इंग्लैंड में फ़ुटबॉल लीग की स्थापना हुई, जो पहली पेशेवर लीग बनी।
+    </string>
+
+    <string name="long_news_description_2">
+        फुटबॉल का इतिहास प्राचीन काल से शुरू होता है। प्राचीन चीन, ग्रीस और रोम में फुटबॉल के विभिन्न रूप खेले जाते थे। आधुनिक एसोसिएशन फुटबॉल, जिसे सॉकर भी कहा जाता है, 19वीं शताब्दी के मध्य में इंग्लैंड में शुरू हुआ। 1863 में फ़ुटबॉल एसोसिएशन की स्थापना हुई, जिसने नियमों को मानकीकृत किया।
+
+        पहला अंतरराष्ट्रीय फुटबॉल मैच 1872 में स्कॉटलैंड और इंग्लैंड के बीच खेला गया। खेल तेजी से दुनिया भर में फैला। 1904 में फीफा की स्थापना हुई और 1930 में पहला विश्व कप उरुग्वे में आयोजित किया गया।
+
+        आज, फुटबॉल दुनिया का सबसे लोकप्रिय खेल है, जिसके अरबों प्रशंसक हैं।
+    </string>
+
+    <string name="long_news_description_3">
+        समय के साथ फुटबॉल की रणनीतियाँ काफी विकसित हुई हैं। शुरुआती फुटबॉल व्यक्तिगत कौशल पर आधारित था, लेकिन आधुनिक फुटबॉल टीमवर्क और सामरिक अनुशासन पर निर्भर करता है।
+
+        प्रबंधक और कोच का रोल अब पहले से कहीं अधिक महत्वपूर्ण हो गया है। आधुनिक फुटबॉल में फिटनेस, पोषण, और तकनीक जैसे VAR और परफॉर्मेंस ट्रैकिंग का बड़ा प्रभाव है।
+    </string>
+
+    <string name="long_news_description_4">
+        फुटबॉल दुनिया भर में संस्कृति और समाज पर गहरा प्रभाव डालता है। यह लोगों को एक साथ जोड़ता है और राष्ट्रीय एकता की भावना पैदा करता है। हालांकि, नस्लवाद और आर्थिक असमानता जैसी चुनौतियाँ भी मौजूद हैं। इसके बावजूद, फुटबॉल दुनिया का सबसे प्रिय खेल बना हुआ है।
+    </string>
+
+    <string name="leave">छोड़ें</string>
+    <string name="try_now">अभी आज़माएँ</string>
+    <string name="premier_league">प्रीमियर लीग</string>
+    <string name="team_a">टीम A</string>
+    <string name="_2_1">2 - 1</string>
+    <string name="_15_00">15:00</string>
+    <string name="team_b">टीम B</string>
+    <string name="info">जानकारी</string>
+    <string name="stats">स्टैट्स</string>
+    <string name="lineup">लाइनअप</string>
+    <string name="table">टेबल</string>
+    <string name="news_title">समाचार शीर्षक</string>
+    <string name="_2_hours_ago">2 घंटे पहले</string>
+    <string name="news_description_goes_here">समाचार विवरण यहाँ होगा...</string>
+    <string name="get_premium">प्रीमियम प्राप्त करें</string>
+    <string name="unlock_exclusive_features_enjoy_an_ad_free_experience_priority_support">विशेष सुविधाएँ अनलॉक करें, विज्ञापन मुक्त अनुभव प्राप्त करें, प्राथमिक सहायता।</string>
+    <string name="go_premium">प्रीमियम बनें</string>
+    <string name="app_language">ऐप भाषा</string>
+    <string name="customize_to_your_regional_languages">अपनी क्षेत्रीय भाषा के अनुसार अनुकूलित करें।</string>
+    <string name="rate_us">हमें रेट करें</string>
+    <string name="rate_our_app_on_play_store">प्लेस्टोर पर हमारे ऐप को रेट करें।</string>
+    <string name="share_the_app">ऐप साझा करें</string>
+    <string name="tell_your_friends_about_football_now">अपने दोस्तों को फ़ुटबॉल नाउ के बारे में बताएं।</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+    <string name="read_our_privacy_policy_document">हमारी गोपनीयता नीति पढ़ें।</string>
+
+    <string name="full_time_n26_aug_wed">पूर्ण समय\n26 अगस्त, बुधवार</string>
+    <string name="player">खिलाड़ी</string>
+    <string name="video_title">वीडियो शीर्षक</string>
+    <string name="_2_30">2:30</string>
+    <string name="goal">गोल</string>
+    <string name="marcus_rashford">मार्कस रैशफोर्ड</string>
+    <string name="permier_nleague">प्रीमियर\nलीग</string>
+    <string name="_2">2</string>
+    <string name="_1">1</string>
+    <string name="_42min">42 मिनट</string>
+    <string name="pass_accuracy">पास शुद्धता</string>
+    <string name="team_name">टीम का नाम</string>
+    <string name="_20">20</string>
+    <string name="_15">15</string>
+    <string name="_3">3</string>
+    <string name="_28">+28</string>
+    <string name="_48">48</string>
+    <string name="ads_is_loading">विज्ञापन लोड हो रहा है...</string>
+    <string name="your_opinion_n_matters_to_us">आपकी राय\nहमारे लिए महत्वपूर्ण है!</string>
+    <string name="we_work_super_hard_to_make_application_better_for_you_and_would_love_to_know">हम आपके लिए ऐप को बेहतर बनाने के लिए कड़ी मेहनत करते हैं, और आपकी राय जानना चाहेंगे</string>
+    <string name="our_best_we_can_get">सबसे अच्छा परिणाम</string>
+    <string name="not_now">अभी नहीं</string>
+    <string name="try_again">फिर से कोशिश करें!</string>
+    <string name="oops_something_went_wrong_please_try_again_later">ओह! कुछ गलत हो गया। कृपया बाद में पुनः प्रयास करें।</string>
+    <string name="recent_videos">हाल के वीडियो</string>
+    <string name="hashighlights">#हाइलाइट्स</string>
+    <string name="other_today_s_matches">आज के अन्य मैच</string>
+    <string name="other_matches">अन्य मैच</string>
+    <string name="competition">प्रतियोगिता:</string>
+    <string name="old_trafford">ओल्ड ट्रैफर्ड</string>
+    <string name="all_matches">सभी मैच</string>
+    <string name="news">समाचार</string>
+    <string name="breaking_news_headline">ब्रेकिंग न्यूज शीर्षक</string>
+    <string name="september_12_2023">12 सितंबर, 2023</string>
+    <string name="latest_news">ताज़ा समाचार</string>
+    <string name="leagues">लीग</string>
+    <string name="league_players">लीग खिलाड़ी</string>
+    <string name="player_number">खिलाड़ी संख्या</string>
+    <string name="for_you">आपके लिए |</string>
+    <string name="league">लीग</string>
+    <string name="league_standings">लीग स्टैंडिंग्स</string>
+    <string name="team">टीम</string>
+    <string name="p">P</string>
+    <string name="w">W</string>
+    <string name="l">L</string>
+    <string name="d">D</string>
+    <string name="pts">अंक</string>
+    <string name="league_top_scorer">लीग टॉप स्कोरर</string>
+    <string name="goals">गोल</string>
+    <string name="home">होम</string>
+    <string name="ads_not_available">विज्ञापन उपलब्ध नहीं!</string>
+    <string name="no_internet_connection">कोई इंटरनेट कनेक्शन नहीं!</string>
+    <string name="no_internet_connection_please_try_again_later">इंटरनेट कनेक्शन नहीं है। कृपया बाद में प्रयास करें।</string>
+    <string name="permission_required">अनुमति आवश्यक!</string>
+    <string name="please_allow_permission_to_continue_app">ऐप जारी रखने के लिए कृपया अनुमति दें।</string>
+    <string name="unknown">अज्ञात</string>
+
+    <string name="english">अंग्रेज़ी</string>
+    <string name="spanish">स्पेनिश</string>
+    <string name="russian">रूसी</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="portuguese">पुर्तगाली</string>
+    <string name="arabic">अरबी</string>
+    <string name="chinese">चीनी</string>
+
+
+    <string name="home_nav">होम</string>
+    <string name="following_nav">फॉलोइंग</string>
+    <string name="highlights_nav">हाइलाइट्स</string>
+    <string name="news_nav">समाचार</string>
+    <string name="today">आज</string>
+    <string name="win_probability">जीतने की संभावना</string>
+    <string name="draw">ड्रॉ</string>
+    <string name="who_will_win">कौन जीतेगा?</string>
+    <string name="match_events">मैच इवेंट्स</string>
+    <string name="venue">स्थान:</string>
+    <string name="matches">मैच</string>
+    <string name="standings">स्टैंडिंग्स</string>
+    <string name="players">खिलाड़ी</string>
+    <string name="top_scorer">शीर्ष स्कोरर</string>
+    <string name="all_live_matches">सभी लाइव मैच</string>
+    <string name="following_header">फॉलोइंग | %1$d</string>
+    <string name="follow_more">और फॉलो करें</string>
+    <string name="search_hint">खोजें...</string>
+    <string name="teams">टीमें</string>
+    <string name="leagues_head">लीग्स</string>
+    <string name="league_details">लीग विवरण</string>
+    <string name="team_details">टीम विवरण</string>
+</resources>

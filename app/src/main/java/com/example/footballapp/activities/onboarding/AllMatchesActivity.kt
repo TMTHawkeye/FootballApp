@@ -64,7 +64,7 @@ class AllMatchesActivity : BaseActivity() {
     }
 
     private fun setupToolbar() {
-        binding.title.text = "All Matches"
+        binding.title.text = getString(R.string.all_live_matches)
         binding.btnBack.setOnClickListener {
             onBackPressed()
         }

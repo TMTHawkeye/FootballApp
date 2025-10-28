@@ -556,12 +556,12 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
                 val currentItem = viewPager.currentItem
                 val nextItem = if (currentItem == liveMatches.size - 1) 0 else currentItem + 1
                 viewPager.setCurrentItem(nextItem, true)
-                handler.postDelayed(this, 3000)
+                handler.postDelayed(this, 5000)
             }
         }
 //        handler.removeCallbacksAndMessages(null)
 
-        autoSlideRunnable?.let { handler.postDelayed(it, 3000) }
+        autoSlideRunnable?.let { handler.postDelayed(it, 5000) }
     }
      override fun onPause() {
         super.onPause()

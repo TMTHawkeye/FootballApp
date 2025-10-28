@@ -58,12 +58,12 @@ class ShortsFragments : Fragment() {
 
     private fun setupAdapters() {
         forYouAdapter = ShortsPagerAdapter(shortsViewModel)
-        followingAdapter = ShortsFollwoingAdapter()
+        followingAdapter = ShortsFollwoingAdapter(shortsViewModel)
 
         lifecycleScope.launch {
             shortsViewModel.likedShorts.collect { likedSet ->
                 forYouAdapter?.updateLikedVideos(likedSet)
-//                followingAdapter?.updateLikedVideos(likedSet)
+                followingAdapter?.updateLikedVideos(likedSet)
             }
         }
     }
@@ -84,8 +84,8 @@ class ShortsFragments : Fragment() {
         // Connect TabLayout with dummy ViewPager for tab titles only
         TabLayoutMediator(binding.tabLayout, binding.viewPagerDummy) { tab, position ->
             tab.text = when (position) {
-                0 -> "For You"
-                1 -> "Following"
+                0 -> binding.root.context.getString(R.string.for_you)
+                1 ->  binding.root.context.getString(R.string.following)
                 else -> ""
             }
         }.attach()

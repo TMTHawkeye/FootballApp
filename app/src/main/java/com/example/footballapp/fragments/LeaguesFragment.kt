@@ -88,6 +88,7 @@ class LeaguesFragment : Fragment() {
 
     private fun setupAdapters() {
         suggestedLeaguesAdapter = SuggestedLeaguesAdapter(
+            binding.root.context,
             onFollowClick = { league ->
                 league.stage_id?.let { league.competition_name?.let { leagueName -> followViewModel.toggleFollowLeague(it,leagueName) } } // toggle follow
             },

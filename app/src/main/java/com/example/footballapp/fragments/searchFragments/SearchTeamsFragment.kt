@@ -82,7 +82,7 @@ class SearchTeamsFragment : Fragment() {
     }
 
     private fun setupSuggestedTeamsAdapter() {
-        teamsAdapter = TeamsAdapter(
+        teamsAdapter = TeamsAdapter(binding.root.context,
             false,
             onItemClick = { navigateToTeamDetail(it) },
             onFollowToggle = {   }

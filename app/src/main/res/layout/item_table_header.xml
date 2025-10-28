@@ -32,7 +32,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         android:layout_width="@dimen/_130sdp"
         android:layout_height="wrap_content"
-        android:text="Team"
+        android:text="@string/team"
          android:textStyle="bold"
         android:textSize="12sp"
         android:textColor="@color/white"

@@ -40,7 +40,7 @@ class DateAdapter(
 
         // Show "Today" if this date is today
         holder.dateDayText.text = if (date.fullDate == today) {
-            "Today"
+            holder.itemView.rootView.context.getString(R.string.today)
         } else {
             date.displayText
         }

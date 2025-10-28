@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">足球现在</string>
+    <string name="app_name_small">Football now</string>
+
+    <string name="splash_desc">实时比分、突发新闻与比赛集锦尽在此处！</string>
+    <string name="containAds">此操作可能包含广告</string>
+    <string name="getStarted">开始使用</string>
+    <string name="skip">跳过</string>
+    <string name="done">完成</string>
+    <string name="next">下一步</string>
+    <string name="continueTV">继续</string>
+    <string name="chooseLanguage">选择语言：</string>
+    <string name="chooseLanguageDesc">选择你喜欢的语言，这将帮助我们为你提供更好的服务。</string>
+    <string name="ob_1_title">实时比分，分秒必争</string>
+    <string name="ob_2_title">随时观看比赛集锦</string>
+    <string name="ob_3_title">实时比分，分秒必争</string>
+    <string name="ob_1_desc">通过即时更新，紧跟每一个进球、黄牌、哨声，绝不错过任何精彩瞬间。</string>
+    <string name="ob_2_desc">即使错过直播，也能快速查看每个进球和关键时刻的集锦。</string>
+    <string name="ob_3_desc">通过即时更新，紧跟每一个进球、黄牌、哨声，绝不错过任何精彩瞬间。</string>
+
+    <string name="hello_blank_fragment">你好，空白片段</string>
+    <string name="footbalnow">FOOTBALL<font color="#FFFFFF"> NOW</font></string>
+    <string name="livematches">直播比赛 |</string>
+    <string name="followingss">关注中 | </string>
+    <string name="see_all_underlined"><u>查看全部</u></string>
+
+    <string name="explore">探索功能</string>
+    <string name="fotbalnow">FOOTBALL NOW</string>
+    <string name="realtime">实时足球\n比分！</string>
+    <string name="following">关注</string>
+    <string name="highlights">集锦</string>
+    <string name="settings">设置</string>
+
+    <string name="thanks_for_rating_with_us">感谢你的评价！</string>
+    <string name="how_was_your_experience_with_this_app">你使用此应用的体验如何？</string>
+    <string name="kindly_rate">请为我们的应用评分。</string>
+    <string name="hey_check_out_my_app">嘿，来看看我的应用</string>
+    <string name="please_share_your_feedback">请分享你的反馈</string>
+    <string name="send_email_using">使用以下方式发送邮件</string>
+    <string name="no_email_clients_installed">未安装任何邮件客户端</string>
+    <string name="unable_to_open_privacy_link_you_have_browser_issue">无法打开隐私链接，你的浏览器可能有问题。</string>
+
+    <string name="long_news_description_1">
+        足球是一类团队运动，主要通过踢球得分。一般来说，“足球”指的是在使用地区最流行的那一种。常见的足球种类包括协会式足球（在北美和大洋洲称为“soccer”）、美式橄榄球（及加拿大橄榄球）、澳式足球、橄榄球联盟与橄榄球联赛，以及盖尔式足球。这些不同形式的足球在一定程度上具有共同的起源，被称为“足球代码”。\n
+        世界许多地方都有古代或传统的踢球游戏。现代足球的形成可以追溯到19世纪英国公学对这些游戏的规则化。\n
+        随着大英帝国的扩张，这些足球规则传播至世界各地。19世纪末，不同地区开始形成独立的规则体系。例如，盖尔式足球在规则中故意保留传统踢球文化。1888年，英格兰成立了第一个职业足球联赛。随着20世纪的发展，各类足球运动成为世界上最受欢迎的团队运动之一。
+    </string>
+
+    <string name="long_news_description_2">
+        足球的历史可以追溯到古代。中国、希腊和罗马都曾有形式各异的踢球运动。这些早期版本通常较为粗放，规则简单。现代协会式足球（即 soccer）于19世纪中期在英格兰诞生。1863年，英格兰足球协会成立，统一了规则并禁止手持球跑动。\n
+        1872年，苏格兰与英格兰进行了第一场国际比赛。足球迅速传播至欧洲及世界其他地区。国际足联（FIFA）于1904年成立，负责管理国际足球比赛。1930年，第一届世界杯在乌拉圭举行。\n
+        如今，足球是世界上最受欢迎的运动，拥有数十亿粉丝。世界杯是全球关注度最高的体育赛事之一。职业联赛遍布各国，顶级球员可通过薪资和代言获得巨额收入。
+    </string>
+
+    <string name="long_news_description_3">
+        足球战术和策略随着时间不断演变。早期足球强调个人技术和带球，而现代足球更注重团队配合、站位和战术纪律。常见阵型包括 4-4-2、4-3-3、3-5-2 和 4-2-3-1。\n
+        教练在现代足球中的作用变得至关重要。像瓜迪奥拉、克洛普和穆里尼奥等名帅以战术创新和激发球员潜力而闻名。现代足球也十分注重体能，球员需进行高强度训练并保持严格饮食。\n
+        科技也深刻影响了足球。视频助理裁判（VAR）用于协助裁判判罚；运动跟踪技术帮助教练分析球员表现；足球俱乐部商业价值不断增加，许多俱乐部已成为全球品牌。
+    </string>
+
+    <string name="long_news_description_4">
+        足球在全球文化和社会中具有重要影响力。它能跨越文化、社会和经济界限，将人们联系在一起。世界杯等大型赛事能激发强烈的民族自豪感。\n
+        足球也具有重大的经济价值，通过转播权、赞助、商品与门票创造巨额收入，并提供大量就业机会。\n
+        但足球也面临种族歧视、暴力球迷和经济差距等问题。FIFA 和 UEFA 正通过各种措施应对这些挑战。尽管如此，足球仍是世界上最受喜爱的运动。
+    </string>
+
+    <string name="leave">离开</string>
+    <string name="try_now">立即体验</string>
+    <string name="premier_league">英超联赛</string>
+    <string name="team_a">球队 A</string>
+    <string name="_2_1">2 - 1</string>
+    <string name="_15_00">15:00</string>
+    <string name="team_b">球队 B</string>
+    <string name="info">信息</string>
+    <string name="stats">数据</string>
+    <string name="lineup">阵容</string>
+    <string name="table">积分榜</string>
+
+    <string name="news_title">新闻标题</string>
+    <string name="_2_hours_ago">2 小时前</string>
+    <string name="news_description_goes_here">新闻描述内容...</string>
+
+    <string name="get_premium">获取高级版</string>
+    <string name="unlock_exclusive_features_enjoy_an_ad_free_experience_priority_support">解锁独家功能、无广告体验与优先支持。</string>
+    <string name="go_premium">升级高级版</string>
+
+    <string name="app_language">应用语言</string>
+    <string name="customize_to_your_regional_languages">根据你的地区语言进行自定义。</string>
+
+    <string name="rate_us">为我们评分</string>
+    <string name="rate_our_app_on_play_store">在 Play 商店为我们评分。</string>
+    <string name="share_the_app">分享应用</string>
+    <string name="tell_your_friends_about_football_now">向你的朋友推荐 Football Now。</string>
+
+    <string name="privacy_policy">隐私政策</string>
+    <string name="read_our_privacy_policy_document">阅读我们的隐私政策。</string>
+
+    <string name="full_time_n26_aug_wed">全场结束\n8 月 26 日，周三</string>
+
+    <string name="player">球员</string>
+    <string name="video_title">视频标题</string>
+    <string name="_2_30">2:30</string>
+    <string name="goal">进球</string>
+    <string name="marcus_rashford">马库斯·拉什福德</string>
+    <string name="permier_nleague">英超\n联赛</string>
+    <string name="_2">2</string>
+    <string name="_1">1</string>
+    <string name="_42min">42分钟</string>
+    <string name="pass_accuracy">传球成功率</string>
+    <string name="team_name">球队名称</string>
+    <string name="_20">20</string>
+    <string name="_15">15</string>
+    <string name="_3">3</string>
+    <string name="_28">+28</string>
+    <string name="_48">48</string>
+
+    <string name="ads_is_loading">广告加载中...</string>
+    <string name="your_opinion_n_matters_to_us">你的意见\n对我们很重要！</string>
+    <string name="we_work_super_hard_to_make_application_better_for_you_and_would_love_to_know">我们努力让应用变得更好，期待听到你的想法。</string>
+    <string name="our_best_we_can_get">我们最好的表现需要你的反馈</string>
+    <string name="not_now">暂不</string>
+    <string name="try_again">重试！</string>
+    <string name="oops_something_went_wrong_please_try_again_later">哎呀，出错了，请稍后再试。</string>
+
+    <string name="recent_videos">最近视频</string>
+    <string name="hashighlights">#比赛集锦</string>
+    <string name="other_today_s_matches">今日其他比赛</string>
+    <string name="other_matches">其他比赛</string>
+    <string name="competition">赛事：</string>
+    <string name="old_trafford">老特拉福德球场</string>
+    <string name="all_matches">全部比赛</string>
+    <string name="news">新闻</string>
+    <string name="breaking_news_headline">突发新闻标题</string>
+    <string name="september_12_2023">2023 年 9 月 12 日</string>
+    <string name="latest_news">最新新闻</string>
+
+    <string name="leagues">联赛</string>
+    <string name="league_players">联赛球员</string>
+    <string name="player_number">球员号码</string>
+    <string name="for_you">为你推荐 |</string>
+    <string name="league">联赛</string>
+    <string name="league_standings">联赛排名</string>
+    <string name="team">球队</string>
+    <string name="p">赛</string>
+    <string name="w">胜</string>
+    <string name="l">负</string>
+    <string name="d">平</string>
+    <string name="pts">积分</string>
+    <string name="league_top_scorer">联赛最佳射手</string>
+    <string name="goals">进球数</string>
+
+    <string name="home">主页</string>
+
+    <string name="ads_not_available">广告不可用！</string>
+    <string name="no_internet_connection">无网络连接！</string>
+    <string name="no_internet_connection_please_try_again_later">无网络连接，请稍后再试。</string>
+    <string name="permission_required">需要权限！</string>
+    <string name="please_allow_permission_to_continue_app">请授予权限以继续使用应用。</string>
+    <string name="unknown">未知</string>
+
+    <string name="english">英语</string>
+    <string name="spanish">西班牙语</string>
+    <string name="russian">俄语</string>
+    <string name="hindi">印地语</string>
+    <string name="portuguese">葡萄牙语</string>
+    <string name="arabic">阿拉伯语</string>
+    <string name="chinese">中文</string>
+
+
+    <string name="home_nav">首页</string>
+    <string name="following_nav">关注</string>
+    <string name="highlights_nav">集锦</string>
+    <string name="news_nav">新闻</string>
+    <string name="today">今天</string>
+    <string name="win_probability">胜率</string>
+    <string name="draw">平局</string>
+    <string name="who_will_win">谁会赢？</string>
+    <string name="match_events">比赛事件</string>
+    <string name="venue">场馆:</string>
+    <string name="matches">比赛</string>
+    <string name="standings">积分榜</string>
+    <string name="players">球员</string>
+    <string name="top_scorer">最佳射手</string>
+    <string name="all_live_matches">所有直播比赛</string>
+    <string name="following_header">关注 | %1$d</string>
+    <string name="follow_more">关注更多</string>
+    <string name="search_hint">搜索...</string>
+    <string name="teams">球队</string>
+    <string name="leagues_head">联赛</string>
+    <string name="league_details">联赛详情</string>
+    <string name="team_details">球队详情</string>
+</resources>

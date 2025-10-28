@@ -67,6 +67,7 @@ class MainActivity : BaseActivity() {
         }
 
 
+        footballViewModel.loadMatchesWithStages()
 
 
         homeAdapter = HomeAdapter(this)

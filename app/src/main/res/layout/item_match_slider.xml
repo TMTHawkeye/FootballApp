@@ -13,8 +13,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/button_gradient_bg"
 
-        android:gravity="center"
-        android:padding="10dp">
+        android:gravity="center">
 
 
         <ImageView
@@ -30,24 +29,24 @@
         <com.google.android.material.imageview.ShapeableImageView
             app:shapeAppearance="@style/RoundedImageView1"
             android:id="@+id/competitionLogo"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
             android:scaleType="fitCenter"
-            android:layout_margin="@dimen/_3sdp"
+            android:layout_margin="@dimen/_13sdp"
             android:src="@drawable/app_icon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/competition"
-            android:layout_width="0dp"
-            android:layout_marginEnd="@dimen/_100sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:fontFamily="@font/montserrat"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_width="@dimen/_100sdp"
+             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:fontFamily="@font/montserrat_semibold"
             android:text="@string/permier_nleague"
             android:textColor="@color/black"
-            android:textSize="@dimen/_10ssp"
+            android:textSize="@dimen/_8ssp"
             android:maxLines="2"
 
             app:layout_constraintBottom_toBottomOf="@+id/competitionLogo"
@@ -59,11 +58,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_weight="1"
             android:gravity="center"
 
-            android:padding="@dimen/_12sdp"
+             android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/competitionLogo">
@@ -72,33 +73,47 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
                 android:layout_width="0dp"
+                android:layout_marginStart="@dimen/_8sdp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/team1Goals"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/linearLayout">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/team1Logo"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/app_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearance="@style/RoundedImageView1" />
 
                 <TextView
                     android:id="@+id/team1Name"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/_80sdp"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:gravity="center"
-                    android:maxLines="1"
                     android:textColor="@android:color/black"
                     android:textSize="14sp"
+
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:scrollHorizontally="true"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/team1Logo" />
@@ -116,8 +131,8 @@
                 android:text="@string/_1"
                 android:textColor="@android:color/black"
 
-                android:textSize="@dimen/_20ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout3"
+                android:textSize="@dimen/_18ssp"
+                app:layout_constraintBottom_toTopOf="@+id/matchTime"
                 app:layout_constraintEnd_toStartOf="@+id/minus"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
@@ -125,13 +140,13 @@
 
             <TextView
                 android:id="@+id/minus"
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_6sdp"
                 android:fontFamily="@font/montserrat_semibold"
                 android:text="-"
-                android:textSize="@dimen/_20ssp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/team1Goals"
                 app:layout_constraintEnd_toStartOf="@+id/team2Goals"
                 app:layout_constraintStart_toEndOf="@+id/team1Goals"
@@ -146,7 +161,7 @@
 
                 android:textColor="@android:color/black"
 
-                android:textSize="@dimen/_20ssp"
+                android:textSize="@dimen/_18ssp"
 
                 app:layout_constraintBottom_toBottomOf="@+id/team1Goals"
                 app:layout_constraintEnd_toStartOf="@+id/linearLayout"
@@ -156,10 +171,10 @@
             <!-- Middle Section with Time/Score -->
             <TextView
                 android:id="@+id/matchTime"
-                android:layout_marginTop="@dimen/_3sdp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="@dimen/_3sdp"
                 android:background="@drawable/footballnow_bggraystrokewbg"
                 android:paddingHorizontal="@dimen/_4sdp"
                 android:paddingVertical="@dimen/_1sdp"
@@ -167,6 +182,7 @@
                 android:textColor="@android:color/black"
 
                 android:textSize="@dimen/_9ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout3"
                 app:layout_constraintEnd_toEndOf="@+id/team2Goals"
                 app:layout_constraintStart_toStartOf="@+id/team1Goals"
                 app:layout_constraintTop_toBottomOf="@+id/team1Goals" />
@@ -175,34 +191,48 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="0dp"
+                android:layout_marginEnd="@dimen/_8sdp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_4sdp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical"
-                app:layout_constraintStart_toEndOf="@+id/team2Goals"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/team2Goals"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
+                <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/team2Logo"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/app_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearance="@style/RoundedImageView1" />
 
                 <TextView
                     android:id="@+id/team2Name"
-                    android:layout_width="0dp"
+                    android:layout_width="@dimen/_80sdp"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLines="1"
+                    android:layout_marginTop="@dimen/_2sdp"
+                     android:gravity="center"
+                    android:maxLines="2"
                     android:textColor="@android:color/black"
                     android:textSize="14sp"
+
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:scrollHorizontally="true"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/team2Logo" />
