@@ -8,6 +8,8 @@ import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -16,12 +18,14 @@ import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT
 import com.example.footballapi.FootballViewModel
+import com.example.footballapp.Helper.PREF_NAME_FIRSTTIME
 import com.example.footballapp.Helper.noInternetDialog
 import com.example.footballapp.Helper.setupNoInternetDialog
 import com.example.footballapp.R
 import com.example.footballapp.adapters.HomeAdapter
 import com.example.footballapp.databinding.ActivityMainBinding
 import com.example.footballapp.utils.NetworkConnectionLiveData
+import com.example.footballapp.utils.SharedPrefrence
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity() {
@@ -31,6 +35,7 @@ class MainActivity : BaseActivity() {
 
     val footballViewModel: FootballViewModel by viewModel()
 
+    var sharedPreference = SharedPrefrence(this)
 
     private val exitScreenLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -66,6 +71,7 @@ class MainActivity : BaseActivity() {
             isAppearanceLightStatusBars = false // For light icons (use with dark backgrounds)
         }
 
+        sharedPreference.putingBoolean(PREF_NAME_FIRSTTIME , false)
 
         footballViewModel.loadMatchesWithStages()
 
@@ -107,19 +113,24 @@ class MainActivity : BaseActivity() {
         binding.imageView.setOnClickListener {
             binding.viewPager2.currentItem = 2
         }
-    }
 
-    override fun onBackPressed() {
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                handleBackPress()
+            }
+        })
+    }
+    private fun handleBackPress() {
         if (binding.viewPager2.currentItem != 0) {
             binding.viewPager2.currentItem = 0
         } else {
-//            startActivity(Intent(this@MainActivity, ExitScreen::class.java))
-
             val intent = Intent(this, ExitScreen::class.java)
             exitScreenLauncher.launch(intent)
-
         }
     }
+
+
 
 
 }

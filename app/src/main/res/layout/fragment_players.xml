@@ -7,7 +7,7 @@
 
     android:background="@drawable/footballnow_bggraystrokewbg1"
     android:layout_marginHorizontal="@dimen/_8sdp"
-    android:padding="16dp">
+    android:padding="@dimen/_10sdp">
 
     <!-- Competitions Horizontal RecyclerView -->
     <TextView
@@ -21,7 +21,7 @@
         android:textColor="@color/grey"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="parent"
-
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,6 +45,7 @@
         android:layout_marginTop="@dimen/_12sdp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:visibility="invisible"
 
         tools:listitem="@layout/item_competition"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -80,11 +81,12 @@
         android:layout_height="wrap_content"
         android:text="@string/league_players"
         android:textColor="@color/grey"
-        android:textSize="@dimen/_12ssp"
+        android:textSize="@dimen/_10ssp"
         android:layout_marginTop="@dimen/_12sdp"
         app:layout_constraintStart_toStartOf="parent"
         android:fontFamily="@font/montserrat_medium"
         app:layout_constraintTop_toBottomOf="@id/rvCompetitions"
+        android:visibility="invisible"
 
         android:layout_marginBottom="8dp" />
 
@@ -107,11 +109,12 @@
         android:layout_height="wrap_content"
         android:text="@string/player_number"
         android:textColor="@color/grey"
-        android:textSize="@dimen/_12ssp"
+        android:textSize="@dimen/_10ssp"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/_12sdp"
         android:fontFamily="@font/montserrat_medium"
         app:layout_constraintTop_toBottomOf="@id/rvCompetitions"
+        android:visibility="invisible"
 
         android:layout_marginBottom="8dp" />
 
@@ -132,7 +135,9 @@
         android:id="@+id/rvPlayers"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:visibility="invisible"
+
         tools:listitem="@layout/item_player"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

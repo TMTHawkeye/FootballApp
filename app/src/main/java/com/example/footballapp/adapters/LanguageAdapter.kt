@@ -14,7 +14,7 @@ import com.example.footballapp.models.LanguageModel
 class LanguageAdapter(
     val context: Context,
     val languageList: ArrayList<LanguageModel>,
-    var selectedPosition: Int?,
+    var selectedPosition: Int,
     val callback: SelectedLanguageCallback
 ) : RecyclerView.Adapter<LanguageAdapter.LanguageViewHolder>() {
 
@@ -38,9 +38,9 @@ class LanguageAdapter(
         val binding = holder.binding
 
         binding.tvCountryName.text = item.languageName
-        binding.tvSelectCountryName.text = item.languageName
+         binding.tvSelectCountryName.text = item.languageDesc
 
-        languageList.get(selectedPosition ?: 0).languageCode?.let { changeLanguage(it) }
+//        languageList.get(selectedPosition ?: 0).languageCode?.let { changeLanguage(it) }
 
         holder.itemView.setOnClickListener {
              languageList.get(position).languageCode?.let { it1 -> changeLanguage(it1) }
@@ -54,19 +54,33 @@ class LanguageAdapter(
         }
 
 
-        if (position == selectedPosition) {
-             binding.cdLanguage.strokeColor =
-                ContextCompat.getColor(context, R.color.green1_color)   // Selected stroke
+      /*  if (position == selectedPosition) {
+//             binding.cdLanguage.strokeColor =
+//                ContextCompat.getColor(context, R.color.green1_color)   // Selected stroke
             binding.radioBtn.isChecked = true
             binding.radioBtn.buttonTintList =
                 ContextCompat.getColorStateList(context, R.color.green1_color) // radio tint
+
+            binding.ctItemLang.background = binding.root.context.getDrawable(R.drawable.selected_lang_bg)
         } else {
-             binding.cdLanguage.strokeColor =
-                ContextCompat.getColor(context, R.color.grey)  // Normal stroke
+//             binding.cdLanguage.strokeColor =
+//                ContextCompat.getColor(context, R.color.grey)  // Normal stroke
             binding.radioBtn.isChecked = false
             binding.radioBtn.buttonTintList =
                 ContextCompat.getColorStateList(context, R.color.grey) // radio tint
+            binding.ctItemLang.background = binding.root.context.getDrawable(R.drawable.unselected_lang_bg)
+
+        }*/
+
+        if (position == selectedPosition && selectedPosition != -1) {
+            binding.radioBtn.isChecked = true
+            binding.ctItemLang.background = binding.root.context.getDrawable(R.drawable.selected_lang_bg)
+        } else {
+            binding.radioBtn.isChecked = false
+            binding.ctItemLang.background = binding.root.context.getDrawable(R.drawable.unselected_lang_bg)
         }
+
+
 
         Glide.with(binding.root.context).load(languageList.get(position).languageDrawable)
             .into(binding.ivCountry)

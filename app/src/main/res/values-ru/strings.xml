@@ -140,13 +140,13 @@
     <string name="please_allow_permission_to_continue_app">Пожалуйста, разрешите доступ чтобы продолжить.</string>
     <string name="unknown">Неизвестно</string>
 
-    <string name="english">Английский</string>
-    <string name="spanish">Испанский</string>
-    <string name="russian">Русский</string>
-    <string name="hindi">Хинди</string>
-    <string name="portuguese">Португальский</string>
-    <string name="arabic">Арабский</string>
-    <string name="chinese">Китайский</string>
+<!--    <string name="english">Английский</string>-->
+<!--    <string name="spanish">Испанский</string>-->
+<!--    <string name="russian">Русский</string>-->
+<!--    <string name="hindi">Хинди</string>-->
+<!--    <string name="portuguese">Португальский</string>-->
+<!--    <string name="arabic">Арабский</string>-->
+<!--    <string name="chinese">Китайский</string>-->
 
     <string name="home_nav">Главная</string>
     <string name="following_nav">Подписки</string>

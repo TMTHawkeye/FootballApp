@@ -15,18 +15,19 @@
         android:src="@drawable/arrow_back"
         android:padding="@dimen/_5sdp"
         android:id="@+id/btn_back"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="@dimen/_15sdp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnDone"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_26sdp"
+         android:layout_width="wrap_content"
+        android:layout_height="@dimen/_25sdp"
         android:layout_margin="@dimen/_15sdp"
-        android:background="@drawable/button_gradient_bg"
+        android:background="@drawable/button_gradient_bg2"
         android:text="@string/done"
+        app:cornerRadius="@dimen/_8sdp"
+        android:gravity="center"
         android:textSize="@dimen/_10ssp"
         android:paddingHorizontal="0dp"
         android:includeFontPadding="false"
@@ -40,9 +41,10 @@
         style="@style/normal_text_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:text="@string/chooseLanguage"
         android:textSize="@dimen/_16sdp"
+        app:fontFamily="@font/urbanist_semibold"
         app:layout_constraintEnd_toEndOf="@+id/btnDone"
         app:layout_constraintStart_toStartOf="@id/btn_back"
         app:layout_constraintTop_toBottomOf="@+id/btn_back" />
@@ -50,17 +52,17 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_chooseLanguageDesc"
+        style="@style/normal_text_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
         android:text="@string/chooseLanguageDesc"
-        style="@style/normal_text_style"
         android:textColor="@color/grey"
         android:textSize="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        app:fontFamily="@font/urbanist_medium"
         app:layout_constraintEnd_toEndOf="@id/btnDone"
-        app:layout_constraintTop_toBottomOf="@+id/tv_chooseLanguage"
         app:layout_constraintStart_toStartOf="@id/btn_back"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tv_chooseLanguage" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginVertical="@dimen/_5sdp"

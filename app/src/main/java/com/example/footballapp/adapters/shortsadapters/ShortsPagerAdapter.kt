@@ -80,6 +80,7 @@ class ShortsPagerAdapter(
             val options = IFramePlayerOptions.Builder(holder.binding.root.context)
                 .controls(0)
                 .rel(0)
+                .autoplay(1)
                 .build()
 
             holder.binding.youtubePlayerView.initialize(object : AbstractYouTubePlayerListener() {

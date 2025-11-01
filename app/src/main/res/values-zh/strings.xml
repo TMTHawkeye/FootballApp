@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">足球现在</string>
-    <string name="app_name_small">Football now</string>
+    <string name="app_name_small">足球现在</string>
 
     <string name="splash_desc">实时比分、突发新闻与比赛集锦尽在此处！</string>
     <string name="containAds">此操作可能包含广告</string>
@@ -159,13 +159,13 @@
     <string name="please_allow_permission_to_continue_app">请授予权限以继续使用应用。</string>
     <string name="unknown">未知</string>
 
-    <string name="english">英语</string>
-    <string name="spanish">西班牙语</string>
-    <string name="russian">俄语</string>
-    <string name="hindi">印地语</string>
-    <string name="portuguese">葡萄牙语</string>
-    <string name="arabic">阿拉伯语</string>
-    <string name="chinese">中文</string>
+<!--    <string name="english">英语</string>-->
+<!--    <string name="spanish">西班牙语</string>-->
+<!--    <string name="russian">俄语</string>-->
+<!--    <string name="hindi">印地语</string>-->
+<!--    <string name="portuguese">葡萄牙语</string>-->
+<!--    <string name="arabic">阿拉伯语</string>-->
+<!--    <string name="chinese">中文</string>-->
 
 
     <string name="home_nav">首页</string>

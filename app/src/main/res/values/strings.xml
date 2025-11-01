@@ -150,13 +150,20 @@
     <string name="please_allow_permission_to_continue_app">Please allow permission to continue app.</string>
     <string name="unknown">Unknown</string>
 
-    <string name="english">English</string>
-    <string name="spanish">Spanish</string>
-    <string name="russian">Russian</string>
-    <string name="hindi">Hindi</string>
-    <string name="portuguese">Portuguese</string>
-    <string name="arabic">Arabic</string>
-    <string name="chinese">Chinese</string>
+    <string name="english" translatable="false">English</string>
+    <string name="selectEnglish" translatable="false">Select English</string>
+    <string name="spanish" translatable="false">Spanish</string>
+    <string name="selectSpanish" translatable="false">Seleccionar español</string>
+    <string name="russian" translatable="false">Russian (Русский)</string>
+    <string name="selectRussian" translatable="false">Выберите русский</string>
+    <string name="hindi" translatable="false">Hindi (हिंदी)</string>
+    <string name="selectHindi" translatable="false">हिंदी का चयन करें</string>
+    <string name="portuguese" translatable="false">Portuguese (Português)</string>
+    <string name="selectPortuguese" translatable="false">Selecione Português</string>
+    <string name="arabic" translatable="false">Arabic (العربية)</string>
+    <string name="selectArabic" translatable="false">اختر اللغة العربية</string>
+    <string name="chinese" translatable="false">Chinese</string>
+    <string name="selectChinese" translatable="false">選擇中文</string>
 
 
 

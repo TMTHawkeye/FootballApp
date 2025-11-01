@@ -79,7 +79,7 @@ class MatchesAdapter(
 
     // ----- Adapter Methods -----
     override fun getItemViewType(position: Int): Int {
-        return if (position == 0) TYPE_ALL_MATCHES else TYPE_MATCH
+        return /*if (position == 0) TYPE_ALL_MATCHES else*/ TYPE_MATCH
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -95,16 +95,16 @@ class MatchesAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MatchViewHolder) {
-            holder.bind(matches[position - 1]) // offset by 1 because first is "All Matches"
+            holder.bind(matches[position /*- 1*/]) // offset by 1 because first is "All Matches"
             holder.itemView.rootView.setOnClickListener {
-                onMatchClick?.invoke(matches.get(position-1))
+                onMatchClick?.invoke(matches.get(position/*-1*/))
             }
         } else if (holder is AllMatchesViewHolder) {
             holder.bind()
         }
     }
 
-    override fun getItemCount(): Int = matches.size + 1 // +1 for "All Matches"
+    override fun getItemCount(): Int = matches.size/* + 1 */// +1 for "All Matches"
 
     // ----- Public Setter -----
     fun setMatches(newMatches: List<Event>) {

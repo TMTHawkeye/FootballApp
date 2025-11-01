@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#1AFFFFFF"
-    android:paddingVertical="6dp"
-    android:paddingHorizontal="4dp">
+    android:background="@color/transparent"
+    android:paddingVertical="6dp" >
 
     <!-- # -->
     <TextView
@@ -14,11 +13,11 @@
         android:layout_height="wrap_content"
         android:text="#"
         android:textStyle="bold"
-        android:layout_marginStart="@dimen/_2sdp"
 
-        android:textSize="12sp"
+                 android:textSize="@dimen/_8ssp"
+
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/green_color"
         app:layout_constraintEnd_toStartOf="@+id/teamHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,8 +33,9 @@
         android:layout_height="wrap_content"
         android:text="@string/team"
          android:textStyle="bold"
-        android:textSize="12sp"
-        android:textColor="@color/white"
+                 android:textSize="@dimen/_8ssp"
+
+        android:textColor="@color/green_color"
         android:fontFamily="@font/montserrat"
          app:layout_constraintStart_toEndOf="@id/positionHeader"
         app:layout_constraintEnd_toStartOf="@id/matchesPlayedHeader"
@@ -49,9 +49,10 @@
         android:layout_height="wrap_content"
         android:text="P"
         android:textStyle="bold"
-        android:textSize="12sp"
+                 android:textSize="@dimen/_8ssp"
+
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/green_color"
         app:layout_constraintStart_toEndOf="@id/teamHeader"
         app:layout_constraintEnd_toStartOf="@id/winsHeader"
         app:layout_constraintTop_toTopOf="parent"
@@ -65,9 +66,10 @@
         android:layout_height="wrap_content"
         android:text="W"
         android:textStyle="bold"
-        android:textSize="12sp"
+                 android:textSize="@dimen/_8ssp"
+
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/green_color"
         app:layout_constraintStart_toEndOf="@id/matchesPlayedHeader"
         app:layout_constraintEnd_toStartOf="@id/drawsHeader"
         app:layout_constraintTop_toTopOf="parent"
@@ -81,9 +83,10 @@
         android:layout_height="wrap_content"
         android:text="D"
         android:textStyle="bold"
-        android:textSize="12sp"
+                 android:textSize="@dimen/_8ssp"
+
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/green_color"
         app:layout_constraintStart_toEndOf="@id/winsHeader"
         app:layout_constraintEnd_toStartOf="@id/lossesHeader"
         app:layout_constraintTop_toTopOf="parent"
@@ -97,9 +100,10 @@
         android:layout_height="wrap_content"
         android:text="L"
         android:textStyle="bold"
-        android:textSize="12sp"
+                 android:textSize="@dimen/_8ssp"
+
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/green_color"
         app:layout_constraintStart_toEndOf="@id/drawsHeader"
         app:layout_constraintEnd_toStartOf="@id/goalDiffHeader"
         app:layout_constraintTop_toTopOf="parent"
@@ -113,9 +117,10 @@
         android:layout_height="wrap_content"
         android:text="GD"
         android:textStyle="bold"
-        android:textSize="12sp"
+                 android:textSize="@dimen/_8ssp"
+
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/green_color"
         app:layout_constraintStart_toEndOf="@id/lossesHeader"
         app:layout_constraintEnd_toStartOf="@id/pointsHeader"
         app:layout_constraintTop_toTopOf="parent"
@@ -129,11 +134,11 @@
         android:layout_height="wrap_content"
         android:text="Pts"
         android:textStyle="bold"
-        android:layout_marginEnd="@dimen/_2sdp"
 
-        android:textSize="12sp"
+                 android:textSize="@dimen/_8ssp"
+
         android:gravity="center"
-        android:textColor="@color/white"
+        android:textColor="@color/green_color"
         app:layout_constraintStart_toEndOf="@id/goalDiffHeader"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

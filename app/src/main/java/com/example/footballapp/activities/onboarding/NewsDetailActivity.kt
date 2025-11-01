@@ -48,7 +48,7 @@ class NewsDetailActivity : BaseActivity() {
         // Set up toolbar
 
         newsItem = teamViewModel.getSelectedNews()
-//        Toast.makeText(this@NewsDetailActivity, "${newsItem?.id}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@NewsDetailActivity, "${newsItem?.id}", Toast.LENGTH_SHORT).show()
 
         // Populate the views with news data
         newsItem?.let {

@@ -8,7 +8,7 @@ import com.example.footballapp.Helper.sharedPreferenceName
 class SharedPrefrence (private  var context: Context){
 
 
-    fun putingsBoolean(key: String, value: Boolean) {
+    fun putingBoolean(key: String, value: Boolean) {
         val sharedPref: SharedPreferences =
             context.getSharedPreferences(
                 sharedPreferenceName,

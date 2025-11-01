@@ -10,8 +10,8 @@
 
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:layout_width="@dimen/_110sdp"
-        android:layout_height="@dimen/_110sdp"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
         android:src="@drawable/app_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -47,9 +47,9 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="@string/splash_desc"
-        android:textStyle="normal"
         android:textColor="@color/light_grey"
-        app:layout_constraintBottom_toTopOf="@+id/contain_ad_tv"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/splash_title" />
@@ -78,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/normal_text_style"
         android:textSize="@dimen/_12sdp"
-        android:textStyle="bold"
+         android:textStyle="bold"
          android:backgroundTint="@null"
         android:layout_marginBottom="@dimen/_10sdp"
         android:layout_marginHorizontal="@dimen/_10sdp"
@@ -93,7 +93,7 @@
         android:id="@+id/contain_ad_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
         style="@style/small_text_style"
         android:textColor="@color/grey"
 

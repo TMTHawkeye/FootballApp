@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_marginHorizontal="@dimen/_12sdp"
     android:background="@drawable/footballnow_bggraystrokewbg1"
-    android:padding="16dp">
+    android:padding="@dimen/_10sdp">
 
     <!-- Competitions Horizontal RecyclerView -->
     <TextView
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_medium"
-        android:text="@string/league"
+        android:text="@string/leagues"
         android:textColor="@color/grey"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,11 +43,11 @@
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/leaguee"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginBottom="16dp" />
     
     <LinearLayout
-        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
@@ -74,7 +74,7 @@
         android:fontFamily="@font/montserrat_medium"
         android:text="@string/league_standings"
         android:textColor="@color/grey"
-        android:textSize="@dimen/_12ssp"
+        android:textSize="@dimen/_10ssp"
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/footballnow_bggraystrokewbg1"
-         
+
         android:orientation="vertical"
         android:layout_marginTop="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"

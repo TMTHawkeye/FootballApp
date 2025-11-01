@@ -2,180 +2,180 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
-
-    android:background="?android:attr/selectableItemBackground">
+    android:layout_height="wrap_content">
 
     <!-- Position -->
     <TextView
         android:id="@+id/positionn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1"
-        android:includeFontPadding="false"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        android:textSize="12sp"
-        android:gravity="center"
-        android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
-        android:layout_marginStart="@dimen/_2sdp"
+        android:gravity="center"
+        android:includeFontPadding="false"
         android:paddingHorizontal="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/teamLogoo"
-        app:layout_constraintTop_toTopOf="parent"
+
+        android:text="1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"  />
+        app:layout_constraintEnd_toStartOf="@+id/teamLogoo"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Team Logo -->
     <com.google.android.material.imageview.ShapeableImageView
-        app:shapeAppearance="@style/RoundedImageView1"
-        android:includeFontPadding="false"
         android:id="@+id/teamLogoo"
         android:layout_width="@dimen/_16sdp"
         android:layout_height="@dimen/_16sdp"
+        android:layout_marginStart="8dp"
+        android:includeFontPadding="false"
         android:src="@drawable/app_icon"
-        app:layout_constraintEnd_toStartOf="@+id/teamName"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/teamName"
         app:layout_constraintStart_toEndOf="@id/positionn"
-        android:layout_marginStart="8dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/RoundedImageView1" />
 
     <!-- Team Name -->
     <TextView
-        android:includeFontPadding="false"
         android:id="@+id/teamName"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="wrap_content"
-        android:text="@string/team_name"
-         android:textSize="12sp"
-        android:maxLines="1"
-        android:textColor="@color/white"
-        android:fontFamily="@font/montserrat"
         android:layout_marginHorizontal="@dimen/_4sdp"
-
         android:ellipsize="end"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/teamLogoo"
-        app:layout_constraintEnd_toStartOf="@id/matchesPlayedd"
+        android:fontFamily="@font/montserrat_semibold"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="@string/team_name"
+        android:textColor="@color/white"
 
-      />
+        android:textSize="@dimen/_8ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/matchesPlayedd"
+        app:layout_constraintStart_toEndOf="@id/teamLogoo"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
 
     <!-- P (Matches Played) -->
     <TextView
-        android:includeFontPadding="false"
         android:id="@+id/matchesPlayedd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/_20"
-        android:textSize="12sp"
-        android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
-        app:layout_constraintEnd_toStartOf="@id/winss"
-         android:paddingHorizontal="2dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:includeFontPadding="false"
+
+        android:paddingHorizontal="2dp"
+        android:text="@string/_20"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/winss"
         app:layout_constraintStart_toEndOf="@id/teamName"
-       />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- W (Wins) -->
     <TextView
-        android:includeFontPadding="false"
         android:id="@+id/winss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/_15"
-        android:textSize="12sp"
-        android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
+        android:includeFontPadding="false"
+
         android:paddingHorizontal="2dp"
-        app:layout_constraintEnd_toStartOf="@id/drawss"
-         app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/_15"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/drawss"
         app:layout_constraintStart_toEndOf="@id/matchesPlayedd"
-    />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- D (Draws) -->
     <TextView
-        android:includeFontPadding="false"
         android:id="@+id/drawss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/_3"
-        android:textSize="12sp"
-        android:gravity="center"
-        android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
-        app:layout_constraintEnd_toStartOf="@id/lossess"
-         android:paddingHorizontal="2dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center"
+        android:includeFontPadding="false"
+
+        android:paddingHorizontal="2dp"
+        android:text="@string/_3"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/winss"  />
+        app:layout_constraintEnd_toStartOf="@id/lossess"
+        app:layout_constraintStart_toEndOf="@id/winss"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- L (Losses) -->
     <TextView
-        android:includeFontPadding="false"
         android:id="@+id/lossess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/_2"
-        android:textSize="12sp"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toStartOf="@id/goalDifferencee"
-         android:fontFamily="@font/montserrat"
+        android:includeFontPadding="false"
+
         android:paddingHorizontal="2dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/_2"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/drawss" />
+        app:layout_constraintEnd_toStartOf="@id/goalDifferencee"
+        app:layout_constraintStart_toEndOf="@id/drawss"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- GD (Goal Difference) -->
     <TextView
-        android:includeFontPadding="false"
         android:id="@+id/goalDifferencee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-         android:textSize="12sp"
-         android:gravity="center"
-        android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
+        android:gravity="center"
+
+        android:includeFontPadding="false"
         android:paddingHorizontal="2dp"
-         app:layout_constraintEnd_toStartOf="@id/pointss"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/lossess"  />
+        app:layout_constraintEnd_toStartOf="@id/pointss"
+        app:layout_constraintStart_toEndOf="@id/lossess"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- PTS (Points) -->
     <TextView
-        android:includeFontPadding="false"
         android:id="@+id/pointss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/_48"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
         android:fontFamily="@font/montserrat"
-         android:gravity="center"
-        android:layout_marginEnd="@dimen/_2sdp"
+        android:gravity="center"
+        android:includeFontPadding="false"
 
         android:paddingHorizontal="2dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/_48"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp"
+
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/goalDifferencee"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:background="@color/grey1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/teamLogoo"
-        android:layout_marginTop="@dimen/_12sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/teamLogoo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

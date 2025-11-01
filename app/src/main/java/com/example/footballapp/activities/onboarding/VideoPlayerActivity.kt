@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.footballapp.Helper.makeStatusBarTranslucent
 import com.example.footballapp.activities.onboarding.BaseActivity
 import com.example.footballapp.databinding.ActivityVideoPlayerBinding
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -64,5 +65,10 @@ class VideoPlayerActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         binding.youtubePlayerView.release()
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        makeStatusBarTranslucent()
     }
 }

@@ -1,6 +1,7 @@
 package com.example.footballapp.activities.onboarding
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.footballapp.R
 import com.example.footballapp.databinding.ActivitySettingBinding
 import com.example.footballapp.dialogs.CustomRatingDailog
+import androidx.core.net.toUri
 
 class SettingActivity : BaseActivity() {
     private lateinit var binding: ActivitySettingBinding
@@ -38,6 +40,29 @@ class SettingActivity : BaseActivity() {
         binding.testSounddLt.setOnClickListener {
             startActivity(Intent(this@SettingActivity, LanguageActivity::class.java)
                 .putExtra("intentFrom", "fromSettings"))
+        }
+
+        binding.privacyLt.setOnClickListener {
+            val url = "https://google.com"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = url.toUri()
+            startActivity(intent)
+        }
+
+
+        binding.shareLtLt.setOnClickListener {
+
+            val appPackageName = packageName
+            val shareText = "Check out this app: https://play.google.com/store/apps/details?id=$appPackageName"
+
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, shareText)
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, "Share App")
+            startActivity(shareIntent)
         }
 
 

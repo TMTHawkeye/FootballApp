@@ -263,9 +263,11 @@ class HomeFragment : Fragment(), OnStageClickListener, OnMatchSelected {
 
         // Disable prev if at first item
         binding.btnPrevious.isEnabled = currentPosition > 0
+        binding.btnPrevious.alpha = if(currentPosition > 0) 1f else 0.5f
 
         // Disable next if at last item
         binding.btnNext.isEnabled = currentPosition < totalItems - 1
+        binding.btnNext.alpha = if(currentPosition < totalItems - 1)1f else 0.5f
     }
 
 

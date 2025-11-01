@@ -5,16 +5,19 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.footballapi.modelClasses.AllCompetitions.Stage
 import com.example.footballapp.Helper.gone
+import com.example.footballapp.Helper.imagePrefix
 import com.example.footballapp.Helper.imagePrefixCompetition
 import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.databinding.ItemFollowedGroupBinding
+import com.example.footballapp.databinding.ItemFollowingHeaderBinding
 import com.example.footballapp.databinding.ItemSuggestedTeamBinding
 import com.example.footballapp.databinding.ItemTextHeaderBinding
 import com.example.footballapp.models.Team
@@ -25,6 +28,7 @@ class SuggestedLeaguesAdapter(
     private val onFollowClick: (Stage) -> Unit,
     private val onItemClick: (Stage) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var isExpanded = true
 
     private val items = mutableListOf<Any>()
     private val originalItems = mutableListOf<Any>()
@@ -96,7 +100,7 @@ class SuggestedLeaguesAdapter(
         }
     }
 
-    inner class FollowedGroupViewHolder(private val binding: ItemFollowedGroupBinding) :
+  /*  inner class FollowedGroupViewHolder(private val binding: ItemFollowedGroupBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(followedTeams: List<Stage>) {
@@ -149,7 +153,73 @@ class SuggestedLeaguesAdapter(
             }
         }
     }
+*/
 
+    private inner class FollowedGroupViewHolder(private val binding: ItemFollowedGroupBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+
+        fun bind(followedTeams: List<Stage>) {
+            binding.followedContainer.removeAllViews()
+
+            // Inflate new header with arrow
+            val headerBinding = ItemFollowingHeaderBinding.inflate(
+                LayoutInflater.from(binding.root.context),
+                binding.followedContainer,
+                false
+            )
+
+            val title = binding.root.context.getString(R.string.following_header, followedTeams.size)
+            headerBinding.tvHeaderTitle.text = title
+
+            // Rotate arrow based on expanded state
+//            headerBinding.imgArrow.rotation = if (isExpanded) 90f else 0f
+            headerBinding.imgArrow.animate().setDuration(150).rotation(if (isExpanded) 90f else 0f)
+
+            // Add header to parent
+            binding.followedContainer.addView(headerBinding.root)
+
+            // Add Teams only if expanded
+            if (isExpanded) {
+                followedTeams.forEachIndexed { index, team ->
+                    val itemBinding = ItemSuggestedTeamBinding.inflate(
+                        LayoutInflater.from(binding.root.context),
+                        binding.followedContainer,
+                        false
+                    )
+
+                    itemBinding.teamName.text = team.competition_name
+                    Glide.with(itemBinding.teamImage)
+                        .load(imagePrefixCompetition + team.badge_url)
+                        .into(itemBinding.teamImage)
+
+                    itemBinding.followButton.setImageResource(R.drawable.floow)
+
+                    itemBinding.root.setOnClickListener { onItemClick(team) }
+                    itemBinding.followButton.setOnClickListener { onFollowClick(team) }
+
+
+
+                    if ((index == followedTeams.size - 1)) {
+                        itemBinding.view3.visibility = View.GONE
+                    } else {
+                        itemBinding.view3.visibility = View.VISIBLE
+                    }
+
+
+
+
+                    binding.followedContainer.addView(itemBinding.root)
+                }
+            }
+
+            // Toggle expand/collapse on header click
+            headerBinding.root.setOnClickListener {
+                isExpanded = !isExpanded
+                notifyItemChanged(adapterPosition)
+            }
+        }
+    }
     inner class LeagueViewHolder(val binding: ItemSuggestedTeamBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -183,6 +253,15 @@ class SuggestedLeaguesAdapter(
 //                )
 //            )
             binding.followButton.setOnClickListener { onFollowClick(stage) }
+
+
+            // ✅ Hide divider for the last item
+            val isLastItem = adapterPosition == itemCount - 1
+            binding.view3.visibility = if (isLastItem) View.GONE else View.VISIBLE
+
+             if (!shouldAddTags) {
+                binding.view3.visibility  = View.INVISIBLE
+            }
 
 
             binding.root.setOnClickListener {

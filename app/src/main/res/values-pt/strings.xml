@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FOOTBALL NOW</string>
-    <string name="app_name_small">Football now</string>
+    <string name="app_name">FUTEBOL AGORA</string>
+    <string name="app_name_small">Futebol agora</string>
+
 
     <string name="splash_desc">Placar em tempo real, notícias de última hora e melhores momentos! Tudo em um só lugar</string>
     <string name="containAds">Esta ação pode conter anúncios</string>
@@ -148,13 +149,13 @@
 
     <string name="unknown">Desconhecido</string>
 
-    <string name="english">Inglês</string>
-    <string name="spanish">Espanhol</string>
-    <string name="russian">Russo</string>
-    <string name="hindi">Hindi</string>
-    <string name="portuguese">Português</string>
-    <string name="arabic">Árabe</string>
-    <string name="chinese">Chinês</string>
+<!--    <string name="english">Inglês</string>-->
+<!--    <string name="spanish">Espanhol</string>-->
+<!--    <string name="russian">Russo</string>-->
+<!--    <string name="hindi">Hindi</string>-->
+<!--    <string name="portuguese">Português</string>-->
+<!--    <string name="arabic">Árabe</string>-->
+<!--    <string name="chinese">Chinês</string>-->
 
 
     <string name="home_nav">Início</string>

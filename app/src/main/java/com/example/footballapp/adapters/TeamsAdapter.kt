@@ -6,6 +6,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import com.example.footballapp.Helper.imagePrefix
 import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.databinding.ItemFollowedGroupBinding
+import com.example.footballapp.databinding.ItemFollowingHeaderBinding
 import com.example.footballapp.databinding.ItemSuggestedTeamBinding
 import com.example.footballapp.databinding.ItemTextHeaderBinding
 import com.example.footballapp.models.Team
@@ -25,6 +27,7 @@ class TeamsAdapter(
     private val onItemClick: (Team) -> Unit,
     private val onFollowToggle: (Team) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var isExpanded = true
 
     private val items = mutableListOf<Any>()
     private val originalItems = mutableListOf<Any>()
@@ -57,6 +60,7 @@ class TeamsAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = items[position]) {
+
             is List<*> -> (holder as FollowedGroupViewHolder).bind(item.filterIsInstance<Team>())
             is String -> (holder as HeaderViewHolder).bind(item)
             is Team -> (holder as TeamViewHolder).bind(item)
@@ -90,60 +94,16 @@ class TeamsAdapter(
 
             binding.root.setOnClickListener { onItemClick(team) }
             binding.followButton.setOnClickListener { onFollowToggle(team) }
-        }
-    }
 
-    private inner class FollowedGroupViewHolder(private val binding: ItemFollowedGroupBinding) :
-        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(followedTeams: List<Team>) {
-            binding.followedContainer.removeAllViews()
+            // ✅ Hide divider for the last item
+            val isLastItem = adapterPosition == itemCount - 1
+            binding.view3.visibility = if (isLastItem) View.GONE else View.VISIBLE
 
-            if (shouldAddTags) {
-
-                // 1️⃣ Add the header INSIDE the group
-                val headerBinding = ItemTextHeaderBinding.inflate(
-                    LayoutInflater.from(binding.root.context),
-                    binding.followedContainer,
-                    false
-                )
-
-                val headerTitle =
-                    binding.root.context.getString(R.string.following_header, followedTeams.size)
-                val spannable = SpannableString(headerTitle)
-                val start = headerTitle.indexOf("|") + 1
-                spannable.setSpan(
-                    ForegroundColorSpan(
-                        ContextCompat.getColor(binding.root.context, R.color.green_color)
-                    ),
-                    start,
-                    headerTitle.length,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-                headerBinding.textView.text = spannable
-                binding.followedContainer.addView(headerBinding.root)
+            if (!shouldAddTags) {
+                binding.view3.visibility  = View.INVISIBLE
             }
-            // 2️⃣ Add each followed team under it
-            followedTeams.forEach { team ->
-                val itemBinding = ItemSuggestedTeamBinding.inflate(
-                    LayoutInflater.from(binding.root.context),
-                    binding.followedContainer,
-                    false
-                )
-                itemBinding.teamName.text = team.incident_number
 
-                Glide.with(itemBinding.teamImage)
-                    .load(imagePrefix + team.logo)
-                    .into(itemBinding.teamImage)
-
-                // Change button color or icon for followed
-                itemBinding.followButton.setImageResource(R.drawable.floow)
-
-                itemBinding.root.setOnClickListener { onItemClick(team) }
-                itemBinding.followButton.setOnClickListener { onFollowToggle(team) }
-
-                binding.followedContainer.addView(itemBinding.root)
-            }
         }
     }
 
@@ -196,6 +156,77 @@ class TeamsAdapter(
         items.addAll(filteredTeams)
 
         notifyDataSetChanged()
+    }
+
+
+
+
+    private inner class FollowedGroupViewHolder(private val binding: ItemFollowedGroupBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+
+        fun bind(followedTeams: List<Team>) {
+
+
+
+            binding.followedContainer.removeAllViews()
+
+            // Inflate new header with arrow
+            val headerBinding = ItemFollowingHeaderBinding.inflate(
+                LayoutInflater.from(binding.root.context),
+                binding.followedContainer,
+                false
+            )
+
+            val title = binding.root.context.getString(R.string.following_header, followedTeams.size)
+            headerBinding.tvHeaderTitle.text = title
+
+            // Rotate arrow based on expanded state
+//            headerBinding.imgArrow.rotation = if (isExpanded) 90f else 0f
+            headerBinding.imgArrow.animate().setDuration(150).rotation(if (isExpanded) 90f else 0f)
+
+            // Add header to parent
+            binding.followedContainer.addView(headerBinding.root)
+
+            // Add Teams only if expanded
+            if (isExpanded) {
+                followedTeams.forEachIndexed { index, team ->
+                    val itemBinding = ItemSuggestedTeamBinding.inflate(
+                        LayoutInflater.from(binding.root.context),
+                        binding.followedContainer,
+                        false
+                    )
+
+                    itemBinding.teamName.text = team.incident_number
+                    Glide.with(itemBinding.teamImage)
+                        .load(imagePrefix + team.logo)
+                        .into(itemBinding.teamImage)
+
+                    itemBinding.followButton.setImageResource(R.drawable.floow)
+
+                    itemBinding.root.setOnClickListener { onItemClick(team) }
+                    itemBinding.followButton.setOnClickListener { onFollowToggle(team) }
+
+
+                    if (index == followedTeams.size - 1) {
+                        itemBinding.view3.visibility = View.GONE
+                    } else {
+                        itemBinding.view3.visibility = View.VISIBLE
+                    }
+
+
+                    binding.followedContainer.addView(itemBinding.root)
+
+
+                }
+            }
+
+            // Toggle expand/collapse on header click
+            headerBinding.root.setOnClickListener {
+                isExpanded = !isExpanded
+                notifyItemChanged(adapterPosition)
+            }
+        }
     }
 
 }

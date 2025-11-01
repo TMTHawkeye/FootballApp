@@ -140,7 +140,7 @@ class StandingsFragment : Fragment() {
                             val allItems = mutableListOf<sealedTableItem>()
 
                             leagueMap.forEachIndexed { index, league ->
-                                allItems.add(sealedTableItem.LeagueDivider(league.name))
+//                                allItems.add(sealedTableItem.LeagueDivider(league.name))
                                 allItems.add(sealedTableItem.HeaderRow)
 //                                }
 

@@ -3,7 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/footballnow_bggraystrokewbg1"
+    android:padding="@dimen/_8sdp"
+    >
+
+    <!-- Competitions Horizontal RecyclerView -->
+    <TextView
+        android:id="@+id/leaguee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/leagues"
+        android:visibility="invisible"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:background="@drawable/shimmer_bg"
+        android:id="@+id/leagueeShimmer"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_12sdp"
+
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCompetitions"
@@ -14,19 +44,25 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="horizontal"
          android:layout_marginBottom="16dp"
+        android:layout_marginTop="@dimen/_8sdp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/leaguee"
+        />
 
     <LinearLayout
         android:id="@+id/rvCompetitionsShimmer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-         android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_8sdp"
+
+        android:orientation="horizontal"
         android:layout_marginBottom="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/leaguee"
+        >
 
         <include layout="@layout/item_competitionshimer"/>
         <include layout="@layout/item_competitionshimer"/>
@@ -45,7 +81,6 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_12sdp"
         android:visibility="invisible"
-        android:background="@drawable/footballnow_bggraystrokewbg1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rvCompetitions" />

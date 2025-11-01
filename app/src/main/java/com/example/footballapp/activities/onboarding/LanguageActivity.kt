@@ -34,7 +34,7 @@ class LanguageActivity : BaseActivity() , SelectedLanguageCallback {
 
     private val viewModel: FootballViewModel by viewModel()
 
-    var selectedPosition = 0
+    var selectedPosition = -1
     var intentFrom: String? = null
     var sharedPreference = SharedPrefrence(this)
 
@@ -58,17 +58,21 @@ class LanguageActivity : BaseActivity() , SelectedLanguageCallback {
             insets
         }
 
-        intentFrom?.let{
-            binding.btnBack.visible()
-        }?:run{
-            binding.btnBack.invisible()
-        }
+//        intentFrom?.let{
+//            binding.btnBack.visible()
+//        }?:run{
+//            binding.btnBack.invisible()
+//        }
 
         val sharedPreferences =
             getSharedPreferences(PREF_NAME_LANGUAGE, Context.MODE_PRIVATE)
         val savedPosition =
             sharedPreferences.getInt(LANGUAGE_POSITION_KEY, selectedPosition)
         selectedPosition = savedPosition
+
+
+        binding.btnDone.isEnabled = selectedPosition != -1
+        binding.btnDone.alpha = if (selectedPosition != -1) 1f else 0.5f
 
 
 //        if (savedInstanceState == null) {
@@ -94,21 +98,31 @@ class LanguageActivity : BaseActivity() , SelectedLanguageCallback {
             override fun handleOnBackPressed() {
 
                 if (intentFrom==null) {
-                     finishAffinity()
-                    System.exit(0);
+//                     finishAffinity()
+//                    System.exit(0);
+                    startActivity(Intent(this@LanguageActivity, MainActivity::class.java))
                 } else {
                      finish()
                 }
             }
         })
 
+        binding.btnBack.setOnClickListener {
+            if (intentFrom==null) {
+//                     finishAffinity()
+//                    System.exit(0);
+                startActivity(Intent(this@LanguageActivity, MainActivity::class.java))
+            } else {
+                finish()
+            }
+        }
 
 
 
         binding.btnDone.setOnClickListener {
 
               Log.d("TAG_savedPosition", "savedPosition: $selectedPosition")
-            if (adapter.savedPosition != -1) {
+            if (selectedPosition != -1) {
                 sharedPreferences.edit().putInt(LANGUAGE_POSITION_KEY, selectedPosition).apply()
 
                 sharedPreference.putingString("languageCode", adapter.languageCode)
@@ -138,7 +152,8 @@ class LanguageActivity : BaseActivity() , SelectedLanguageCallback {
             LanguageModel(
                 getString(R.string.english),
                 getDrawable(R.drawable.english_img),
-                "en"
+                "en",
+                getString(R.string.selectEnglish)
             )
         )
 
@@ -146,21 +161,27 @@ class LanguageActivity : BaseActivity() , SelectedLanguageCallback {
             LanguageModel(
                 getString(R.string.spanish),
                 getDrawable(R.drawable.spanish_img),
-                "es"
+                "es",
+                getString(R.string.selectSpanish)
+
             )
         )
         languageList.add(
             LanguageModel(
                 getString(R.string.russian),
                 getDrawable(R.drawable.russian_img),
-                "ru"
+                "ru",
+                getString(R.string.selectRussian)
+
             )
         )
         languageList.add(
             LanguageModel(
                 getString(R.string.hindi),
                 getDrawable(R.drawable.hindi_img),
-                "hi"
+                "hi",
+                getString(R.string.selectHindi)
+
             )
         )
 
@@ -168,7 +189,9 @@ class LanguageActivity : BaseActivity() , SelectedLanguageCallback {
             LanguageModel(
                 getString(R.string.portuguese),
                 getDrawable(R.drawable.portugal_img),
-                "pt"
+                "pt",
+                getString(R.string.selectPortuguese)
+
             )
         )
 
@@ -176,7 +199,9 @@ class LanguageActivity : BaseActivity() , SelectedLanguageCallback {
             LanguageModel(
                 getString(R.string.arabic),
                 getDrawable(R.drawable.arabic_img),
-                "ar"
+                "ar",
+                getString(R.string.selectArabic)
+
             )
         )
 
@@ -184,7 +209,9 @@ class LanguageActivity : BaseActivity() , SelectedLanguageCallback {
             LanguageModel(
                 getString(R.string.chinese),
                 getDrawable(R.drawable.chinese_img),
-                "zh"
+                "zh",
+                getString(R.string.selectChinese)
+
             )
         )
         return languageList
@@ -192,5 +219,12 @@ class LanguageActivity : BaseActivity() , SelectedLanguageCallback {
 
     override fun languageSelected(position: Int) {
         this.selectedPosition = position
+
+        binding.btnDone.apply {
+            isEnabled = true
+            isClickable = true
+            alpha = 1f
+        }
+
     }
 }

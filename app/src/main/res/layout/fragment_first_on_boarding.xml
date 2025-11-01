@@ -27,7 +27,7 @@
         android:id="@+id/tv_title"
         android:text="@string/ob_1_title"
         style="@style/title_text_style"
-        android:gravity="center"
+         android:gravity="center"
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_40sdp"
         app:layout_constraintBottom_toTopOf="@+id/tv_desc"
@@ -41,6 +41,7 @@
         style="@style/normal_text_style"
         android:layout_width="0dp"
         android:gravity="center"
+        android:fontFamily="@font/montserrat_medium"
         android:layout_marginHorizontal="@dimen/_20sdp"
 
         android:layout_height="wrap_content"

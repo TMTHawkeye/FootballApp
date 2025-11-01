@@ -25,13 +25,12 @@
             android:id="@+id/btn_back"
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
-            android:padding="@dimen/_3sdp"
-            android:layout_marginVertical="@dimen/_20sdp"
+            android:padding="@dimen/_6sdp"
 
             android:layout_marginStart="@dimen/_10sdp"
             android:src="@drawable/arrow_back"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -40,7 +39,7 @@
             android:layout_width="@dimen/_22sdp"
             android:layout_height="@dimen/_22sdp"
             app:layout_constraintTop_toTopOf="@id/btn_back"
-            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="@id/btn_back"
             android:scaleType="centerCrop"
             android:src="@drawable/app_icon"
@@ -60,21 +59,26 @@
 
             android:textColor="@color/white"
 
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivTeamLogo"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+             app:layout_constraintStart_toEndOf="@+id/ivTeamLogo"
             app:layout_constraintTop_toTopOf="parent" />
 
 
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/grey1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/heading" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:background="@color/grey1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/heading" />
+
+
+
 
 
     <!-- Tab Layout -->
@@ -87,8 +91,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/heading"
         app:tabIndicatorColor="@color/green_color"
-        android:layout_marginTop="@dimen/_12sdp"
-        app:tabIndicatorHeight="3dp"
+         app:tabIndicatorHeight="3dp"
         app:tabMode="fixed"
         app:tabSelectedTextColor="@color/green_color"
         app:tabTextColor="@color/grey"

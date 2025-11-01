@@ -2,6 +2,7 @@ package com.example.footballapp.activities.onboarding
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -9,17 +10,23 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
 import androidx.lifecycle.lifecycleScope
+import com.example.footballapp.Helper.PREF_NAME_FIRSTTIME
 import com.example.footballapp.Helper.gone
+import com.example.footballapp.Helper.makeStatusBarTranslucent
 import com.example.footballapp.Helper.visible
 import com.example.footballapp.R
 import com.example.footballapp.databinding.ActivitySplashBinding
+import com.example.footballapp.utils.SharedPrefrence
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SplashActivity : BaseActivity() {
     lateinit var binding: ActivitySplashBinding
+
+    var isFirstTime = false
     var getStartedJob: Job? = null
+    var sharedPreference = SharedPrefrence(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -36,6 +43,7 @@ class SplashActivity : BaseActivity() {
             insets
         }
 
+        isFirstTime = sharedPreference.getingBoolean(PREF_NAME_FIRSTTIME,true)
 
         getStartedJob?.cancel()
         getStartedJob = this@SplashActivity.lifecycleScope.launch {
@@ -48,9 +56,22 @@ class SplashActivity : BaseActivity() {
 
 
         binding.btnGetstarted.setOnClickListener {
-            startActivity(Intent(this@SplashActivity, OnBoardingActivity::class.java))
+            if(isFirstTime) {
+                startActivity(Intent(this@SplashActivity, OnBoardingActivity::class.java))
+            }
+            else{
+                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+
+            }
         }
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+             }
+        })
 
     }
+
+
+
 }

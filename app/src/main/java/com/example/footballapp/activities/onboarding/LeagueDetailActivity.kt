@@ -69,8 +69,8 @@ class LeagueDetailActivity : BaseActivity() {
     }
 
     private fun setupToolbar() {
-        val leagueName = intent.getStringExtra("league_name") ?: getString(R.string.league_details)
-        binding.title.text = leagueName
+//        val leagueName = intent.getStringExtra("league_name") ?: getString(R.string.league_details)
+        binding.title.text = league?.competition_name?:league?.stage_name?: getString(R.string.league_details)
 
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

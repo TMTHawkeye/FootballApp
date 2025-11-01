@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="10dp"
+    android:paddingBottom="@dimen/_4sdp"
     android:background="@color/transparent"
 
     android:layout_marginBottom="8dp">
@@ -14,13 +14,23 @@
     <com.google.android.material.imageview.ShapeableImageView
         app:shapeAppearance="@style/RoundedImageView1"
         android:id="@+id/ivPlayer"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
         android:scaleType="centerCrop"
         android:src="@drawable/wbenizth"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:background="@color/grey1"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="@+id/ivPlayer"
+        app:layout_constraintEnd_toEndOf="@+id/tvPlayerNumber"
+        app:layout_constraintTop_toBottomOf="@+id/ivPlayer"/>
 
 
     <TextView
@@ -28,7 +38,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/_12ssp"
-        android:fontFamily="@font/montserrat"
+        android:fontFamily="@font/montserrat_medium"
         android:text="@string/player"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@id/tvPlayerNumber"

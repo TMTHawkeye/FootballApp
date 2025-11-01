@@ -17,7 +17,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
+            android:paddingHorizontal="@dimen/_5sdp"
+            android:paddingVertical="@dimen/_4sdp"
             android:gravity="center">
 
             <!-- Competition Logo Placeholder -->

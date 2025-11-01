@@ -151,16 +151,22 @@ class MatchesFragment : Fragment() {
 
                 binding.rvMatches.invisible()
                 binding.rvCompetitions.invisible()
+                binding.leaguee.invisible()
+                binding.leagueeShimmer.visible()
 
             } else {
                 binding.rvMatches.visible()
                 binding.rvCompetitions.visible()
+                binding.leagueeShimmer.gone()
 
                 binding.rvMatchesShimmer.gone()
                 binding.rvCompetitionsShimmer.gone()
-
+                binding.leaguee.visible()
             }
         } ?: run {
+            binding.leaguee.invisible()
+            binding.leagueeShimmer.invisible()
+
             Toast.makeText(
                 binding.root.context,
                 "No matches available for teams",

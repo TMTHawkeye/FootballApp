@@ -2,6 +2,7 @@ package com.example.footballapp.activities.onboarding
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -43,6 +44,14 @@ class OnBoardingActivity : BaseActivity() {
             onNext()
         }
 
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                onNext()
+            }
+        })
+
+
     }
 
     fun setViewPagerAdapter() {
@@ -82,4 +91,6 @@ class OnBoardingActivity : BaseActivity() {
         }
 
     }
+
+
 }

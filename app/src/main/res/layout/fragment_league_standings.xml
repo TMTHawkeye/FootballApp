@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_marginHorizontal="@dimen/_12sdp"
     android:background="@drawable/footballnow_bggraystrokewbg1"
-    android:padding="16dp">
+    android:padding="@dimen/_10sdp">
 
 
 
@@ -15,11 +15,11 @@
         android:id="@+id/leaguee1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_medium"
+         android:fontFamily="@font/montserrat_medium"
         android:text="@string/league_standings"
-        android:visibility="gone"
         android:textColor="@color/grey"
         android:textSize="@dimen/_12ssp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
 
         app:layout_constraintStart_toStartOf="parent"
@@ -27,11 +27,9 @@
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/leaguee1Shimmer"
-        android:visibility="gone"
         android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_12sdp"
-        android:paddingVertical="@dimen/_2sdp"
-        android:background="@drawable/shimmer_bg"
+        android:layout_height="@dimen/_14sdp"
+         android:background="@drawable/shimmer_bg"
          app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 

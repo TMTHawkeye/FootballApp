@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import com.example.footballapp.Helper.makeStatusBarTranslucent
 import com.example.footballapp.Helper.noInternetDialog
 import com.example.footballapp.Helper.setupNoInternetDialog
 import com.example.footballapp.R
@@ -66,6 +67,11 @@ open class BaseActivity : AppCompatActivity() {
         val language = sharedPreference.getingString("languageCode", "en")
         val context = LocaleHelper.setLocale(base, language)
         super.attachBaseContext(context)
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        makeStatusBarTranslucent()
     }
 
 }

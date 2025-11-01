@@ -27,12 +27,12 @@ class StageAdapter(
     // Keep track of which items are expanded
     private val expandedPositions = mutableSetOf<Int>()
 
-//    init {
-//        // Expand first 5 items by default
-//        for (i in 0 until minOf(5, stages.size)) {
-//            expandedPositions.add(i)
-//        }
-//    }
+    init {
+        // Expand first 5 items by default
+        for (i in 0 until minOf(1, stages.size)) {
+            expandedPositions.add(i)
+        }
+    }
 
     inner class StageViewHolder(val binding: ItemStageBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -163,9 +163,9 @@ class StageAdapter(
 
         // Reset expanded state → expand first 5 of new data
         expandedPositions.clear()
-//        for (i in 0 until minOf(5, newData.size)) {
-//            expandedPositions.add(i)
-//        }
+        for (i in 0 until minOf(1, newData.size)) {
+            expandedPositions.add(i)
+        }
 
         notifyDataSetChanged()
     }

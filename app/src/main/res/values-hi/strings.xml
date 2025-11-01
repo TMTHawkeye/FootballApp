@@ -148,13 +148,13 @@
     <string name="please_allow_permission_to_continue_app">ऐप जारी रखने के लिए कृपया अनुमति दें।</string>
     <string name="unknown">अज्ञात</string>
 
-    <string name="english">अंग्रेज़ी</string>
-    <string name="spanish">स्पेनिश</string>
-    <string name="russian">रूसी</string>
-    <string name="hindi">हिन्दी</string>
-    <string name="portuguese">पुर्तगाली</string>
-    <string name="arabic">अरबी</string>
-    <string name="chinese">चीनी</string>
+<!--    <string name="english">अंग्रेज़ी</string>-->
+<!--    <string name="spanish">स्पेनिश</string>-->
+<!--    <string name="russian">रूसी</string>-->
+<!--    <string name="hindi">हिन्दी</string>-->
+<!--    <string name="portuguese">पुर्तगाली</string>-->
+<!--    <string name="arabic">अरबी</string>-->
+<!--    <string name="chinese">चीनी</string>-->
 
 
     <string name="home_nav">होम</string>

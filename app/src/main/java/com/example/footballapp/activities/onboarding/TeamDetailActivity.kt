@@ -72,8 +72,8 @@ class TeamDetailActivity : BaseActivity() {
     }
 
     private fun setupToolbar() {
-        val teamName = intent.getStringExtra("team_name") ?: getString(R.string.team_details)
-        binding.title.text = teamName
+//        val teamName = intent.getStringExtra("team_name") ?: getString(R.string.team_details)
+        binding.title.text = team?.incident_number?: getString(R.string.team_details)
 
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
